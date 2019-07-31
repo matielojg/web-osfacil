@@ -36,7 +36,7 @@ html, body {
 /** LEFT */
 .dash_login_left {
   flex-basis: 40%;
-  background: #282f3a;
+  background: #033E8C;
   color: #FFFFFF;
   background-size: cover;
   padding: 30px 0;
@@ -46,7 +46,7 @@ html, body {
 }
 
 .dash_login_left_box {
-  background: #282f3a;
+  background: #033E8C;
   width: 500px;
   max-width: 90%;
   margin: auto;
@@ -79,7 +79,7 @@ html, body {
   border: none;
   border-bottom: 1px solid #FFFFFF;
   font-size: 1em;
-  background: #282f3a !important;
+  background: #033E8C !important;
   color: #FFFFFF;
   outline: none;
   display: block;

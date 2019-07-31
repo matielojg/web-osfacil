@@ -17,4 +17,9 @@ class AuthController extends Controller
     {
         return view('admin.dashboard');
     }
+
+    public function login(Request $request)
+    {
+        var_dump($request->all());
+    }
 }
