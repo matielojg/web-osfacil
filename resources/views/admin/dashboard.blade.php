@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div style="flex-basis: 100%;">
         <section class="dash_content_app">
             <header class="dash_content_app_header">
@@ -34,7 +35,7 @@
 
         <section class="dash_content_app" style="margin-top: 40px;">
             <header class="dash_content_app_header">
-                <h2 class="icon-tachometer">Últimos Contratos Cadastrados</h2>
+                <h2 class="icon-tachometer">Últimas Ordens de Seriço Cadastradas</h2>
             </header>
 
             <div class="dash_content_app_box">

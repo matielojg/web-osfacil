@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/libs.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/boot.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/style.css')) }}"/>
-    <link rel="icon" type="image/png" href="assets/images/favicon.png"/>
+    <!-- ALTERAR A FAVICON -->
+    <link rel="icon" type="image/png" href="backend/assets/images/favicon.png"/>
 
-    <title>UpAdmin - Site Control</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>OS Fácil - Dashboard</title>
 </head>
 <body>
 
@@ -29,7 +32,7 @@
             <img class="dash_sidebar_user_thumb" src="{{ url(asset('backend/assets/images/avatar.jpg')) }}" alt="" title=""/>
 
             <h1 class="dash_sidebar_user_name">
-                <a href="">Gustavo Web</a>
+                <a href="">Andrew Walmir</a>
             </h1>
         </article>
 
@@ -37,7 +40,7 @@
             <li class="dash_sidebar_nav_item active">
                 <a class="icon-tachometer" href="dashboard.php?app=dashboard/index">Dashboard</a>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-users" href="dashboard.php?app=users/index">Clientes</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-users" href="dashboard.php?app=users/index">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
                     <li class=""><a href="dashboard.php?app=companies/index">Empresas</a></li>
@@ -57,6 +60,9 @@
                     <li class=""><a href="dashboard.php?app=contracts/create">Criar Novo</a></li>
                 </ul>
             </li>
+            <li class="dash_sidebar_nav_item"><a class="icon-angry" href="">Setores</a></li>
+            <li class="dash_sidebar_nav_item"><a class="icon-times" href="">Serviços</a></li>
+
             <li class="dash_sidebar_nav_item"><a class="icon-reply" href="">Ver Site</a></li>
             <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile" href="" target="_blank">Sair</a></li>
         </ul>
@@ -70,7 +76,7 @@
                 <div class="dash_userbar_box_content">
                     <span class="icon-align-justify icon-notext mobile_menu transition btn btn-green"></span>
                     <h1 class="transition">
-                        <i class="icon-imob text-orange"></i><a href="">Up<b>Admin</b></a>
+                        <i class="icon-imob text-orange"></i><a href=""><b>O.S.</b> Fácil</a>
                     </h1>
                     <div class="dash_userbar_box_bar no_mobile">
                         <a class="text-red icon-sign-out" href="">Sair</a>

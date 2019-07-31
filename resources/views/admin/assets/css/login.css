@@ -36,7 +36,7 @@ html, body {
 /** LEFT */
 .dash_login_left {
   flex-basis: 40%;
-  background: #282f3a;
+  background: #3068D9;
   color: #FFFFFF;
   background-size: cover;
   padding: 30px 0;
@@ -46,7 +46,7 @@ html, body {
 }
 
 .dash_login_left_box {
-  background: #282f3a;
+  background: #3068D9;
   width: 500px;
   max-width: 90%;
   margin: auto;
@@ -58,7 +58,7 @@ html, body {
   text-align: center;
 }
 .dash_login_left_box .dash_login_box_headline_logo {
-  color: #F4645F;
+  color: #FFFFFF;
   text-align: center;
   font-size: 3em;
 }
