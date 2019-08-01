@@ -23,14 +23,14 @@
 
     <div class="dash_content_app_box">
         <div class="nav">
-            <form class="app_form" action="" method="post" enctype="multipart/form-data">
+            <form class="app_form" action="<?= url('admin/setor/store'); ?>" method="post" enctype="multipart/form-data">
                 <div class="nav_tabs_content">
                     <div id="data">
-
+                        @csrf
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Nome do Setor:</span>
-                                <input type="text" name="name" placeholder="Nome do Setor" value=""/>
+                                <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor" />
                             </label>
 
                             <label class="label">

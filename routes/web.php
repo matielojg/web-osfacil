@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
 
     Route::get('/setor', 'sectorController@index')->name('sector');
     Route::get('/setor/novo', 'sectorController@create')->name('sectorCreate');
+    Route::post('/setor/store', 'sectorController@store')->name('sectorStore');
 
 //    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
 //        Route::get('/', 'sectorController@index')->name('create');
