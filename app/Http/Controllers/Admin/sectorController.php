@@ -14,7 +14,7 @@ class sectorController extends Controller
      */
     public function index()
     {
-        return view('admin.sectors.create');
+        return view('admin.sectors.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class sectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sectors.create');
     }
 
     /**

@@ -45,6 +45,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-right mt-2">
+                    <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                    </button>
+                </div>
             </form>
         </div>
     </div>

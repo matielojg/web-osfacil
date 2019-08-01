@@ -44,20 +44,15 @@
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
                     <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
-                    <!--
-                    <li class=""><a href="dashboard.php?app=companies/index">Empresas</a></li>
-                    <li class=""><a href="dashboard.php?app=users/team">Time</a></li>
-                    -->
-
-                </ul>
+                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-angry" href="">Setores</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-columns" href="">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
-                    <li class=""><a href="{{ route('admin.sector') }}">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
+                    <li class=""><a href="{{ route('admin.sectorCreate') }}">Criar Novo</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-times" href="">Serviços</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
                     <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
