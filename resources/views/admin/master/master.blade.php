@@ -38,30 +38,32 @@
 
         <ul class="dash_sidebar_nav">
             <li class="dash_sidebar_nav_item active">
-                <a class="icon-tachometer" href="dashboard.php?app=dashboard/index">Dashboard</a>
+                <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-users" href="dashboard.php?app=users/index">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
+                    <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
+                    <!--
                     <li class=""><a href="dashboard.php?app=companies/index">Empresas</a></li>
                     <li class=""><a href="dashboard.php?app=users/team">Time</a></li>
+                    -->
+
+                </ul>
+            </li>
+            <li class="dash_sidebar_nav_item"><a class="icon-angry" href="">Setores</a>
+                <ul class="dash_sidebar_nav_submenu">
+                    <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
+                    <li class=""><a href="{{ route('admin.sector') }}">Criar Novo</a></li>
+                </ul>
+            </li>
+            <li class="dash_sidebar_nav_item"><a class="icon-times" href="">Serviços</a>
+                <ul class="dash_sidebar_nav_submenu">
+                    <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
                     <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-home" href="dashboard.php?app=properties/index">Imóveis</a>
-                <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="dashboard.php?app=properties/index">Ver Todos</a></li>
-                    <li class=""><a href="dashboard.php?app=properties/create">Criar Novo</a></li>
-                </ul>
-            </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="dashboard.php?app=contracts/index">Contratos</a>
-                <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="dashboard.php?app=contracts/index">Ver Todos</a></li>
-                    <li class=""><a href="dashboard.php?app=contracts/create">Criar Novo</a></li>
-                </ul>
-            </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-angry" href="">Setores</a></li>
-            <li class="dash_sidebar_nav_item"><a class="icon-times" href="">Serviços</a></li>
+
 
             <li class="dash_sidebar_nav_item"><a class="icon-reply" href="">Ver Site</a></li>
             <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile" href="" target="_blank">Sair</a></li>
@@ -76,7 +78,7 @@
                 <div class="dash_userbar_box_content">
                     <span class="icon-align-justify icon-notext mobile_menu transition btn btn-green"></span>
                     <h1 class="transition">
-                        <i class="icon-imob text-orange"></i><a href=""><b>O.S.</b> Fácil</a>
+                        <a href="">Painel <b>OS Fácil</b></a>
                     </h1>
                     <div class="dash_userbar_box_bar no_mobile">
                         <a class="text-red icon-sign-out" href="">Sair</a>
