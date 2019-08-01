@@ -16,4 +16,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
     Route::post('login', 'AuthController@login')->name('login.do');
 
     Route::get('/home', 'AuthController@home')->name('home');
+
+    Route::get('/setor', 'sectorController@index')->name('sector');
+    Route::get('/setor/novo', 'sectorController@create')->name('sectorCreate');
+
+//    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
+//        Route::get('/', 'sectorController@index')->name('create');
+//    });
+
 });
+
+

@@ -2489,14 +2489,14 @@ textarea.mce {
   cursor: normal !important;
 }
 .dataTables_paginate .paginate_button:not(.disabled):hover {
-  background: #F4645F !important;
+  background: #36BA9B !important;
   color: #F3F3F3 !important;
-  border: 1px solid #f13f39 !important;
+  border: 1px solid #36BA9B !important;
 }
 .dataTables_paginate .paginate_button.current {
-  background: #F4645F !important;
+  background: #36BA9B !important;
   color: #F3F3F3 !important;
-  border: 1px solid #f13f39 !important;
+  border: 1px solid #36BA9B !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
@@ -2647,7 +2647,7 @@ table.dataTable thead th, table.dataTable tfoot th {
   font-weight: 600;
 }
 .ajax_load .ajax_load_box_circle {
-  border-top: 16px solid #F4645F !important;
+  border-top: 16px solid #36BA9B !important;
   border: 16px solid #e3e3e3;
   border-radius: 50%;
   margin: auto;

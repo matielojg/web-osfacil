@@ -28,20 +28,18 @@ html, body {
 
 /** Parts of Page */
 .dash_sidebar {
-  background: #282f3a;
+  background: #033E8C;
   flex-basis: 280px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 .dash_sidebar .dash_sidebar_user {
-  background: #1a1f26;
+  background: #033E8C;
   padding: 20px 0;
   text-align: center;
 }
 .dash_sidebar .dash_sidebar_user .dash_sidebar_user_thumb {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
   border-radius: 50%;
   padding: 2px;
   border: 2px solid #E3E3E3;
@@ -66,8 +64,8 @@ html, body {
   position: relative;
 }
 .dash_sidebar .dash_sidebar_nav_item a {
-  color: #999;
-  background: #1a1f26;
+  color: #f3f3f3;
+  background: #033E8C;
   font-size: 0.875em;
   display: block;
   width: 100%;
@@ -76,35 +74,35 @@ html, body {
 .dash_sidebar .dash_sidebar_nav_item a:hover {
   background: #59606b;
   color: #ffffff;
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
 }
 .dash_sidebar .dash_sidebar_nav_item.active > a {
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
   color: #FFF;
 }
 .dash_sidebar .dash_sidebar_nav_item.active a {
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
 }
 .dash_sidebar .dash_sidebar_nav_item.active a + .dash_sidebar_nav_submenu {
   display: block;
   border-left: none;
 }
 .dash_sidebar .dash_sidebar_nav_item.active a + .dash_sidebar_nav_submenu li.active a {
-  border-left: 3px solid #F4645F !important;
+  border-left: 3px solid #36BA9B !important;
   background: #59606b !important;
   color: #FFF;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu {
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
   display: none;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu a {
-  background-color: #282f3a !important;
+  background-color: #033E8C !important;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu a:hover {
   background: #59606b;
   color: #ffffff;
-  border-left: 6px solid #F4645F;
+  border-left: 6px solid #36BA9B;
 }
 .dash_sidebar .dash_sidebar_nav_item:not(.active):hover .dash_sidebar_nav_submenu {
   display: block;
@@ -176,8 +174,6 @@ html, body {
   padding: 5px 10px;
   color: #FFFFFF;
   cursor: pointer;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-radius: 3px;
   margin-right: 30px;
 }
@@ -200,7 +196,7 @@ html, body {
 .dash_content_sidebar .dash_content_sidebar_desc {
   font-size: 0.8em;
   font-weight: 600;
-  color: #1a1f26;
+  color: #033E8C;
   margin-top: 15px;
 }
 .dash_content_sidebar nav {
@@ -239,7 +235,7 @@ html, body {
   overflow-y: auto;
   top: 0;
   right: -320px;
-  background: #282f3a;
+  background: #36BA9B;
   padding: 20px;
 }
 .dash_content_search header, .dash_content_search main, .dash_content_search .dash_content_search_close {
@@ -275,8 +271,6 @@ html, body {
   padding: 10px;
   color: #555555;
   border: none;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   font-size: 0.875em;
   outline: none;
@@ -351,8 +345,6 @@ input:-webkit-autofill {
   color: #FFFFFF;
   font-size: 1em;
   margin-bottom: 20px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
 }
 .app_form .label_gc span {
@@ -372,8 +364,6 @@ input:-webkit-autofill {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid #F3F3F3;
   margin-bottom: 20px;
@@ -404,8 +394,6 @@ input:-webkit-autofill {
   -moz-appearance: none;
   appearance: none;
   font-size: 0.875em;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   display: block;
   width: 100% !important;
@@ -458,18 +446,18 @@ input:-webkit-autofill {
   position: relative;
   top: 4px;
   padding-right: 8px;
-  content: "" !important;
+  content: "\E17A" !important;
   font-size: 1.1em;
 }
 .app_form input[type=checkbox] + label:hover, .app_form input[type=checkbox] + span:hover {
   cursor: pointer;
 }
 .app_form input[type=checkbox] + label:hover:before, .app_form input[type=checkbox] + span:before {
-  content: "";
+  content: "\E17A";
   opacity: 0.2;
 }
 .app_form input[type=checkbox]:checked + label:before, .app_form input[type=checkbox]:checked + span:before {
-  content: "" !important;
+  content: "\E015" !important;
 }
 .app_form input[type=checkbox]:checked + label:hover:before, .app_form input[type=checkbox]:checked + span:hover:before, .app_form input[type=checkbox]:checked + label:before, .app_form input[type=checkbox]:checked + span:before {
   filter: alpha(opacity=100);
@@ -485,8 +473,6 @@ input:-webkit-autofill {
   border: 1px solid #cccccc;
   border-right: 0;
   padding: 5px 10px;
-  -webkit-border-radius: 4px 0 0 4px;
-  -moz-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
   outline: none;
 }
@@ -497,8 +483,6 @@ input:-webkit-autofill {
   border-left: 0;
   color: #FFFFFF;
   cursor: pointer;
-  -webkit-border-radius: 0 4px 4px 0;
-  -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
   transition-duration: 0.2s;
   background-color: #36BA9B;
@@ -593,14 +577,10 @@ input:-webkit-autofill {
   transition-duration: 0.2s;
 }
 .paginator a:first-of-type {
-  -webkit-border-radius: 4px 0 0 4px;
-  -moz-border-radius: 4px 0 0 4px;
   border-radius: 4px 0 0 4px;
 }
 .paginator a:last-of-type {
   border-right: 1px solid #CCCCCC;
-  -webkit-border-radius: 0 4px 4px 0;
-  -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
 }
 .paginator a:hover {
@@ -697,8 +677,6 @@ input:-webkit-autofill {
   justify-content: space-between;
   padding: 20px;
   background-color: #ffffff;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid #CCCCCC;
 }
@@ -742,8 +720,6 @@ input:-webkit-autofill {
   color: #555555;
   font-size: 0.875em;
   padding: 10px 20px;
-  -webkit-border-radius: 4px 4px 0 0;
-  -moz-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   background: #F3F3F3;
   border: 1px solid #CCCCCC;
@@ -756,8 +732,6 @@ input:-webkit-autofill {
   border-bottom: 1px solid #FFFFFF;
 }
 .nav .nav_tabs_content {
-  -webkit-border-radius: 0px 4px 4px 4px;
-  -moz-border-radius: 0px 4px 4px 4px;
   border-radius: 0px 4px 4px 4px;
   margin-top: -1px;
   border: 1px solid #CCCCCC;
@@ -773,8 +747,6 @@ input:-webkit-autofill {
   }
   .nav .nav_tabs li a {
     width: 100%;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
     border-radius: 4px !important;
   }
   .nav .nav_tabs li a.active {
@@ -782,8 +754,6 @@ input:-webkit-autofill {
   }
   .nav .nav_tabs_content {
     margin-top: 0px !important;
-    -webkit-border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
     border-radius: 4px !important;
   }
 }
@@ -867,8 +837,6 @@ input:-webkit-autofill {
 }
 
 .message {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   width: 100%;
   flex-basis: 100%;
@@ -1071,8 +1039,6 @@ input:-webkit-autofill {
   flex-wrap: wrap;
   border: 1px solid #CCCCCC;
   background-color: rgba(0, 0, 0, 0.01);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
   padding: 20px;
@@ -1095,8 +1061,6 @@ input:-webkit-autofill {
   display: flex;
   flex-wrap: wrap;
   border: 1px solid #F3F3F3;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -1144,8 +1108,6 @@ input:-webkit-autofill {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch !important;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid #F3F3F3;
@@ -1211,8 +1173,6 @@ input:-webkit-autofill {
   flex-basis: calc(25% - 15px) !important;
   margin-bottom: 20px;
   margin-right: 20px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   position: relative;
 }
@@ -1220,8 +1180,6 @@ input:-webkit-autofill {
   margin-right: 0px !important;
 }
 .property_image .property_image_item img, .content_image .property_image_item img {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
 }
 .property_image .property_image_item .property_image_actions, .content_image .property_image_item .property_image_actions {
@@ -1282,8 +1240,6 @@ input:-webkit-autofill {
   color: #555555;
   justify-content: center;
   align-content: center;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   border-radius: 4px;
   text-align: center;
   padding: 20px;
@@ -1300,5 +1256,3 @@ input:-webkit-autofill {
     display: none !important;
   }
 }
-
-/*# sourceMappingURL=style.css.map */
