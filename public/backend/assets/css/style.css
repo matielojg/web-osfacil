@@ -35,7 +35,7 @@ html, body {
   flex-direction: column;
 }
 .dash_sidebar .dash_sidebar_user {
-  background: #1a1f26;
+  background: #033E8C;
   padding: 20px 0;
   text-align: center;
 }
@@ -64,8 +64,8 @@ html, body {
   position: relative;
 }
 .dash_sidebar .dash_sidebar_nav_item a {
-  color: #999;
-  background: #1a1f26;
+  color: #f3f3f3;
+  background: #033E8C;
   font-size: 0.875em;
   display: block;
   width: 100%;
@@ -74,35 +74,35 @@ html, body {
 .dash_sidebar .dash_sidebar_nav_item a:hover {
   background: #59606b;
   color: #ffffff;
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
 }
 .dash_sidebar .dash_sidebar_nav_item.active > a {
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
   color: #FFF;
 }
 .dash_sidebar .dash_sidebar_nav_item.active a {
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
 }
 .dash_sidebar .dash_sidebar_nav_item.active a + .dash_sidebar_nav_submenu {
   display: block;
   border-left: none;
 }
 .dash_sidebar .dash_sidebar_nav_item.active a + .dash_sidebar_nav_submenu li.active a {
-  border-left: 3px solid #F4645F !important;
+  border-left: 3px solid #36BA9B !important;
   background: #59606b !important;
   color: #FFF;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu {
-  border-left: 3px solid #F4645F;
+  border-left: 3px solid #36BA9B;
   display: none;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu a {
   background-color: #033E8C !important;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu a:hover {
-  background: #59606b;
+  background: #59606b !important;
   color: #ffffff;
-  border-left: 6px solid #F4645F;
+  border-left: 6px solid #36BA9B;
 }
 .dash_sidebar .dash_sidebar_nav_item:not(.active):hover .dash_sidebar_nav_submenu {
   display: block;
@@ -196,7 +196,7 @@ html, body {
 .dash_content_sidebar .dash_content_sidebar_desc {
   font-size: 0.8em;
   font-weight: 600;
-  color: #1a1f26;
+  color: #033E8C;
   margin-top: 15px;
 }
 .dash_content_sidebar nav {
@@ -235,7 +235,7 @@ html, body {
   overflow-y: auto;
   top: 0;
   right: -320px;
-  background: #033E8C;
+  background: #36BA9B;
   padding: 20px;
 }
 .dash_content_search header, .dash_content_search main, .dash_content_search .dash_content_search_close {
@@ -341,7 +341,7 @@ input:-webkit-autofill {
   align-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #F4645F;
+  background-color: #36BA9B;
   color: #FFFFFF;
   font-size: 1em;
   margin-bottom: 20px;
@@ -725,7 +725,7 @@ input:-webkit-autofill {
   border: 1px solid #CCCCCC;
 }
 .nav .nav_tabs li a:hover, .nav .nav_tabs li a.active {
-  color: #F4645F;
+  color: #36BA9B;
   background: #FFF;
 }
 .nav .nav_tabs li a.active {
@@ -1152,13 +1152,13 @@ input:-webkit-autofill {
   justify-content: center;
 }
 .realty_list .realty_list_item .realty_list_item_actions ul li {
-  color: #F4645F;
+  color: #36BA9B;
   font-size: 0.875em !important;
   margin: 10px;
 }
 .realty_list .realty_list_item .realty_list_item_actions p {
   font-size: 0.8rem !important;
-  color: #F4645F;
+  color: #36BA9B;
   margin-bottom: 10px;
 }
 
