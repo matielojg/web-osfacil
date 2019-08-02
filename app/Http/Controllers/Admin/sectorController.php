@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Sector;
+
 
 class sectorController extends Controller
 {
@@ -37,14 +39,9 @@ class sectorController extends Controller
      */
     public function store(Request $request)
     {
-        $sectorStore = [
-            $request->name_sector,
-            $request->created_at,
-            $request->updated_at,
-        ];
-        var_dump($sectorStore);
-        DB::insert('insert into sectors (name_sector,created_at,updated_at) values (?,?,?)', $sectorStore);
-
+        $sectorStore = new Sector();
+        $sectorStore->name_sector = $request->get('name_sector');
+        $sectorStore->save();
     }
 
     /**
