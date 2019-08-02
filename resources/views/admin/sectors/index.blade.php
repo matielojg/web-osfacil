@@ -29,20 +29,19 @@
                 <tr>
                     <th>#</th>
                     <th>Setor</th>
-                    <th>Responsável</th>
+                    <th>Criado em</th>
                 </tr>
                 </thead>
                 <tbody>
+
+               @foreach($getSectors as $sector)
                 <tr>
-                    <td>1</td>
-                    <td><a href="" class="text-green">Marketing</a></td>
-                    <td><a href="" class="text-green">Andrew Walmir</a></td>
+                    <td> {{$sector->id}}  </td>
+                    <td><a href="" class="text-green"> {{$sector->name_sector}} </a></td>
+                    <td><a href="" class="text-green"> {{$sector->created_at}} </a></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td><a href="" class="text-green">Manutenção</a></td>
-                    <td><a href="" class="text-green">Matielo Gerônimo</a></td>
-                </tr>
+
+                @endforeach
                 </tbody>
             </table>
         </div>
