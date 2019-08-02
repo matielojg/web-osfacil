@@ -43,7 +43,7 @@
 
             <footer>
                 <p>$desenvolvidoPor = alunos( <br>
-                    'Andrew' => <a href="https://github.com/andrewwalmir">Github</a>'<br>
+                    'Andrew' => '<a href="https://github.com/andrewwalmir">Github</a>'<br>
                     'Diego' => '<a href="https://github.com/Diegooliveira93">Github</a>'<br>
                     'Matielo' => '<a href="https://github.com/matielojg">Github</a>'<br>
                     );
