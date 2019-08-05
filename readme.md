@@ -4,6 +4,7 @@ Passos para funcionar:
 - composer install.
 - criar base de dados com o nome que deu no .env.
 - rodar php artisan migrate.
+- php artisan key:generate.
 
 Configurações .env:
 - DB_CONNECTION=mysql
