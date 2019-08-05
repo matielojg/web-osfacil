@@ -17,8 +17,9 @@ class sectorController extends Controller
      */
     public function index()
     {
-        $getSectors = DB::select('select * from sectors where active = 0');
-        return view('admin.sectors/index')->with('getSectors', $getSectors);
+       // $sectors = Sector::all();
+        $sectors = DB::select('select * from sectors where active = 1');
+        return view('admin.sectors/index')->with('sectors', $sectors);
     }
 
     /**
@@ -42,6 +43,7 @@ class sectorController extends Controller
         $sectorStore = new Sector();
         $sectorStore->name_sector = $request->get('name_sector');
         $sectorStore->save();
+        return redirect(route('admin.sector'));
     }
 
     /**

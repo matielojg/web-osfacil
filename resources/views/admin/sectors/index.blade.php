@@ -34,7 +34,7 @@
                 </thead>
                 <tbody>
 
-               @foreach($getSectors as $sector)
+               @foreach($sectors as $sector)
                 <tr>
                     <td> {{$sector->id}}  </td>
                     <td><a href="" class="text-green"> {{$sector->name_sector}} </a></td>

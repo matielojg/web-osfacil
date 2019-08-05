@@ -30,7 +30,7 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Nome do Setor:</span>
-                                <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor" />
+                                <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor" autocomplete="off"/>
                             </label>
 
                             <label class="label">

@@ -80,6 +80,6 @@ class userController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
