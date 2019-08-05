@@ -1,16 +1,17 @@
-<p Passos para funcionar: <br>
-- Criar e configurar o arquivo .env;
-- composer update;
-- composer install;
-- criar base de dados com o nome que deu no .env;
-- rodar php artisan migrate;
+Passos para funcionar: 
+- Criar e configurar o arquivo .env.
+- composer update.
+- composer install.
+- criar base de dados com o nome que deu no .env.
+- rodar php artisan migrate.
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=osfacil
-DB_USERNAME=root
-DB_PASSWORD= ></p>
+Configurações .env:
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=osfacil
+- DB_USERNAME=root
+- DB_PASSWORD=
 
 <a href="http://localhost/web-osfacil/public/admin/home"></a>
 
