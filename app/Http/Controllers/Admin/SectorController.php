@@ -17,8 +17,8 @@ class sectorController extends Controller
      */
     public function index()
     {
-       // $sectors = Sector::all();
-        $sectors = DB::select('select * from sectors where active = 1');
+        $sectors =  Sector::all();
+        //$sectors = DB::select('select * from sectors where active = 1');
         return view('admin.sectors/index')->with('sectors', $sectors);
     }
 
