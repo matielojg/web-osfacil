@@ -46,6 +46,12 @@
                     <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
                  </ul>
             </li>
+            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="dashboard.php?app=users/index">Ordens de Serviço</a>
+                <ul class="dash_sidebar_nav_submenu">
+                    <li class=""><a href="dashboard.php?app=users/index">Ver Todas</a></li>
+                    <li class=""><a href="dashboard.php?app=users/create">Criar Nova</a></li>
+                 </ul>
+            </li>
             <li class="dash_sidebar_nav_item"><a class="icon-columns" href="">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
@@ -73,7 +79,7 @@
                 <div class="dash_userbar_box_content">
                     <span class="icon-align-justify icon-notext mobile_menu transition btn btn-green"></span>
                     <h1 class="transition">
-                        <a href="">Painel <b>OS Fácil</b></a>
+                        <a href="{{ route('admin.home') }}">Painel <b>OS Fácil</b></a>
                     </h1>
                     <div class="dash_userbar_box_bar no_mobile">
                         <a class="text-red icon-sign-out" href="">Sair</a>
