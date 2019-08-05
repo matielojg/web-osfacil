@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSectorsTable extends Migration
+class AddSoftDeletesSectors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateSectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sectors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name_sector');
-            $table->boolean('active')->default(true);
-            $table->timestamps();
+        Schema::table('sectors', function (Blueprint $table) {
+           $table->softDeletes();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateSectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sectors');
+        Schema::table('posts', function (Blueprint $table) {
+            //
+        });
     }
 }

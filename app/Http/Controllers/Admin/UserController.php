@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use App\Sector;
 
-
-class sectorController extends Controller
+class userController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,7 @@ class sectorController extends Controller
      */
     public function index()
     {
-        $getSectors = DB::select('select * from sectors where active = 0');
-        return view('admin.sectors/index')->with('getSectors', $getSectors);
+        //
     }
 
     /**
@@ -28,7 +24,7 @@ class sectorController extends Controller
      */
     public function create()
     {
-        return view('admin.sectors.create');
+        //
     }
 
     /**
@@ -39,9 +35,7 @@ class sectorController extends Controller
      */
     public function store(Request $request)
     {
-        $sectorStore = new Sector();
-        $sectorStore->name_sector = $request->get('name_sector');
-        $sectorStore->save();
+        //
     }
 
     /**
@@ -86,6 +80,6 @@ class sectorController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }
