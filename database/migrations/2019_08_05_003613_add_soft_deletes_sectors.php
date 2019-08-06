@@ -25,7 +25,7 @@ class AddSoftDeletesSectors extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('sectors', function (Blueprint $table) {
             //
         });
     }
