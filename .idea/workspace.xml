@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
@@ -208,3 +209,5 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
+=======
+>>>>>>> 667f0c693a9e4f661bd0f27d84a4fd1265f08fcd
