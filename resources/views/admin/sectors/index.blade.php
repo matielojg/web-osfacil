@@ -39,6 +39,7 @@
                     <td> {{$sector->id}}  </td>
                     <td><a href="" class="text-green"> {{$sector->name_sector}} </a></td>
                     <td><a href="" class="text-green"> {{$sector->created_at}} </a></td>
+
                 </tr>
 
                 @endforeach
