@@ -17,10 +17,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
 
     Route::get('/home', 'AuthController@home')->name('home');
     Route::get('/setor', 'SectorController@index')->name('sector');
+
     Route::get('/setor/novo', 'SectorController@create')->name('sectorCreate');
     Route::post('/setor/store', 'SectorController@store')->name('sectorStore');
+
     Route::get('/setor/editar/{id}', 'SectorController@edit')->name('sectorEdit');
     Route::put('/setor/update/{id}', 'SectorController@update')->name('sectorUpdate');
+
     Route::delete('/setor/destroy', 'SectorController@destroy');
 
 //    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
