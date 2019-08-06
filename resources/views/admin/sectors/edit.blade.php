@@ -23,7 +23,7 @@
 
         <div class="dash_content_app_box">
             <div class="nav">
-                <form class="app_form" action="<?=  url('admin/setor/update' , ['id'=>$sectorEdit->id]) ?>" method="post" enctype="multipart/form-data">
+                <form class="app_form" action=" {{ url('admin/setor/update' , ['id'=>$sectorEdit->id]) }}" method="post" enctype="multipart/form-data">
                     <div class="nav_tabs_content">
                         <div id="data">
                             @csrf
