@@ -24,8 +24,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
     Route::get('/setor/editar/{id}', 'SectorController@edit')->name('sectorEdit');
     Route::put('/setor/update/{id}', 'SectorController@update')->name('sectorUpdate');
 
-    Route::delete('/setor/destroy', 'SectorController@destroy');
-
+    Route::get('/softdelete', function(){
+       Post::find($id)->delete();
+    }
 //    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
 //        Route::get('/', 'sectorController@index')->name('create');
 //    });
