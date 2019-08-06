@@ -37,7 +37,7 @@
                @foreach($sectors as $sector)
                 <tr>
                     <td> {{$sector->id}}  </td>
-                    <td><a href="" class="text-green"> {{$sector->name_sector}} </a></td>
+                    <td><a href="{{ route('admin.sectorEdit', ['id'=>$sector->id]) }}" class="text-green"> {{$sector->name_sector}} </a></td>
                     <td><a href="" class="text-green"> {{$sector->created_at}} </a></td>
 
                 </tr>
