@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
     Route::get('/softdelete/{$id}', function($id){
        Post::find($id)->delete(); 
     }
+               //https://www.youtube.com/watch?v=X3HJRyQZJUs
 //    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
 //        Route::get('/', 'sectorController@index')->name('create');
 //    });
