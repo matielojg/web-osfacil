@@ -54,7 +54,8 @@ class sectorController extends Controller
      */
     public function show($id)
     {
-        //
+
+        return redirect(route('admin.sector'));
     }
 
     /**
@@ -65,7 +66,12 @@ class sectorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sectorEdit = DB::table('sectors')->find($id);
+        if(!empty($sectorEdit)){
+            return view('admin.sectors.edit')->with('sectorEdit',$sectorEdit);
+        }else{
+            return redirect()->action('SectorController@index');
+        }
     }
 
     /**
@@ -77,7 +83,8 @@ class sectorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Sector:find($id)->update($request->all());
+        return $request->all();
     }
 
     /**
