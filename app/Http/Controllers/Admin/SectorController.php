@@ -83,8 +83,14 @@ class sectorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Sector:find($id)->update($request->all());
-        return $request->all();
+        $form_data = array(
+            'name_sector' => $request->name_sector
+        );
+        Sector::whereId($id)->update($form_data);
+
+       //var_dump($id , $request);
+
+       return redirect(route('admin.sector'));
     }
 
     /**
