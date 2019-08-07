@@ -30,7 +30,6 @@
                     <th>Id</th>
                     <th>Setor</th>
                     <th>Criado em</th>
-                    <th>Editado em</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,13 +40,7 @@
                     <td><a href="{{ route('admin.sectorEdit', ['id'=>$sector->id]) }}" class="text-green"> {{$sector->name_sector}} </a></td>
                     <td><a href="" class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->created_at))}} </a></td>
                     <td><a href="" class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->updated_at))}} </a></td>
-                    <td><form method="post" href="{{ route('admin.sectorDestroy/{$id}') }}
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-
-                       </form></td>
-
+                    <!-- --><td><a href="{{ route('admin.sector') }}" class="btn btn-primary mb-5"> Deletar </a></td>
                 </tr>
 
                 @endforeach

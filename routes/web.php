@@ -12,6 +12,8 @@
 */
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], function (){
+
+
     Route::get('/', 'AuthController@showLoginForm')->name('login');
     Route::post('login', 'AuthController@login')->name('login.do');
 
@@ -24,9 +26,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
     Route::get('/setor/editar/{id}', 'SectorController@edit')->name('sectorEdit');
     Route::put('/setor/update/{id}', 'SectorController@update')->name('sectorUpdate');
 
-    Route::get('/softdelete/{$id}', function($id){
-       Post::find($id)->delete(); 
-    }
+    Route::get('/setor/trashed','SectorController@trashed')->name('sectorTrashed');
+
                //https://www.youtube.com/watch?v=X3HJRyQZJUs
 //    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
 //        Route::get('/', 'sectorController@index')->name('create');

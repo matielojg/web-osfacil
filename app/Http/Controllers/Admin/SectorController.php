@@ -15,6 +15,12 @@ class sectorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function trashed()
+    {
+        $sectors = Sector::onlyTrashed()->get();
+        return view('admin.sectors/index', ['sectors' => $sectors]);
+    }
     public function index()
     {
         $sectors =  Sector::all();
@@ -99,8 +105,12 @@ class sectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sector $sector)
     {
-        //
+
+      //Sector::find($sector->id)->delete();
+      //Sector::destroy($sector->id);
+     // return redirect(route('admin.sector'));
+        echo $sector->id;
     }
 }
