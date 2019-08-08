@@ -16,7 +16,7 @@
                 </ul>
             </nav>
 
-            <a href="{{ route('admin.sector.create') }}" class="btn btn-green ml-1">Novo Setor</a>
+            <a href="{{ route('admin.sectorCreate') }}" class="btn btn-green ml-1">Novo Setor</a>
 
         </div>
     </header>
@@ -29,10 +29,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Setor</th>
-
-                    <th>Responsável</th>
-                    <th>Ação</th>
-
+                    <th>Criado em</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,20 +37,10 @@
                @foreach($sectors as $sector)
                 <tr>
                     <td> {{$sector->id}}  </td>
-
-                    <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}" class="text-green"> {{$sector->name_sector}} </a></td>
-                    <td><a href="" class="text-green"> {{$sector->created_at}} </a></td>
-                    <td>                        
-                        <form action="{{ route('admin.sector.destroy', ['id'=>$sector->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}" class="btn btn-green ml-1 icon-check-square-o">Editar</a>
-                            <a href="{{ route('admin.sector.disable', ['id'=>$sector->id]) }}" class="btn btn-yellow ml-1 icon-check-square-o">Desabilitar</a>
-                            <button class="btn btn-red ml-1 icon-check-square-o" type="submit">Excluir</button>
-                        </form>
-                    </td>
-
-
+                    <td><a href="{{ route('admin.sectorEdit', ['id'=>$sector->id]) }}" class="text-green"> {{$sector->name_sector}} </a></td>
+                    <td><a href="" class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->created_at))}} </a></td>
+                    <td><a href="" class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->updated_at))}} </a></td>
+                    <!-- --><td><a href="{{ route('admin.sector') }}" class="btn btn-primary mb-5"> Deletar </a></td>
                 </tr>
 
                 @endforeach
