@@ -55,7 +55,7 @@
             <li class="dash_sidebar_nav_item"><a class="icon-columns" href="">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
-                    <li class=""><a href="{{ route('admin.sectorCreate') }}">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.sector.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="">Serviços</a>

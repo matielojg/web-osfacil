@@ -11,9 +11,9 @@
         <div class="dash_content_app_header_actions">
             <nav class="dash_content_app_breadcrumb">
                 <ul>
-                    <li><a href="">Dashboard</a></li>
+                    <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="">Setores</a></li>
+                    <li><a href="{{ route('admin.sector') }}">Setores</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
                     <li><a href="" class="text-orange">Novo Setor</a></li>
                 </ul>
