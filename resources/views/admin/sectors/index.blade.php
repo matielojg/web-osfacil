@@ -42,8 +42,8 @@
                     <td> {{$sector->id}}  </td>
 
                     <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}" class="text-green"> {{$sector->name_sector}} </a></td>
-                    <td><a href="" class="text-green"> {{$sector->created_at}} </a></td>
-                    <td>                        
+                    <td><a href="" class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->created_at))}}</a></td>
+                    <td>
                         <form action="{{ route('admin.sector.destroy', ['id'=>$sector->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
