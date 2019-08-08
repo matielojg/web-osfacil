@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
 
     Route::get('/setor/trashed','SectorController@trashed')->name('sectorTrashed');
 
+    Route::delete('/setor/remover/{id}', 'SectorController@destroy');
                //https://www.youtube.com/watch?v=X3HJRyQZJUs
 //    Route::group(['prefix' => 'sector', 'namespace' => 'Sector', 'as' => 'sector.' ], function (){
 //        Route::get('/', 'sectorController@index')->name('create');
