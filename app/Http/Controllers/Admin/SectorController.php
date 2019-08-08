@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Sector;
 
 
-class sectorController extends Controller
+class SectorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +23,7 @@ class sectorController extends Controller
     }
     public function index()
     {
-        $sectors =  Sector::all();
+        $sectors =  Sector::all()->where('active', 1);
         //$sectors = DB::select('select * from sectors where active = 1');
         return view('admin.sectors/index')->with('sectors', $sectors);
     }
@@ -108,9 +108,24 @@ class sectorController extends Controller
     public function destroy(Sector $sector)
     {
 
-      //Sector::find($sector->id)->delete();
-      //Sector::destroy($sector->id);
-     // return redirect(route('admin.sector'));
-        echo $sector->id;
+        Sector::find($id)->delete();
+        return redirect(route('admin.sector'));
+    }
+
+    /**
+     * Função para desabilitar setor
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function disable($id)
+    {
+        $sector = Sector::find($id);
+        $sector->active = 0;
+        $sector->deleted_at = now();
+        $sector->save();
+
+        return redirect(route('admin.sector'));
+
     }
 }
