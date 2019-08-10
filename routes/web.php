@@ -1,5 +1,6 @@
 <?php
-use App\Http\Controllers\Admin\sectorController;
+use App\Http\Controllers\Admin\SectorController;
+use App\Http\Controllers\Admin\OrderController;
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], function (){
 
@@ -11,6 +12,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.' ], f
 
     /** Dashboard */
     Route::get('/home', 'AuthController@home')->name('home');
+
+
+    /** Ordem de Serviço */
+    Route::get('/ordem', 'OrderController@index')->name('order');
+    Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
+    Route::get('/ordem/editar', 'OrderController@edit')->name('order.edit');
+
 
     /** Setores */
     Route::get('/setor', 'SectorController@index')->name('sector');
