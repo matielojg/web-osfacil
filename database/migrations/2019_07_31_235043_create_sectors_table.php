@@ -18,6 +18,7 @@ class CreateSectorsTable extends Migration
             $table->string('name_sector');
             $table->boolean('active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
