@@ -18,11 +18,11 @@ Configurações do arquivo .env:
 -Criar base de dados com o nome que deu no .env
 
 
--Para atualizar seu projeto local com o do git
-    git pull origin master
+<b>Para atualizar seu projeto local com o do git:</b>
+    <p>git pull origin master</p>
     
--Rodar:
-    composer update 
+<b>-Rodar:</b>
+   <p>composer update </p>
         ou
     composer install
     
