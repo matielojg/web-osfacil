@@ -17,8 +17,8 @@ Configurações do arquivo .env:
     
 -Criar base de dados com o nome que deu no .env
 
-
-<b>Para atualizar seu projeto local com o do git:</b>
+<br>
+<b>*Para atualizar seu projeto local com o do git:</b>
     <p>git pull origin master</p>
     
 <b>-Rodar:</b>
