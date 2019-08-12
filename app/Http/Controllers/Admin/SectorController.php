@@ -16,16 +16,11 @@ class SectorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function trashed()
-    {
-        $sectors = Sector::onlyTrashed()->get();
-        return view('admin.sectors/index', ['sectors' => $sectors]);
-    }
     public function index()
     {
-        $sectors =  Sector::all()->where('active', 1);
-        //$sectors = DB::select('select * from sectors where active = 1');
+        $sectors = Sector::all()->where('active', 1);
         return view('admin.sectors/index')->with('sectors', $sectors);
+        //$sectors = DB::select('select * from sectors where active = 1');
     }
 
     /**
@@ -41,7 +36,7 @@ class SectorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,7 +50,7 @@ class SectorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,15 +62,15 @@ class SectorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $sectorEdit = DB::table('sectors')->find($id);
-        if(!empty($sectorEdit)){
-            return view('admin.sectors.edit')->with('sectorEdit',$sectorEdit);
-        }else{
+        if (!empty($sectorEdit)) {
+            return view('admin.sectors.edit')->with('sectorEdit', $sectorEdit);
+        } else {
             return redirect()->action('SectorController@index');
         }
     }
@@ -83,8 +78,8 @@ class SectorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,15 +89,15 @@ class SectorController extends Controller
         );
         Sector::whereId($id)->update($form_data);
 
-       //var_dump($id , $request);
+        //var_dump($id , $request);
 
-       return redirect(route('admin.sector'));
+        return redirect(route('admin.sector'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sector $sector)
@@ -127,5 +122,11 @@ class SectorController extends Controller
 
         return redirect(route('admin.sector'));
 
+    }
+
+    public function trashed()
+    {
+        $sectors = Sector::onlyTrashed()->get();
+        return view('admin.sectors/index', ['sectors' => $sectors]);
     }
 }

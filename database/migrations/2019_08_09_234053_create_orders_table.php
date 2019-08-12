@@ -14,8 +14,15 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->text('description');
+            $table->enum('status', ['ABERTO', 'ATRIBUIDO', 'EM EXECUCAO', 'EXECUTADO', 'SUSPENSO', 'PENDENTE']);
+            $table->enum('priority', ['BAIXA', 'MEDIA', 'ALTA', 'CRITICA']);
+            $table->unsignedBigInteger('user_requester_id');
+            $table->unsignedBigInteger('user_responsible_id');
+            $table->unsignedBigInteger('rating_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
