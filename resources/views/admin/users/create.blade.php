@@ -1,4 +1,8 @@
-<section class="dash_content_app">
+@extends('admin.master.master')
+
+@section('content')
+
+    <section class="dash_content_app">
 
     <header class="dash_content_app_header">
         <h2 class="icon-user-plus">Novo Cliente</h2>
@@ -33,8 +37,9 @@
                 </li>
             </ul>
 
-            <form class="app_form" action="" method="post" enctype="multipart/form-data">
-                <div class="nav_tabs_content">
+            <form class="app_form" action=" {{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+        <div class="nav_tabs_content">
                     <div id="data">
                         <div class="label_gc">
                             <span class="legend">Perfil:</span>
@@ -119,34 +124,6 @@
                             </label>
                         </div>
 
-                        <div class="app_collapse mt-2">
-                            <div class="app_collapse_header collapse">
-                                <h3>Renda</h3>
-                                <span class="icon-plus-circle icon-notext"></span>
-                            </div>
-
-                            <div class="app_collapse_content d-none">
-                                <div class="label_g2">
-                                    <label class="label">
-                                        <span class="legend">*Profissão:</span>
-                                        <input type="text" name="occupation" placeholder="Profissão do Cliente"
-                                               value=""/>
-                                    </label>
-
-                                    <label class="label">
-                                        <span class="legend">*Renda:</span>
-                                        <input type="tel" name="income" class="mask-money"
-                                               placeholder="Valores em Reais" value=""/>
-                                    </label>
-                                </div>
-
-                                <label class="label">
-                                    <span class="legend">*Empresa:</span>
-                                    <input type="text" name="company_work" placeholder="Contratante"
-                                           value=""/>
-                                </label>
-                            </div>
-                        </div>
 
                         <div class="app_collapse mt-2">
                             <div class="app_collapse_header collapse">
@@ -492,3 +469,4 @@
         </div>
     </div>
 </section>
+@endsection

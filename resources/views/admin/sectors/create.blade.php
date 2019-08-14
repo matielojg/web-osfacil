@@ -15,7 +15,7 @@
                     <li class="separator icon-angle-right icon-notext"></li>
                     <li><a href="{{ route('admin.sector') }}">Setores</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="" class="text-orange">Novo Setor</a></li>
+                    <li><a href="{{ route('admin.sector.create') }}" class="text-orange">Novo Setor</a></li>
                 </ul>
             </nav>
         </div>

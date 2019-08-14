@@ -20,5 +20,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        var_dump($request->all());    }
+        var_dump($request->all());
+    }
 }

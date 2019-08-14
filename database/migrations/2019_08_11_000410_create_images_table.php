@@ -14,8 +14,12 @@ class CreateImagesTable extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->string('image');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 

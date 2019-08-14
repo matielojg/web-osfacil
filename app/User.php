@@ -3,14 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
-    //Authenticatable
+class User extends Authenticatable
 {
-
+   //protected $guarded= [];
+    public function contacts()
+    {
+        return $this -> hasMany(Contact::class);
+    }
 
 
     use Notifiable;
@@ -21,7 +25,7 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'document','email', 'login','password','function'
     ];
 
     /**
@@ -41,10 +45,6 @@ class User extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected $guarded= [];
-
-    public function contacts()
-    {
-        return $this -> hasMany(Contact::class);
-    }
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    //use SoftDeletes;
 }

@@ -5,6 +5,12 @@ use App\Http\Controllers\Admin\OrderController;
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
+    /** User
+    Route::get('/user','UserController@index')->name('user');
+    Route::get('/user/novo','UserController@create')->name('user.create');
+    Route::get('/user/editar','UserController@edit')->name('user.edit');
+     */
+
 
     /**Login */
 
@@ -13,7 +19,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     /** Dashboard */
     Route::get('/home', 'AuthController@home')->name('home');
-
+    Route::resource('users','UserController');
+    /** Route::get('/users/team', "UserController@team")->name('users.team'); */
 
     /** Ordem de Serviço */
     Route::get('/ordem', 'OrderController@index')->name('order');

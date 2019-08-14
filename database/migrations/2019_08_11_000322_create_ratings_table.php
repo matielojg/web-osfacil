@@ -14,8 +14,11 @@ class CreateRatingsTable extends Migration
     public function up()
     {
         Schema::create('ratings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('rating');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

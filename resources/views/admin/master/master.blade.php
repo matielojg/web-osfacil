@@ -40,10 +40,10 @@
             <li class="dash_sidebar_nav_item active">
                 <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-users" href="dashboard.php?app=users/index">Usuários</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-users" href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
-                    <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.users.index') }}">Ver Todos</a></li>
+                    <li class=""><a href="{{ route('admin.users.create') }}">Criar Novo</a></li>
                  </ul>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.order') }}">Ordens de Serviço</a>

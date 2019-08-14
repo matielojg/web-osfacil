@@ -14,8 +14,12 @@ class CreateServicesTable extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->string('name_service');
+            $table->unsignedBigInteger('sector_id');
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('sector_id')->references('id')->on('sectors');
         });
     }
 

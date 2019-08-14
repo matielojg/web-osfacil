@@ -1,3 +1,6 @@
+@extends('admin.master.master')
+
+@section('content')
 <section class="dash_content_app">
 
     <header class="dash_content_app_header">
@@ -35,3 +38,4 @@
         </section>
     </div>
 </section>
+    @endsection
