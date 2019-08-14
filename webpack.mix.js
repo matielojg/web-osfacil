@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix
+    // Assets Admin
     .sass('resources/views/admin/assets/scss/reset.scss', 'public/backend/assets/css/reset.css')
     .sass('resources/views/admin/assets/scss/boot.scss', 'public/backend/assets/css/boot.css')
     .sass('resources/views/admin/assets/scss/login.scss', 'public/backend/assets/css/login.css')
@@ -20,7 +21,7 @@ mix
     .styles([
         'resources/views/admin/assets/js/datatables/css/jquery.dataTables.min.css',
         'resources/views/admin/assets/js/datatables/css/responsive.dataTables.min.css',
-        'resources/views/admin/assets/js/select2/css/select2.min.css',
+        'resources/views/admin/assets/js/select2/css/select2.min.css'
     ], 'public/backend/assets/css/libs.css')
 
     .scripts([
@@ -32,13 +33,12 @@ mix
     ], 'public/backend/assets/js/login.js')
 
     .scripts([
-        'resources/views/admin/assets/js/tinymce/tinymce.min.js',
         'resources/views/admin/assets/js/datatables/js/jquery.dataTables.min.js',
         'resources/views/admin/assets/js/datatables/js/dataTables.responsive.min.js',
         'resources/views/admin/assets/js/select2/js/select2.min.js',
         'resources/views/admin/assets/js/select2/js/i18n/pt-BR.js',
         'resources/views/admin/assets/js/jquery.form.js',
-        'resources/views/admin/assets/js/jquery.mask.js'
+        'resources/views/admin/assets/js/jquery.mask.js',
     ], 'public/backend/assets/js/libs.js')
 
     .scripts([
@@ -53,11 +53,9 @@ mix
 
     .copyDirectory('resources/views/admin/assets/images', 'public/backend/assets/images')
 
-    //NÃO PROCESSAR AS URLS
     .options({
         processCssUrls: false
     })
 
     .version()
-
 ;

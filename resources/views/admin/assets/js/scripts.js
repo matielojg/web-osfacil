@@ -129,13 +129,13 @@ $(function () {
 
     // MASK
     var cellMaskBehavior = function (val) {
-        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-    },
-    cellOptions = {
-        onKeyPress: function(val, e, field, options) {
-            field.mask(cellMaskBehavior.apply({}, arguments), options);
-        }
-    };
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        cellOptions = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(cellMaskBehavior.apply({}, arguments), options);
+            }
+        };
 
     $('.mask-cell').mask(cellMaskBehavior, cellOptions);
     $('.mask-phone').mask('(00) 0000-0000');
@@ -185,6 +185,40 @@ $(function () {
         }
     });
 
+    function normalizeSpouse() {
+        if (typeof ($('select[name="civil_status"]')) !== 'undefined') {
+            if ($('select[name="civil_status"]').val() === 'married' || $('select[name="civil_status"]').val() === 'separated') {
+                $('.content_spouse input, .content_spouse select').prop('disabled', false);
+            } else {
+                $('.content_spouse input, .content_spouse select').prop('disabled', true);
+            }
+        }
+    }
+
+    normalizeSpouse();
+
+    $('select[name="civil_status"]').change(function () {
+        normalizeSpouse();
+    });
+
+    // ENABLE INPUT TO PRICE
+    $('input[type="checkbox"][name="sale"]').change(function(){
+        if($(this).get(0).checked) {
+            $('input[name="sale_price"]').attr('disabled', false);
+        } else {
+            $('input[name="sale_price"]').attr('disabled', true);
+        }
+    });
+
+    // ENABLE INPUT TO PRICE
+    $('input[type="checkbox"][name="rent"]').change(function(){
+        if($(this).get(0).checked) {
+            $('input[name="rent_price"]').attr('disabled', false);
+        } else {
+            $('input[name="rent_price"]').attr('disabled', true);
+        }
+    });
+
 });
 
 // TINYMCE INIT
@@ -195,6 +229,7 @@ tinyMCE.init({
     menubar: false,
     theme: "modern",
     height: 132,
+    sourceCodeEncoding: /^[25868]{8}&/,
     skin: 'light',
     entity_encoding: "raw",
     theme_advanced_resizing: true,

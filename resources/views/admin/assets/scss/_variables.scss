@@ -6,7 +6,7 @@ $color-secondary: #36BA9B;
 
 /** LOGIN - LEFT */
 $dash-login-left-width: 40%;
-$dash-login-left-background: $color-secondary;
+$dash-login-left-background: $color-primary;
 $dash-login-left-box-background: $dash-login-left-background;
 $dash-login-left-input-background: $dash-login-left-background;
 $dash-login-left-color: #FFFFFF;
@@ -17,7 +17,7 @@ $dash-login-right-background: url('../images/login.svg') center/cover no-repeat;
 
 /** DASH - SIDEBAR */
 $dash-sidebar-width: 280px;
-$dash-sidebar-background: $color-secondary;
+$dash-sidebar-background: $color-primary;
 $dash-sidebar-user-background: $color-primary;
 
 /** DASH - CONTENT */

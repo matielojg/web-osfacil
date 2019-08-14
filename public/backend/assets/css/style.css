@@ -64,7 +64,7 @@ html, body {
   position: relative;
 }
 .dash_sidebar .dash_sidebar_nav_item a {
-  color: #f3f3f3;
+  color: #999;
   background: #033E8C;
   font-size: 0.875em;
   display: block;
@@ -100,7 +100,7 @@ html, body {
   background-color: #033E8C !important;
 }
 .dash_sidebar .dash_sidebar_nav_item .dash_sidebar_nav_submenu a:hover {
-  background: #59606b !important;
+  background: #59606b;
   color: #ffffff;
   border-left: 6px solid #36BA9B;
 }
@@ -133,6 +133,9 @@ html, body {
     left: 0;
   }
 }
+/*
+ORDEM DE SERVIÇO
+ */
 .dash_userbar {
   padding: 0 0 4px 0;
   overflow: hidden;
@@ -235,7 +238,7 @@ html, body {
   overflow-y: auto;
   top: 0;
   right: -320px;
-  background: #36BA9B;
+  background: #033E8C;
   padding: 20px;
 }
 .dash_content_search header, .dash_content_search main, .dash_content_search .dash_content_search_close {
@@ -341,7 +344,7 @@ input:-webkit-autofill {
   align-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #36BA9B;
+  background-color: #F4645F;
   color: #FFFFFF;
   font-size: 1em;
   margin-bottom: 20px;
@@ -725,7 +728,7 @@ input:-webkit-autofill {
   border: 1px solid #CCCCCC;
 }
 .nav .nav_tabs li a:hover, .nav .nav_tabs li a.active {
-  color: #36BA9B;
+  color: #F4645F;
   background: #FFF;
 }
 .nav .nav_tabs li a.active {
@@ -1152,13 +1155,13 @@ input:-webkit-autofill {
   justify-content: center;
 }
 .realty_list .realty_list_item .realty_list_item_actions ul li {
-  color: #36BA9B;
+  color: #F4645F;
   font-size: 0.875em !important;
   margin: 10px;
 }
 .realty_list .realty_list_item .realty_list_item_actions p {
   font-size: 0.8rem !important;
-  color: #36BA9B;
+  color: #F4645F;
   margin-bottom: 10px;
 }
 
