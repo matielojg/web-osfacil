@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     /** Dashboard */
     Route::get('/home', 'AuthController@home')->name('home');
     Route::resource('users','UserController');
+    /** Route::get('/users/team', "UserController@team")->name('users.team'); */
 
     /** Ordem de Serviço */
     Route::get('/ordem', 'OrderController@index')->name('order');

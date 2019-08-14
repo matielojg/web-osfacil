@@ -16,7 +16,7 @@
                 </ul>
             </nav>
 
-            <a href="dashboard.php?app=users/create" class="btn btn-orange icon-user ml-1">Criar Cliente</a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-orange icon-user ml-1">Criar Cliente</a>
             <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>
         </div>
     </header>

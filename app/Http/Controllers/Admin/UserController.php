@@ -29,8 +29,8 @@ class userController extends Controller
      */
     public function create()
     {
-        echo("retornando");
-        return view('admin.users/index');
+
+        return view('admin.users.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        var_dump($request->all());
     }
 
     /**
