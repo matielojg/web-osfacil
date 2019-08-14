@@ -14,7 +14,7 @@
                         <h4 class="icon-users">Usuários</h4>
                         <p><b>Supervisores:</b> 2</p>
                         <p><b>Funcionários:</b> 46</p>
-                        <p><b>Teécnicos:</b> 12</p>
+                        <p><b>Técnicos:</b> 12</p>
                     </article>
 
                     <article class="blog radius">

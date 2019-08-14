@@ -14,11 +14,12 @@ class CreateSectorsTable extends Migration
     public function up()
     {
         Schema::create('sectors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name_sector');
-            $table->boolean('active')->default(true);
-            $table->timestamps();
-            $table->softDeletes();
+           $table->bigIncrements('id');
+           $table->string('name_sector');
+           $table->boolean('active')->default(true);
+           $table->timestamps();
+           $table->softDeletes();
+
         });
     }
 
