@@ -22,9 +22,9 @@ Configurações do arquivo .env:
     <p>git pull origin master</p>
     
 <b>-Rodar:</b>
-   <p>composer update </p>
-        ou
-    composer install
+
+    <p>composer install</p>
+
     
 -Rodar:
     php artisan migrate
