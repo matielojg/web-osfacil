@@ -2,10 +2,10 @@
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<b>Configurar o projeto:</b>
+<b>Passos para funcionar:</b>
 
-<b>*Quando clonar pela primeira vez, criar e configurar o arquivo .env</b>
-    <p>cp .env.example .env</p>
+-Quando clonar pela primeira vez, criar e configurar o arquivo .env
+    cp .env.example .env
 
 Configurações do arquivo .env:
 - DB_CONNECTION=mysql
@@ -24,13 +24,13 @@ Configurações do arquivo .env:
 <b>-Rodar:</b>
    <p>composer update </p>
         ou
-   <p>composer install</p>
+    composer install
     
-<p>-Rodar:</p>
-    <p>php artisan migrate</p>
+-Rodar:
+    php artisan migrate
 
-<p>-Rodar:</p>
-    <p>php artisan key:generate</p>
+-Rodar:
+    php artisan key:generate
 
 
 
