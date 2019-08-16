@@ -4,6 +4,12 @@ use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AuthControler;
 
+/** Edita o nome na URI */
+Route::resourceVerbs([
+   'create' => 'cadastro',
+   'edit' => 'editar',
+]);
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
     /** Formulário de Login */
@@ -18,6 +24,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** User */
         Route::resource('users', 'UserController');
+
 
         /** Ordem de Serviço */
         Route::get('/ordem', 'OrderController@index')->name('order');

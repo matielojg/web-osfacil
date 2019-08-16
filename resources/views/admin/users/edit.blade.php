@@ -5,7 +5,7 @@
     <section class="dash_content_app">
 
     <header class="dash_content_app_header">
-        <h2 class="icon-user-plus">Novo Usuário</h2>
+        <h2 class="icon-user-plus">Editar Usuário: # {{ $user->id }}</h2>
 
         <div class="dash_content_app_header_actions">
             <nav class="dash_content_app_breadcrumb">
@@ -14,7 +14,7 @@
                     <li class="separator icon-angle-right icon-notext"></li>
                     <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="#" class="text-red">Criar Usuário</a></li>
+                    <li><a href="#" class="text-red">Editar Usuário</a></li>
                 </ul>
             </nav>
         </div>
@@ -23,52 +23,45 @@
     <div class="dash_content_app_box">
         <div class="nav">
 
+            {{--ADICIONAR O ACTION admin.users.update--}}
 
-        <form class="app_form" action=" {{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
+
+        <form class="app_form" action=" " method="post" enctype="multipart/form-data">
             @csrf
         <div class="nav_tabs_content">
                     <div id="data">
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Nome:</span>
-                                <input type="text" name="first-name" placeholder="Nome" value=""/>
+                                <input type="text" name="first-name" value="{{$user->first_name}} "/>
                             </label>
                             <label class="label">
                                 <span class="legend">*Sobrenome:</span>
-                                <input type="text" name="last-name" placeholder="Sobrenome" value=""/>
+                                <input type="text" name="last-name" placeholder="Sobrenome" value="{{$user->last_name}}"/>
                             </label>
                         </div>
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*E-mail:</span>
-                                <input type="email" name="email" placeholder="Melhor e-mail"
-                                       value=""/>
+                                <input type="email" name="email" value="{{$user->email}}"/>
                             </label>
                             <label class="label">
                                 <span class="legend">*CPF:</span>
-                                <input type="tel" class="mask-doc" name="document" placeholder="CPF do Cliente"
-                                       value=""/>
+                                <input type="tel" class="mask-doc" name="document" value="{{$user->document}}"/>
                             </label>
                         </div>
 
                         <div class="label_g2">
+                            {{-- VER COMO PUXAR O NOEM DO SETOR E FUNÇÃO --}}
                             <label class="label">
                                 <span class="legend">*Setor:</span>
-                                <select name="sector">
-                                    <option value="male">Marketing</option>
-                                    <option value="female">Cozinha</option>
-                                    <option value="other">Reservas</option>
-                                </select>
+                                <input type="text" name="sector-name" value="Adicionar o setor"/>
                             </label>
                             <label class="label">
                                 <span class="legend">*Função:</span>
-                                <select name="function">
-                                    <option value="employee">Funcionário</option>
-                                    <option value="technical">Técnico</option>
-                                    <option value="supervisor">Supervisor</option>
-                                    <option value="manager">Gerente</option>
-                                </select>
+                                <input type="text" name="function" value="Adicionar a função"/>
                             </label>
+
                         </div>
                         <div class="label_g2">
                             <label class="label">
@@ -85,16 +78,17 @@
                             </div>
 
                             <div class="app_collapse_content d-none">
+                                {{-- VER COMO PUXAR O CONTATO--}}
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">*Celular:</span>
                                         <input type="tel" name="primary-contact" class="mask-cell"
-                                               placeholder="Número do Telefonce com DDD" value=""/>
+                                               value=""/>
                                     </label>
                                     <label class="label">
                                         <span class="legend">Residencial:</span>
                                         <input type="tel" name="secondary-contact" class="mask-phone"
-                                               placeholder="Número do Telefonce com DDD" value=""/>
+                                               value=""/>
                                     </label>
                                 </div>
                             </div>
@@ -110,14 +104,13 @@
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">*Login:</span>
-                                        <input type="text" name="username" placeholder="Nome de usuário"
-                                               value=""/>
+                                        {{-- ALTERAR PARA USERNAME DEPOIS QUE RODAR A MIGRATION --}}
+                                        <input type="text" name="username" value="{{$user->login}}"/>
                                     </label>
 
                                     <label class="label">
                                         <span class="legend">*Senha:</span>
-                                        <input type="password" name="password" placeholder="Senha de acesso"
-                                               value=""/>
+                                        <input type="password" name="password" value="{{$user->password}}"/>
                                     </label>
                                 </div>
                             </div>
@@ -358,6 +351,11 @@
 
                 <div class="text-right mt-2">
                     <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                        <form action="" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário</button>
+                        </form>
                     </button>
                 </div>
             </form>

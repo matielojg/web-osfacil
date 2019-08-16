@@ -49,7 +49,7 @@
                             @method('DELETE')
                             <a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}" class="btn btn-green ml-1 icon-check-square-o">Editar</a>
                             <a href="{{ route('admin.sector.disable', ['id'=>$sector->id]) }}" class="btn btn-yellow ml-1 icon-check-square-o">Desabilitar</a>
-                            <button class="btn btn-red ml-1 icon-check-square-o" type="submit">Excluir</button>
+                            <button class="btn btn-red ml-1 icon-trash" type="submit">Excluir</button>
                         </form>
                     </td>
 
