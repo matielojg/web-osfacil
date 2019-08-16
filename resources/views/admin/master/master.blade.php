@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/libs.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/boot.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/style.css')) }}"/>
+
+    @hasSection('css')
+        @yield('css')
+    @endif
+
     <!-- ALTERAR A FAVICON -->
     <link rel="icon" type="image/png" href="backend/assets/images/favicon.png"/>
 
@@ -67,7 +72,7 @@
 
 
             <li class="dash_sidebar_nav_item"><a class="icon-reply" href="">Ver Site</a></li>
-            <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile" href="" target="_blank">Sair</a></li>
+            <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile" href="{{route('admin.logout')}}" target="_blank">Sair</a></li>
         </ul>
 
     </aside>
@@ -82,7 +87,7 @@
                         <a href="{{ route('admin.home') }}">Painel <b>OS Fácil</b></a>
                     </h1>
                     <div class="dash_userbar_box_bar no_mobile">
-                        <a class="text-red icon-sign-out" href="">Sair</a>
+                        <a class="text-red icon-sign-out" href=" {{route('admin.logout')}}">Sair</a>
                     </div>
                 </div>
             </div>
@@ -99,6 +104,10 @@
 <script src="{{ url(mix('backend/assets/js/jquery.js')) }}"></script>
 <script src="{{ url(mix('backend/assets/js/libs.js')) }}"></script>
 <script src="{{ url(mix('backend/assets/js/scripts.js')) }}"></script>
+
+@hasSection('js')
+    @yield('js')
+@endif
 
 </body>
 </html>

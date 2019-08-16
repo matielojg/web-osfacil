@@ -52,17 +52,17 @@
       &:hover {
         background: #59606b;
         color: #ffffff;
-        border-left: 3px solid $color-orange;
+        border-left: 3px solid $color-green;
       }
     }
 
     &.active > a {
-      border-left: 3px solid $color-orange;
+      border-left: 3px solid $color-green;
       color: #FFF;
     }
 
     &.active a {
-      border-left: 3px solid $color-orange;
+      border-left: 3px solid $color-green;
     }
 
     &.active a + .dash_sidebar_nav_submenu {
@@ -72,7 +72,7 @@
       li.active {
 
         a {
-          border-left: 3px solid $color-orange !important;
+          border-left: 3px solid $color-green !important;
           background: #59606b !important;
           color: #FFF;
         }
@@ -80,7 +80,7 @@
     }
 
     .dash_sidebar_nav_submenu {
-      border-left: 3px solid $color-orange;
+      border-left: 3px solid $color-green;
       display: none;
 
       a {
@@ -89,7 +89,7 @@
         &:hover {
           background: #59606b;
           color: #ffffff;
-          border-left: 6px solid $color-orange;
+          border-left: 6px solid $color-green;
         }
       }
     }
