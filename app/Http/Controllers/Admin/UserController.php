@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class userController extends Controller
 {
@@ -63,7 +64,12 @@ class userController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userEdit = DB::table('users')->find($id);
+        if (!empty($userEdit)) {
+            return view('admin.users.edit')->with('user', $userEdit);
+        } else {
+            return redirect()->action('userController@index');
+        }
     }
 
     /**

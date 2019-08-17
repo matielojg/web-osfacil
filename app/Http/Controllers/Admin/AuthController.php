@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
     public function showLoginForm()
     {
-        return view('admin.index');
+        if(Auth::check() === true) {
+            return redirect()->route('admin.home');
+        }
 
+        return view('admin.index');
     }
 
     public function home()
@@ -20,6 +25,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        var_dump($request->all());
+
     }
 }

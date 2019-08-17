@@ -25,20 +25,18 @@
                 <div class="dash_login_box_headline_logo icon-imob icon-notext"></div>
                 <h1>Login</h1>
             </header>
-
             <form name="login" action="{{ route('admin.login.do') }}" method="post" autocomplete="off">
-
                 <label>
                     <span class="field icon-envelope">E-mail:</span>
-                    <input type="email" name="email" placeholder="Informe seu e-mail" required/>
+                    <input type="email" name="email" placeholder="Informe seu e-mail" value="andrew@gmail.com" required/>
                 </label>
 
                 <label>
                     <span class="field icon-unlock-alt">Senha:</span>
-                    <input type="password" name="password_check" placeholder="Informe sua senha" required/>
+                    <input type="password" name="password_check" placeholder="Informe sua senha"/>
                 </label>
 
-                <button class="gradient gradient-green radius icon-sign-in">Entrar</button>
+                <button class="gradient gradient-green radius icon-sign-in" type="submit">Entrar</button>
             </form>
 
             <footer>

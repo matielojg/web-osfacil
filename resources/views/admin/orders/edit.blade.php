@@ -81,7 +81,7 @@
                                         Detraxit consequat et quo num tendi nada.
                                         Praesent vel viverra nisi. Mauris aliquet nunc
                                         non turpis scelerisque, eget.
-                                    </p>
+                                    </p> 
                                 </label>
                             </div>
 
@@ -112,6 +112,31 @@
                                         <tr>
                                             <td>25/08/2019 - 16h30</td>
                                             <td><a href="" class="text-green">Jeferson</a></td>
+                                            <td><a href="" class="text-green">Alterou o Status para:
+                                                    <b>Em Execução</b></a>
+                                            </td>
+                                            <td><a href="" class="text-green">Alterou o Status para:
+                                                    Mussum Ipsum, cacilds vidis litro abertis.
+                                                    A ordem dos tratores não altera o pão duris.
+                                                    Atirei o pau no gatis, per gatis num morreus.
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>26/08/2019 - 16h30</td>
+                                            <td><a href="" class="text-green">Marcieli</a></td>
+                                            <td><a href="" class="text-green">Alterou o Status para:
+                                                    <b>Em Execução</b></a>
+                                            </td>
+                                            <td><a href="" class="text-green">Alterou o Status para:
+                                                    Mussum Ipsum, cacilds vidis litro abertis.
+                                                    A ordem dos tratores não altera o pão duris.
+                                                    Atirei o pau no gatis, per gatis num morreus.
+                                                </a>
+                                            </td>
+                                        </tr><tr>
+                                            <td>26/08/2019 - 16h30</td>
+                                            <td><a href="" class="text-green">Marcieli</a></td>
                                             <td><a href="" class="text-green">Alterou o Status para:
                                                     <b>Em Execução</b></a>
                                             </td>
