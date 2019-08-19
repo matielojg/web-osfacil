@@ -2,33 +2,29 @@
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-<b>Passos para funcionar:</b>
+<b>Passos para funcionar</b>
+<hr>
 
--Quando clonar pela primeira vez, criar e configurar o arquivo .env
-    cp .env.example .env
+<b>/** Quando clonar pela primeira vez, criar e configurar o arquivo .env */</b>
 
-Configurações do arquivo .env:
-- DB_CONNECTION=mysql
-- DB_HOST=127.0.0.1
-- DB_PORT=3306
-- DB_DATABASE=osfacil
-- DB_USERNAME=root
-- DB_PASSWORD=
-    
--Criar base de dados com o nome que deu no .env
+-> Criar base de dados
 
+<b>Rodar:<b>
+cp .env.example .env
+ 
+->Configurar o arquivo .env (nome e senha do BD + nome do banco que criou)
+<br>    
+<hr>
 <br>
-<b>*Para atualizar seu projeto local com o do git:</b>
+<b>/**Para atualizar seu projeto local com o do git*/</b>
     <p>git pull origin master</p>
     
-<b>-Rodar:</b>
+<b>Rodar:</b>
     <p>composer install</p>
+    <p>php artisan migrate</p>
+    <p>php artisan key:generate</p>
+    <p>npm install</p>
     
--Rodar:
-    php artisan migrate
-
--Rodar:
-    php artisan key:generate
 
 
 
