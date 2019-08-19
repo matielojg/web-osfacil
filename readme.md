@@ -5,6 +5,7 @@
 <b>Passos para funcionar</b>
 <hr>
 <b> /** Quando clonar pela primeira vez, criar e configurar o arquivo .env */ </b>
+<br>
 <p> -> Criar base de dados </p>
 <p> Rodar: </p>
 
@@ -15,7 +16,7 @@
 <hr>
 <br>
 <b> /** Para atualizar seu projeto local com o do git */ </b>
-
+<br>
 <p> Rodar: </p>
 
     git pull origin master
