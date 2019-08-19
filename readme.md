@@ -4,8 +4,7 @@
 
 <b>Passos para funcionar</b>
 <hr>
-
-/** Quando clonar pela primeira vez, criar e configurar o arquivo .env */
+<b> /** Quando clonar pela primeira vez, criar e configurar o arquivo .env */ </b>
 
 -> Criar base de dados
 
@@ -18,7 +17,7 @@ Rodar:
 <br>
 /** Para atualizar seu projeto local com o do git */
 
-    <p>git pull origin master</p>
+    git pull origin master
     
 Rodar:
     <p>composer install</p>
