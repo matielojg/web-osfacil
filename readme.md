@@ -5,22 +5,22 @@
 <b>Passos para funcionar</b>
 <hr>
 
-<b>/** Quando clonar pela primeira vez, criar e configurar o arquivo .env */</b>
+/** Quando clonar pela primeira vez, criar e configurar o arquivo .env */
 
 -> Criar base de dados
 
-<b>Rodar:<b>
-cp .env.example .env
+Rodar:
+    <p>cp .env.example .env</p>
  
-->Configurar o arquivo .env (nome e senha do BD + nome do banco que criou)
+-> Configurar o arquivo .env (nome e senha do BD + nome do banco que criou)
 <br>    
 <hr>
 <br>
-<b>/**Para atualizar seu projeto local com o do git*/
-</b>
+/** Para atualizar seu projeto local com o do git */
+
     <p>git pull origin master</p>
     
-<b>Rodar:</b>
+Rodar:
     <p>composer install</p>
     <p>php artisan migrate</p>
     <p>php artisan key:generate</p>
