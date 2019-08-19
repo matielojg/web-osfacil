@@ -16,7 +16,8 @@ cp .env.example .env
 <br>    
 <hr>
 <br>
-<b>/**Para atualizar seu projeto local com o do git*/</b>
+<b>/**Para atualizar seu projeto local com o do git*/
+</b>
     <p>git pull origin master</p>
     
 <b>Rodar:</b>
