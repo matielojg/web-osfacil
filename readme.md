@@ -5,7 +5,7 @@
 <b>Passos para funcionar</b>
 <hr>
 <b> /** Quando clonar pela primeira vez, criar e configurar o arquivo .env */ </b>
-
+<br>
 <p> -> Criar base de dados </p>
 <p> Rodar: </p>
 
