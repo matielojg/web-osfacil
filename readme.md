@@ -5,18 +5,18 @@
 <b>Passos para funcionar</b>
 <hr>
 <b> /** Quando clonar pela primeira vez, criar e configurar o arquivo .env */ </b>
-<br>
+
 <p> -> Criar base de dados </p>
 <p> Rodar: </p>
 
     cp .env.example .env
  
 -> Configurar o arquivo .env (nome e senha do BD + nome do banco que criou)
-<br>    
+   
 <hr>
-<br>
+
 <b> /** Para atualizar seu projeto local com o do git */ </b>
-<br>
+
 <p> Rodar: </p>
 
     git pull origin master
