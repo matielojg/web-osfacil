@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateImagesTable extends Migration
+class AlterTableActionsForeignKeyOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('image');
+        Schema::table('actions', function (Blueprint $table) {
             $table->unsignedBigInteger('order_id');
-            $table->timestamps();
-            $table->softDeletes();
             $table->foreign('order_id')->references('id')->on('orders');
         });
     }
@@ -30,6 +26,8 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::table('actions', function (Blueprint $table) {
+            $table->dropForeign('order_id');
+        });
     }
 }

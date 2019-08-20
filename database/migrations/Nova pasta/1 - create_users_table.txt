@@ -21,14 +21,13 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('document')->unique();
             $table->string('email')->unique();
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('password');
             $table->string('photo');
             $table->enum('function', ['funcionario', 'tecnico', 'supervisor', 'gerente']);
-            $table->unsignedBigInteger('sector_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('sector_id')->references('id')->on('sectors');
+
         });
     }
 
