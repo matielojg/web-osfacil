@@ -18,7 +18,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     /** Rotas Protegidas */
     //Route::group(['middleware' => ['auth']], function () {
-
+    
         /** Dashboard Home */
         Route::get('home', 'AuthController@home')->name('home');
 
