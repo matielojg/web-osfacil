@@ -16,10 +16,10 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_service');
-            $table->unsignedBigInteger('sector_id');
+            $table->unsignedBigInteger('sector');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('sector_id')->references('id')->on('sectors');
+            $table->foreign('sector')->references('id')->on('sectors');
         });
     }
 

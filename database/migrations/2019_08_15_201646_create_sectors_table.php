@@ -16,10 +16,10 @@ class CreateSectorsTable extends Migration
         Schema::create('sectors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name_sector');
-            $table->unsignedBigInteger('user_responsible_id');
+            $table->unsignedBigInteger('responsible')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_responsible_id')->references('id')->on('users');
+            $table->foreign('responsible')->references('id')->on('users');
         });
     }
 
