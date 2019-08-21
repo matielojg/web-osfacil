@@ -14,8 +14,8 @@ class AlterTableUsersForeignKeyContact extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('contact');
-            $table->foreign('contact')->references('id')->on('contacts');
+            $table->unsignedBigInteger('contact')->nullable();
+            $table->foreign('contact')->references('id')->on('contacts')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

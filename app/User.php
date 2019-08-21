@@ -11,9 +11,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
    //protected $guarded= [];
-    public function contacts()
+    public function contact()
     {
-        return $this -> hasMany(Contact::class);
+        return $this -> hasOne(Contact::class);
     }
 
 
@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'document','email', 'login','password','function'
+        'first_name', 'last_name', 'document','email', 'username','password','function'
     ];
 
     /**

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Sector;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class SectorController extends Controller
@@ -18,7 +18,7 @@ class SectorController extends Controller
 
     public function index()
     {
-        $sectors = Sector::all()->where('active', 1);
+        $sectors = Sector::all()->where('deleted_at', null);
         return view('admin.sectors/index')->with('sectors', $sectors);
         //$sectors = DB::select('select * from sectors where active = 1');
     }
@@ -95,15 +95,14 @@ class SectorController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage. 
+     * Remove the specified resource from storage.
      *
      * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sector $sector)
     {
-
-        Sector::find($id)->delete();
+        Sector::find($sector)->delete();
         return redirect(route('admin.sector'));
     }
 
@@ -116,12 +115,9 @@ class SectorController extends Controller
     public function disable($id)
     {
         $sector = Sector::find($id);
-        $sector->active = 0;
         $sector->deleted_at = now();
         $sector->save();
-
         return redirect(route('admin.sector'));
-
     }
 
     public function trashed()
