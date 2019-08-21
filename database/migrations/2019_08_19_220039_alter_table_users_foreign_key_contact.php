@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class AlterTableUsersForeignKeySectors extends Migration
+class AlterTableUsersForeignKeyContact extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AlterTableUsersForeignKeySectors extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('sector_id')->nullable();
-            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
+            $table->unsignedBigInteger('contact')->nullable();
+            $table->foreign('contact')->references('id')->on('contacts')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -27,7 +27,7 @@ class AlterTableUsersForeignKeySectors extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('sector_id');
+            $table->dropForeign('contact');
         });
     }
 }

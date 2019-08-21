@@ -76,22 +76,24 @@
                                 <h3>Contato</h3>
                                 <span class="icon-plus-circle icon-notext"></span>
                             </div>
-
+                            @foreach($contacts as $contact)
                             <div class="app_collapse_content d-none">
                                 {{-- VER COMO PUXAR O CONTATO--}}
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">*Celular:</span>
                                         <input type="tel" name="primary-contact" class="mask-cell"
-                                               value=""/>
+                                               value="{{ $contact->primary_contact }} "/>
                                     </label>
+
                                     <label class="label">
                                         <span class="legend">Residencial:</span>
                                         <input type="tel" name="secondary-contact" class="mask-phone"
-                                               value=""/>
+                                               value=" {{ $contact->secondary_contact }} "/>
                                     </label>
                                 </div>
                             </div>
+                                @endforeach
                         </div>
 
                         <div class="app_collapse mt-2">
@@ -103,9 +105,9 @@
                             <div class="app_collapse_content d-none">
                                 <div class="label_g2">
                                     <label class="label">
-                                        <span class="legend">*Login:</span>
+                                        <span class="legend">*Username:</span>
                                         {{-- ALTERAR PARA USERNAME DEPOIS QUE RODAR A MIGRATION --}}
-                                        <input type="text" name="username" value="{{$user->login}}"/>
+                                        <input type="text" name="username" value="{{$user->username}}"/>
                                     </label>
 
                                     <label class="label">
