@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('primary_contact');
+            $table->string('secondary_contact')->nullable();
             $table->string('photo')->nullable();
             $table->enum('function', ['funcionario', 'tecnico', 'supervisor', 'gerente']);
             $table->timestamps();

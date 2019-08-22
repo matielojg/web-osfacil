@@ -21,12 +21,7 @@ class userController extends Controller
             return view('admin.users.index')->with('users', $users);
             echo $users;
 
-            /**
-             * $users = DB::table('users')
-             * ->join('contacts', 'users.id', '=', 'contacts.user_id')
-             * ->join('orders', 'users.id', '=', 'orders.user_id')
-             * ->select('users.*', 'contacts.phone', 'orders.price')
-             * ->get();*/
+
         }
     }
 
@@ -71,31 +66,12 @@ class userController extends Controller
      */
     public function edit($id)
     {
-//        $user = DB::table('users')->find($id);
-//        //var_dump($user);
-////        $contact= DB::table('contacts')->where( $user->contact)->get();
-////        var_dump($contact);
-///
-
-          $userEdit = DB::table('users')->find($id);
+        $userEdit = DB::table('users')->find($id);
         if (!empty($userEdit)) {
-            $contact = DB::table('users')
-                ->join('contacts', 'users.id', '=', 'contacts.id')
-                ->select('contacts.primary_contact', 'contacts.secondary_contact')
-                ->get();
-            //return view('admin.users.edit')->with('contact', $contact);
-            //var_dump($userEdit, $contact);
-           // var_dump($userEdit);
-            return view('admin.users.edit', [
-                'contacts'=> $contact,
-                'user'=> $userEdit
-            ]);
+            return view('admin.users.edit')->with('user', $userEdit);
         } else {
             return redirect()->action('userController@index');
         }
-
-
-
     }
 
     /**
