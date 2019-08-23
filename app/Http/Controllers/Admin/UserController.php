@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Sector;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +20,8 @@ class userController extends Controller
         {
             $users = User::all()->where('deleted_at', null);
             return view('admin.users.index')->with('users', $users);
-            echo $users;
 
+            echo $users;
             /**
              * $users = DB::table('users')
              * ->join('contacts', 'users.id', '=', 'contacts.user_id')

@@ -26,9 +26,10 @@
                 <h1>Login</h1>
             </header>
             <form name="login" action="{{ route('admin.login.do') }}" method="post" autocomplete="off">
+                @csrf
                 <label>
                     <span class="field icon-user">Login:</span>
-                    <input type="text" name="username" placeholder="Informe seu usuário" value="andrew@gmail.com" required/>
+                    <input type="text" name="username" placeholder="Informe seu usuário" value="andrewwalmir" required/>
                 </label>
 
                 <label>
