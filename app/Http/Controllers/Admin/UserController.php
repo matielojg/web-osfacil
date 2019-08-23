@@ -66,13 +66,20 @@ class userController extends Controller
      */
     public function edit($id)
     {
-        $userEdit = DB::table('users')->find($id);
-        if (!empty($userEdit)) {
-            return view('admin.users.edit')->with('user', $userEdit);
+        $user = User::where('id',$id)->first();
+        $sectors = DB::table('sectors')->get();
+       // var_dump($sectors);
+        if (!empty($user)) {
+            return view('admin.users.edit',[
+                'sectors'=> $sectors,
+                'user'=> $user,
+            ]);
         } else {
             return redirect()->action('userController@index');
         }
     }
+
+
 
     /**
      * Update the specified resource in storage.

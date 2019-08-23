@@ -26,8 +26,10 @@
                 {{--ADICIONAR O ACTION admin.users.update--}}
 
 
-                <form class="app_form" action=" " method="post" enctype="multipart/form-data">
+                <form class="app_form" action="{{ route('admin.users.update', ['user' =>$user->id]) }} " method="post"
+                      enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="nav_tabs_content">
                         <div id="data">
                             <div class="label_g2">
@@ -53,14 +55,18 @@
                             </div>
 
                             <div class="label_g2">
-                                {{-- VER COMO PUXAR O NOEM DO SETOR E FUNÇÃO --}}
                                 <label class="label">
                                     <span class="legend">*Setor:</span>
-                                    <input type="text" name="sector-name" value="Adicionar o setor"/>
+                                    <select name="sector" class="form-control" required="ON">
+                                        @foreach ($sectors as $sector)
+                                            <option
+                                                value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }} </option>
+                                        @endforeach
+                                    </select>
                                 </label>
                                 <label class="label">
                                     <span class="legend">*Função:</span>
-                                    <input type="text" name="function" value="Adicionar a função"/>
+                                    <input type="text" name="function" value="{{ ucfirst($user->function) }}"/>
                                 </label>
 
                             </div>
