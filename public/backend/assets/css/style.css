@@ -964,6 +964,18 @@ input:-webkit-autofill {
     text-align: right;
   }
 }
+.lowercase {
+  text-transform: lowercase;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
 .app_users_management {
   width: 100%;
   display: flex;

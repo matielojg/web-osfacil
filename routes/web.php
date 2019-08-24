@@ -24,7 +24,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** User */
         Route::resource('users', 'UserController');
-
+        Route::put('/users/update/{id}', 'UserController@update')->name('user.update');
+        Route::get('/users', 'UserController@index')->name('users');
 
         /** Ordem de Serviço */
         Route::get('/ordem', 'OrderController@index')->name('order');
@@ -48,3 +49,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
 });
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
