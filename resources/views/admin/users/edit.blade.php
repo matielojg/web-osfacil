@@ -26,20 +26,20 @@
                 {{--ADICIONAR O ACTION admin.users.update--}}
 
 
-                <form class="app_form" action="{{ route('admin.users.update', ['user' =>$user->id]) }} " method="post"
+                <form class="app_form" action=" {{ url('admin/users/update', ['id' =>$user->id]) }} " method="post"
                       enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="nav_tabs_content">
+                  <div class="nav_tabs_content">
                         <div id="data">
+                            @csrf
+                            <input type="hidden" name="_method" value="PUT">
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Nome:</span>
-                                    <input type="text" name="first-name" value="{{$user->first_name}} "/>
+                                    <input type="text" name="first_name" value="{{$user->first_name}} "/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">*Sobrenome:</span>
-                                    <input type="text" name="last-name" placeholder="Sobrenome"
+                                    <input type="text" name="last_name" placeholder="Sobrenome"
                                            value="{{$user->last_name}}"/>
                                 </label>
                             </div>
@@ -66,7 +66,17 @@
                                 </label>
                                 <label class="label">
                                     <span class="legend">*Função:</span>
-                                    <input type="text" name="function" value="{{ ucfirst($user->function) }}"/>
+                                    <input type="text" name="function" value="{{ $user->function }}" />
+
+                                    {{-- <select name="function" class="form-control" required="ON">
+                                        <option value="$user->[function]"> {{ $user->function }} </option>
+                                        <option value="0"> funcionario</option>
+                                        <option value="1"> tecnico</option>
+                                        <option value="2"> supervisor</option>
+                                        <option value="3"> gerente</option>
+                                    </select>
+                                    --}}
+
                                 </label>
 
                             </div>
@@ -89,13 +99,13 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">*Celular:</span>
-                                            <input type="tel" name="primary-contact" class="mask-cell"
+                                            <input type="tel" name="primary_contact" class="mask-cell"
                                                    value="{{ $user->primary_contact }} "/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">Residencial:</span>
-                                            <input type="tel" name="secondary-contact" class="mask-phone"
+                                            <input type="tel" name="secondary_contact" class="mask-phone"
                                                    value=" {{ $user->secondary_contact }} "/>
                                         </label>
                                     </div>
@@ -369,12 +379,13 @@
 
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                            <form action="" method="POST">
+
+                           {{-- <form action="" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
                                 </button>
-                            </form>
+                            </form> --}}
                         </button>
                     </div>
                 </form>

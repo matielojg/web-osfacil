@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Sector;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,10 +19,6 @@ class userController extends Controller
         {
             $users = User::all()->where('deleted_at', null);
             return view('admin.users.index')->with('users', $users);
-
-<<<<<<< HEAD
-
-=======
             echo $users;
             /**
              * $users = DB::table('users')
@@ -31,7 +26,7 @@ class userController extends Controller
              * ->join('orders', 'users.id', '=', 'orders.user_id')
              * ->select('users.*', 'contacts.phone', 'orders.price')
              * ->get();*/
->>>>>>> 22b9e09146c6df9863455a0402bd542fede01f34
+
         }
     }
 
@@ -78,7 +73,10 @@ class userController extends Controller
     {
         $user = User::where('id',$id)->first();
         $sectors = DB::table('sectors')->get();
-       // var_dump($sectors);
+     //   $function = DB::table('users')->get('function');
+        //$function = DB::table('users')->select('function')->get();
+        //$function = DB::table('users')->[function]->get();
+
         if (!empty($user)) {
             return view('admin.users.edit',[
                 'sectors'=> $sectors,
@@ -100,7 +98,21 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //var_dump($request,$id);
+        $form_data = array(
+            'first_name'=> $request->first_name,
+            'last_name'=> $request->last_name,
+            'document'=> $request->document,
+            'email'=> $request->email,
+            'username'=> $request->username,
+            'password'=> $request->password,
+            'function'=> $request->function,
+            'primary_contact'=> $request->primary_contact,
+            'secondary_contact'=> $request->secondary_contact,
+        );
+        User::whereId($id)->update($form_data);
+        return redirect(route('admin.users'));
+
     }
 
     /**

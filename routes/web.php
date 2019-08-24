@@ -18,13 +18,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     /** Rotas Protegidas */
     //Route::group(['middleware' => ['auth']], function () {
-    
+
         /** Dashboard Home */
         Route::get('home', 'AuthController@home')->name('home');
 
         /** User */
         Route::resource('users', 'UserController');
-
+        Route::put('/users/update/{id}', 'UserController@update')->name('user.update');
+        Route::get('/users', 'UserController@index')->name('users');
 
         /** Ordem de Serviço */
         Route::get('/ordem', 'OrderController@index')->name('order');
