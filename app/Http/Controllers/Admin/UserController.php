@@ -21,9 +21,6 @@ class userController extends Controller
             $users = User::all()->where('deleted_at', null);
             return view('admin.users.index')->with('users', $users);
 
-<<<<<<< HEAD
-
-=======
             echo $users;
             /**
              * $users = DB::table('users')
@@ -31,7 +28,6 @@ class userController extends Controller
              * ->join('orders', 'users.id', '=', 'orders.user_id')
              * ->select('users.*', 'contacts.phone', 'orders.price')
              * ->get();*/
->>>>>>> 22b9e09146c6df9863455a0402bd542fede01f34
         }
     }
 
@@ -88,8 +84,6 @@ class userController extends Controller
             return redirect()->action('userController@index');
         }
     }
-
-
 
     /**
      * Update the specified resource in storage.
