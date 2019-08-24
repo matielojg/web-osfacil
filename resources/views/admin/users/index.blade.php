@@ -40,8 +40,10 @@
                     <td>#{{$user->id}}</td>
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                            class="text-green"> {{$user->first_name}}  {{$user->last_name}} </a></td>
+
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
-                           class="text-green">{{ucfirst($user->sector)}}</a></td>
+                           class="text-green">{{ ucfirst($user->function) }}</a></td>
+
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                            class="text-green">{{ucfirst($user->function) }}</a></td>
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
