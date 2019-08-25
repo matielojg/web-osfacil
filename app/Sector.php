@@ -9,6 +9,6 @@ class Sector extends Model
 {
     use SoftDeletes;
     protected $table = 'sectors';
-    protected $fillable = ['name_sector', 'active'];
+    protected $fillable = ['name_sector','responsible'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }

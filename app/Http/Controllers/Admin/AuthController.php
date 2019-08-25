@@ -18,11 +18,6 @@ class AuthController extends Controller
         return view('admin.index');
     }
 
-    public function home()
-    {
-        return view('admin.dashboard');
-    }
-
     public function login(Request $request)
     {
         if (in_array('', $request->only('username', 'password'))) {
