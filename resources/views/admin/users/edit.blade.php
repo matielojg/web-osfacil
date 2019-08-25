@@ -140,15 +140,19 @@
 
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                            <form action="admin.users.destroy" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                                </button>
-                            </form>
                         </button>
                     </div>
                 </form>
+                {{-- CONFLITO ENTRE OS DOIS FORMS
+                <div class="text-right mt-2">
+                    <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
+                        </button>
+                    </form>
+                </div>
+                --}}
             </div>
         </div>
     </section>
