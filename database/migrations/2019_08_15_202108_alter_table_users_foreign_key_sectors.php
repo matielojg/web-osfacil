@@ -14,8 +14,8 @@ class AlterTableUsersForeignKeySectors extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('sector_id')->nullable();
-            $table->foreign('sector_id')->references('id')->on('sectors');
+            $table->unsignedBigInteger('sector')->nullable();
+            $table->foreign('sector')->references('id')->on('sectors');
         });
     }
 

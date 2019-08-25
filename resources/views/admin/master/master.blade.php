@@ -49,6 +49,7 @@
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.users.index') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.users.create') }}">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.users.trashed') }}">Inativos</a></li>
                  </ul>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.order') }}">Ordens de Serviço</a>

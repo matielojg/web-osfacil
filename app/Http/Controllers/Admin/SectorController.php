@@ -102,8 +102,8 @@ class SectorController extends Controller
      */
     public function destroy(Sector $sector)
     {
-        Sector::find($sector)->delete();
-        return redirect(route('admin.sector'));
+        Sector::destroy($sector->id);
+        return redirect()->action('Admin\SectorController@index');
     }
 
     /**
