@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -11,8 +12,8 @@ class User extends Authenticatable
 {
     //protected $guarded= [];
 
-
-    use Notifiable;
+    use SoftDeletes;
+    //use Notifiable;
 
     /**
      * The attributes that are mass assignable.

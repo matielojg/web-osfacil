@@ -20,12 +20,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     //Route::group(['middleware' => ['auth']], function () {
 
         /** Dashboard Home */
-        Route::get('home', 'AuthController@home')->name('home');
+        Route::get('home', 'DashboardController@home')->name('home');
 
         /** User */
+        Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
         Route::resource('users', 'UserController');
-        Route::put('/users/update/{id}', 'UserController@update')->name('user.update');
-       // Route::get('/users', 'UserController@index')->name('users');
 
         /** Ordem de Serviço */
         Route::get('/ordem', 'OrderController@index')->name('order');
