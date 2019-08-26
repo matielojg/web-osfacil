@@ -84,6 +84,7 @@ class SectorController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $form_data = array(
             'name_sector' => $request->name_sector
         );

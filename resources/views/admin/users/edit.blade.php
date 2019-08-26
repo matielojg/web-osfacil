@@ -28,7 +28,7 @@
 
                 <form class="app_form" action=" {{ url('admin/users/update', ['id' =>$user->id]) }} " method="post"
                       enctype="multipart/form-data">
-                  <div class="nav_tabs_content">
+                    <div class="nav_tabs_content">
                         <div id="data">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
@@ -66,19 +66,19 @@
                                 </label>
                                 <label class="label">
                                     <span class="legend">*Função:</span>
-                                    <input type="text" name="function" value="{{ $user->function }}" />
 
-                                    {{-- <select name="function" class="form-control" required="ON">
-                                        <option value="$user->[function]"> {{ $user->function }} </option>
-                                        <option value="0"> funcionario</option>
-                                        <option value="1"> tecnico</option>
-                                        <option value="2"> supervisor</option>
-                                        <option value="3"> gerente</option>
+                                    <select name="function" class="form-control" required="ON">
+                                        <option value="{{$user->function}}"> {{ $user->function }} </option>
+                                        <option value="1"> funcionario</option>
+                                        <option value="2"> tecnico</option>
+                                        <option value="3"> supervisor</option>
+                                        <option value="4"> gerente</option>
                                     </select>
-                                    --}}
+
+                                    {{--
+                                    <input type="text" name="function" value="{{ $user->function }}" /> --}}
 
                                 </label>
-
                             </div>
                             <div class="label_g2">
                                 <label class="label">
@@ -380,12 +380,12 @@
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
 
-                           {{-- <form action="" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                                </button>
-                            </form> --}}
+                            {{-- <form action="" method="POST">
+                                 @csrf
+                                 @method('DELETE')
+                                 <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
+                                 </button>
+                             </form> --}}
                         </button>
                     </div>
                 </form>
