@@ -25,10 +25,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         /** User */
         Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
         Route::resource('users', 'UserController');
-//        Route::get('/usuario', 'UserController@index')->name('users.index');
-//        Route::get('/usuario/novo', 'UserController@create')->name('users.create');
-//        Route::put('/users/update/{id}', 'UserController@update')->name('user.update');
-//        Route::get('/users', 'UserController@index')->name('users');
 
         /** Ordem de Serviço */
         Route::get('/ordem', 'OrderController@index')->name('order');
