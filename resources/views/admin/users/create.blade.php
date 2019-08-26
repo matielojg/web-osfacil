@@ -31,11 +31,11 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Nome:</span>
-                                <input type="text" name="first-name" placeholder="Nome" value=""/>
+                                <input type="text" name="first_name" placeholder="Nome" value=""/>
                             </label>
                             <label class="label">
                                 <span class="legend">*Sobrenome:</span>
-                                <input type="text" name="last-name" placeholder="Sobrenome" value=""/>
+                                <input type="text" name="last_name" placeholder="Sobrenome" value=""/>
                             </label>
                         </div>
                         <div class="label_g2">
