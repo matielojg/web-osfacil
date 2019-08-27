@@ -55,7 +55,7 @@ class UserController extends Controller
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
             'function' => $request->function,
-            //'sector' => $request->sector,
+            'sector_id' => $request->sector_id,
         ];
 
         //var_dump($user);

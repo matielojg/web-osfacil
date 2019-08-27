@@ -38,7 +38,14 @@ class SectorController extends Controller
      */
     public function create()
     {
-        return view('admin.sectors.create');
+        // $sectors = Sector::all();
+        //        return view('admin.users.create')->with('sectors', $sectors);
+        $responsibles = DB::table('users')
+            ->select('users.*')
+            ->where('users.function', '=', 'supervisor')
+            ->get();
+        //  var_dump($responsibles);
+        return view('admin.sectors.create')->with('responsibles', $responsibles);
     }
 
     /**
@@ -51,6 +58,7 @@ class SectorController extends Controller
     {
         $sectorStore = new Sector();
         $sectorStore->name_sector = $request->get('name_sector');
+        $sectorStore->responsible = $request->get('responsible');
         $sectorStore->save();
         return redirect(route('admin.sector'));
     }
