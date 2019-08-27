@@ -39,7 +39,7 @@
                                     <select name="responsible" class="form-control" required="ON">
                                         @foreach ($responsibles as $responsible)
                                             <option
-                                                value="{{ $responsible->id }}" {{ ( $responsible->id == $sector->responsible) ? 'selected' : '' }}> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>
+                                                value="{{ $responsible->id }}" {{ ( $responsible->id == $sectorEdit->responsible) ? 'selected' : '' }}> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>
                                         @endforeach
                                     </select>
                                 </label>

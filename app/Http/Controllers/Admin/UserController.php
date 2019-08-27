@@ -7,6 +7,7 @@ use App\Sector;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,12 +18,12 @@ class UserController extends Controller
      */
     public function index()
     {
-            $users = DB::table('sectors')
-                ->join('users', 'users.sector_id', 'sectors.id')
-                ->select('users.*', 'sectors.name_sector')
-                ->where('users.deleted_at', null)
-                ->get();
-            return view('admin.users.index')->with('users', $users);
+        $users = DB::table('sectors')
+            ->join('users', 'users.sector_id', 'sectors.id')
+            ->select('users.*', 'sectors.name_sector')
+            ->where('users.deleted_at', null)
+            ->get();
+        return view('admin.users.index')->with('users', $users);
     }
 
     /**
@@ -50,7 +51,7 @@ class UserController extends Controller
             'document' => $request->document,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->newPassword),
             'primary_contact' => $request->primary_contact,
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
@@ -83,7 +84,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        $sectors = Sector::all();
+        $sectors = DB::table('sectors')->get();
 
         if (!empty($user)) {
             return view('admin.users.edit', [
