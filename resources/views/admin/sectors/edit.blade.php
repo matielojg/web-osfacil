@@ -36,11 +36,11 @@
 
                                 <label class="label">
                                     <span class="legend">*Responsável:</span>
-                                    <select name="genre">
-                                        <option value="">- Selecione -</option>
-                                        <option value="">Andrew Walmir</option>
-                                        <option value="">Diego Oliveira</option>
-                                        <option value="">Matielo Gern</option>
+                                    <select name="responsible" class="form-control" required="ON">
+                                        @foreach ($responsibles as $responsible)
+                                            <option
+                                                value="{{ $responsible->id }}" {{ ( $responsible->id == $sectorEdit->responsible) ? 'selected' : '' }}> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>
+                                        @endforeach
                                     </select>
                                 </label>
                             </div>
@@ -48,9 +48,9 @@
                     </div>
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                        </button>                        
+                        </button>
                     </div>
-                
+
                 </form>
             </div>
         </div>

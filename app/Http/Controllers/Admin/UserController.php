@@ -7,6 +7,7 @@ use App\Sector;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -17,12 +18,12 @@ class UserController extends Controller
      */
     public function index()
     {
-            $users = DB::table('sectors')
-                ->join('users', 'users.sector_id', 'sectors.id')
-                ->select('users.*', 'sectors.name_sector')
-                ->where('users.deleted_at', null)
-                ->get();
-            return view('admin.users.index')->with('users', $users);
+        $users = DB::table('sectors')
+            ->join('users', 'users.sector_id', 'sectors.id')
+            ->select('users.*', 'sectors.name_sector')
+            ->where('users.deleted_at', null)
+            ->get();
+        return view('admin.users.index')->with('users', $users);
     }
 
     /**
@@ -50,12 +51,12 @@ class UserController extends Controller
             'document' => $request->document,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->newPassword),
             'primary_contact' => $request->primary_contact,
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
             'function' => $request->function,
-            //'sector' => $request->sector,
+            'sector_id' => $request->sector_id,
         ];
 
         //var_dump($user);
@@ -83,7 +84,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        $sectors = Sector::all();
+        $sectors = DB::table('sectors')->get();
 
         if (!empty($user)) {
             return view('admin.users.edit', [
@@ -105,7 +106,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-      
+
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->document = $request->document;
@@ -116,6 +117,7 @@ class UserController extends Controller
         $user->secondary_contact = $request->secondary_contact;
         $user->photo = $request->photo;
         $user->function = $request->function;
+        $user->sector_id = $request->sector_id;
 
         $user->save();
 
