@@ -60,22 +60,21 @@
                                     <select name="sector" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
-                                                    value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }} </option>
+                                                value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </label>
                                 <label class="label">
                                     <span class="legend">*Função:</span>
-                                    <input type="text" name="function" value="{{ $user->function }}"/>
+                                    <select name="function" class="form-control" required="ON">
+                                        <option value="{{$user->function}}"> {{ $user->function }} </option>
+                                        <option value="1"> funcionario</option>
+                                        <option value="2"> tecnico</option>
+                                        <option value="3"> supervisor</option>
+                                        <option value="4"> gerente</option>
 
-                                    {{-- <select name="function" class="form-control" required="ON">
-                                        <option value="$user->[function]"> {{ $user->function }} </option>
-                                        <option value="0"> funcionario</option>
-                                        <option value="1"> tecnico</option>
-                                        <option value="2"> supervisor</option>
-                                        <option value="3"> gerente</option>
                                     </select>
-                                    --}}
 
                                 </label>
 

@@ -17,14 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->where('deleted_at', null);
-        $sector = Sector::all();
-
-        return view('admin.users.index', [
-            'users' => $users,
-            'sector' => $sector
-        ]);
-
+        $users = DB::table('sectors')
+            ->join('users', 'users.sector_id', 'sectors.id')
+            ->select('users.*', 'sectors.name_sector')
+            ->where('users.deleted_at', null)
+            ->get();
+        return view('admin.users.index')->with('users', $users);
     }
 
     /**
@@ -57,12 +55,12 @@ class UserController extends Controller
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
             'function' => $request->function,
-            //'sector' => $request->sector,
+            'sector_id' => $request->sector,
         ];
 
-        //var_dump($user);
         User::create($user);
-        return redirect()->action('Admin\UserController@index');
+        //return redirect()->action('Admin\UserController@index');
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -85,11 +83,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        //$sectors = DB::table('sectors')->get();
         $sectors = Sector::all();
-        //   $function = DB::table('users')->get('function');
-        //$function = DB::table('users')->select('function')->get();
-        //$function = DB::table('users')->[function]->get();
 
         if (!empty($user)) {
             return view('admin.users.edit', [
@@ -111,7 +105,6 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        //var_dump($user);
 
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -123,6 +116,7 @@ class UserController extends Controller
         $user->secondary_contact = $request->secondary_contact;
         $user->photo = $request->photo;
         $user->function = $request->function;
+        $user->sector_id = $request->sector;
 
         $user->save();
 
@@ -143,13 +137,14 @@ class UserController extends Controller
 
     public function trashed()
     {
-        $users = User::onlyTrashed()->get();
-        $sector = Sector::all();
+//      $users = User::onlyTrashed()->get();
 
-        return view('admin.users.index', [
-            'users' => $users,
-            'sector' => $sector
-        ]);
+        $users = DB::table('sectors')
+            ->join('users', 'users.sector_id', 'sectors.id')
+            ->select('users.*', 'sectors.name_sector')
+            ->where('users.deleted_at', '!=', null)
+            ->get();
+        return view('admin.users.indextrashed')->with('users', $users);
 
     }
 }

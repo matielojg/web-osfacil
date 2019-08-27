@@ -25,7 +25,6 @@
 
                 {{-- ADICIONER REQUIRED NOS CAMPOS--}}
 
-
                 <form class="app_form" action=" {{ route('admin.users.store') }}" method="post"
                       enctype="multipart/form-data">
                     @csrf
@@ -57,7 +56,9 @@
                                     <span class="legend">*Setor:</span>
                                     <select name="sector">
                                         @foreach ($sectors as $sector)
-                                            <option value="{{ $sector->id }}"> {{ $sector->name_sector }} </option>
+                                            <option
+                                                    value="{{ $sector->id }}"}}> {{ $sector->name_sector }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </label>
