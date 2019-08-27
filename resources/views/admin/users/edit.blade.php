@@ -60,7 +60,7 @@
                                     <select name="sector" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
-                                                    value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }} </option>
+                                                value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }} </option>
                                         @endforeach
                                     </select>
                                 </label>
@@ -73,12 +73,7 @@
                                         <option value="2"> tecnico</option>
                                         <option value="3"> supervisor</option>
                                         <option value="4"> gerente</option>
-
                                     </select>
-
-                                    {{--
-                                    <input type="text" name="function" value="{{ $user->function }}" /> --}}
-
                                 </label>
                             </div>
                             <div class="label_g2">
@@ -87,16 +82,12 @@
                                     <input type="file" name="cover">
                                 </label>
                             </div>
-
-
                             <div class="app_collapse mt-2">
                                 <div class="app_collapse_header collapse">
                                     <h3>Contato</h3>
                                     <span class="icon-plus-circle icon-notext"></span>
                                 </div>
-
                                 <div class="app_collapse_content d-none">
-
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">*Celular:</span>
@@ -141,14 +132,14 @@
 
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                        
+
                             {{-- <form action="" method="POST">
                                  @csrf
                                  @method('DELETE')
                                  <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
                                  </button>
                              </form> --}}
-                             
+
                         </button>
                     </div>
                 </form>

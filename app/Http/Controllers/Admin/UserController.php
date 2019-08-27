@@ -105,7 +105,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-      
+
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->document = $request->document;
@@ -116,6 +116,7 @@ class UserController extends Controller
         $user->secondary_contact = $request->secondary_contact;
         $user->photo = $request->photo;
         $user->function = $request->function;
+        $user->sector_id = $request->sector_id;
 
         $user->save();
 

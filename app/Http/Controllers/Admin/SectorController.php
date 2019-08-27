@@ -18,9 +18,17 @@ class SectorController extends Controller
 
     public function index()
     {
-        $sectors = Sector::all()->where('deleted_at', null);
+        // $sectors = Sector::all()->where('deleted_at', null);
+
+
+        $sectors = DB::table('users')
+            ->join('sectors', 'sectors.responsible', 'users.id')
+            ->select('sectors.*', 'users.first_name', 'users.last_name')
+            ->where('sectors.deleted_at', null)
+            ->where('users.function', '=', 'supervisor')
+            ->get();
+        // var_dump($sectors);
         return view('admin.sectors/index')->with('sectors', $sectors);
-        //$sectors = DB::select('select * from sectors where active = 1');
     }
 
     /**
