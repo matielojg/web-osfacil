@@ -60,24 +60,25 @@
                                     <select name="sector" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
-                                                value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }}
+                                                    value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </label>
                                 <label class="label">
                                     <span class="legend">*Função:</span>
+
                                     <select name="function" class="form-control" required="ON">
                                         <option value="{{$user->function}}"> {{ $user->function }} </option>
-                                        <option value="1"> funcionario</option>
-                                        <option value="2"> tecnico</option>
-                                        <option value="3"> supervisor</option>
-                                        <option value="4"> gerente</option>
+                                        <option value="1"> Funcionário</option>
+                                        <option value="2"> Técnico</option>
+                                        <option value="3"> Supervisor</option>
+                                        <option value="4"> Gerente</option>
 
                                     </select>
 
-                                </label>
 
+                                </label>
                             </div>
                             <div class="label_g2">
                                 <label class="label">
@@ -85,16 +86,12 @@
                                     <input type="file" name="cover">
                                 </label>
                             </div>
-
-
                             <div class="app_collapse mt-2">
                                 <div class="app_collapse_header collapse">
                                     <h3>Contato</h3>
                                     <span class="icon-plus-circle icon-notext"></span>
                                 </div>
-
                                 <div class="app_collapse_content d-none">
-
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">*Celular:</span>
@@ -137,12 +134,22 @@
 
                     </div>
 
+                    <div class="btn-flex">
+
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+
+                            {{-- <form action="" method="POST">
+                                 @csrf
+                                 @method('DELETE')
+                                 <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
+                                 </button>
+                             </form> --}}
+
                         </button>
                     </div>
                 </form>
-                {{-- CONFLITO ENTRE OS DOIS FORMS
+
                 <div class="text-right mt-2">
                     <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
                         @csrf
@@ -151,7 +158,8 @@
                         </button>
                     </form>
                 </div>
-                --}}
+            </div>
+
             </div>
         </div>
     </section>

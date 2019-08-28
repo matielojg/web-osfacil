@@ -43,17 +43,19 @@
                             <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                                    class="text-green">{{ ucfirst($user->name_sector) }}</a></td>
 
-                            <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
+                            <td><a href="{{ route('admin.users.restore', ['id'=>$user->id]) }}"
                                    class="text-green">{{ucfirst($user->function) }}</a></td>
                             <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                                    class="text-green">{{ $user->email }}</a></td>
                             <td>
-                                <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
+                              <a href="{{ route('admin.users.restore', ['id'=>$user->id]) }}"
+                                 class="btn btn-yellow ml-1 icon-check-square-o">Restaurar</a>
+                                <!-- <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-yellow ml-1 icon-check-square-o" type="submit">Restaurar
                                     </button>
-                                </form>
+                                </form> -->
                         </tr>
                     @endforeach
                     </tbody>

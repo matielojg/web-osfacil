@@ -7,6 +7,7 @@ use App\Sector;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -50,7 +51,7 @@ class UserController extends Controller
             'document' => $request->document,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->newPassword),
             'primary_contact' => $request->primary_contact,
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
@@ -121,6 +122,7 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->action('Admin\UserController@index');
+
     }
 
     /**
@@ -135,6 +137,18 @@ class UserController extends Controller
         return redirect()->action('Admin\UserController@index');
     }
 
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->where('id', $id)->first();
+
+        if ($user->trashed()) {
+            $user->restore();
+        }
+
+        return redirect()->route('admin.users.index');
+
+    }
+
     public function trashed()
     {
 //      $users = User::onlyTrashed()->get();
@@ -147,4 +161,5 @@ class UserController extends Controller
         return view('admin.users.indextrashed')->with('users', $users);
 
     }
+
 }

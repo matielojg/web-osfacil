@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** User */
         Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
+        Route::get('/users/{id}/restore', 'UserController@restore')->name('users.restore');
         Route::resource('users', 'UserController');
 
         /** Ordem de Serviço */
