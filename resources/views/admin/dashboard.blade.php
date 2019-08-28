@@ -12,9 +12,9 @@
                 <section class="app_dash_home_stats">
                     <article class="control radius">
                         <h4 class="icon-users">Usuários</h4>
-                        <p><b>Supervisores:</b> 2</p>
-                        <p><b>Funcionários:</b> 46</p>
-                        <p><b>Técnicos:</b> 12</p>
+                        <p><b>Supervisores:</b> {{ $supervisor }} </p>
+                        <p><b>Funcionários:</b> {{ $employee }} </p>
+                        <p><b>Técnicos:</b> {{ $technician }} </p>
                     </article>
 
                     <article class="blog radius">

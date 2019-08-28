@@ -60,7 +60,6 @@ class UserController extends Controller
         ];
 
         User::create($user);
-        //return redirect()->action('Admin\UserController@index');
         return redirect()->route('admin.users.index');
     }
 
@@ -134,7 +133,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         User::destroy($user->id);
-        return redirect()->action('Admin\UserController@index');
+        return redirect()->route('admin.users.index');
     }
 
     public function restore($id)
@@ -151,15 +150,12 @@ class UserController extends Controller
 
     public function trashed()
     {
-//      $users = User::onlyTrashed()->get();
-
         $users = DB::table('sectors')
             ->join('users', 'users.sector_id', 'sectors.id')
             ->select('users.*', 'sectors.name_sector')
             ->where('users.deleted_at', '!=', null)
             ->get();
         return view('admin.users.indextrashed')->with('users', $users);
-
     }
 
 }

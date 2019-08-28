@@ -54,7 +54,7 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Setor:</span>
-                                    <select name="sector_id">
+                                    <select name="sector">
                                         @foreach ($sectors as $sector)
                                             <option
                                                     value="{{ $sector->id }}"}}> {{ $sector->name_sector }}

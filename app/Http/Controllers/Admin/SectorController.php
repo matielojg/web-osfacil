@@ -121,10 +121,10 @@ class SectorController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sector $sector)
+    public function destroy($id)
     {
-        Sector::destroy($sector->id);
-        return redirect()->action('Admin\SectorController@index');
+        Sector::destroy($id);
+        return redirect()->route('admin.sector');
     }
 
     /**

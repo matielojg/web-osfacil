@@ -9,7 +9,8 @@
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
-                    <ul><li><a class="text-green" href="{{ route('admin.home') }}">Dashboard</a></li>
+                    <ul>
+                        <li><a class="text-green" href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
@@ -37,25 +38,14 @@
                     @foreach($users as $user)
                         <tr>
                             <td>#{{$user->id}}</td>
-                            <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
-                                   class="text-green"> {{$user->first_name}}  {{$user->last_name}} </a></td>
-
-                            <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
-                                   class="text-green">{{ ucfirst($user->name_sector) }}</a></td>
-
-                            <td><a href="{{ route('admin.users.restore', ['id'=>$user->id]) }}"
-                                   class="text-green">{{ucfirst($user->function) }}</a></td>
-                            <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
-                                   class="text-green">{{ $user->email }}</a></td>
+                            <td><a class="text-green"> {{$user->first_name}}  {{$user->last_name}} </a></td>
+                            <td><a class="text-green">{{ ucfirst($user->name_sector) }}</a></td>
+                            <td><a class="text-green">{{ucfirst($user->function) }}</a></td>
+                            <td><a class="text-green">{{ $user->email }}</a></td>
                             <td>
-                              <a href="{{ route('admin.users.restore', ['id'=>$user->id]) }}"
-                                 class="btn btn-yellow ml-1 icon-check-square-o">Restaurar</a>
-                                <!-- <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-yellow ml-1 icon-check-square-o" type="submit">Restaurar
-                                    </button>
-                                </form> -->
+                                <a href="{{ route('admin.users.restore', ['id'=>$user->id]) }}"
+                                   class="btn btn-yellow ml-1 icon-check-square-o">Restaurar</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

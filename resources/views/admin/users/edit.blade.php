@@ -135,31 +135,21 @@
                     </div>
 
                     <div class="btn-flex">
-
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-
-                            {{-- <form action="" method="POST">
-                                 @csrf
-                                 @method('DELETE')
-                                 <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                                 </button>
-                             </form> --}}
-
-                        </button>
+                        <div class="mt-2">
+                            <button
+                                    class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                            </button>
+                        </div>
+                        </form>
+                        <div class="mt-2">
+                            <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
+                            </button>
+                            </form>
+                        </div>
                     </div>
-                </form>
-
-                <div class="text-right mt-2">
-                    <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                        </button>
-                    </form>
-                </div>
-            </div>
-
             </div>
         </div>
     </section>
