@@ -56,6 +56,8 @@
                                 <label class="label">
                                     <span class="legend">*Setor:</span>
                                     <select name="sector_id">
+                                        <option
+                                            value=""> ::Selecione o setor::</option>
                                         @foreach ($sectors as $sector)
                                             <option value="{{ $sector->id }}"> {{ $sector->name_sector }} </option>
                                         @endforeach
@@ -64,6 +66,7 @@
                                 <label class="label">
                                     <span class="legend">*Função:</span>
                                     <select name="function">
+                                        <option value=""> ::Selecione a função::</option>
                                         <option value="funcionario">Funcionário</option>
                                         <option value="tecnico">Técnico</option>
                                         <option value="supervisor">Supervisor</option>

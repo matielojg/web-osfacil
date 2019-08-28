@@ -57,7 +57,7 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Setor:</span>
-                                    <select name="sector" class="form-control" required="ON">
+                                    <select name="sector_id" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
                                                 value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector}}  </option>

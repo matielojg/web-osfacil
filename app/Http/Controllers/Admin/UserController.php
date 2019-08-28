@@ -84,7 +84,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-        $sectors = DB::table('sectors')->get();
+        $sectors = Sector::all();
 
         if (!empty($user)) {
             return view('admin.users.edit', [
