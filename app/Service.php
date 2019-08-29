@@ -9,6 +9,6 @@ class Service extends Model
 {
     use SoftDeletes;
     protected $table = 'services';
-    protected $fillable = ['name_service','name_sector'];
+    protected $fillable = ['name_service'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }

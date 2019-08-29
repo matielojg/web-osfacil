@@ -58,16 +58,16 @@
                     <li class=""><a href="{{ route('admin.order.create') }}">Criar Nova</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-columns" href="">Setores</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.sector.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="">Serviços</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
-                    <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.services.index') }}">Ver Todos</a></li>
+                    <li class=""><a href="{{ route('admin.services.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
 

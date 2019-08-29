@@ -3301,6 +3301,11 @@ a.text-orange:hover {
   background-color: #414141;
 }
 
+.btn-flex {
+  display: flex;
+  align-self: flex-end;
+}
+
 .btn-small {
   padding: 2px 4px;
 }

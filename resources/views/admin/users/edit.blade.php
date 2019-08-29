@@ -57,10 +57,11 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Setor:</span>
-                                    <select name="sector_id" class="form-control" required="ON">
+                                    <select name="sector" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
-                                                value="{{ $sector->id }}" {{ ( $sector->id == $user->sector_id) ? 'selected' : '' }}> {{ $sector->name_sector}}  </option>
+                                                    value="{{ $sector->id }}" {{ ( $sector->id == $user->sector) ? 'selected' : '' }}> {{ $sector->name_sector }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </label>
@@ -69,11 +70,14 @@
 
                                     <select name="function" class="form-control" required="ON">
                                         <option value="{{$user->function}}"> {{ $user->function }} </option>
-                                        <option value="1"> funcionario</option>
-                                        <option value="2"> tecnico</option>
-                                        <option value="3"> supervisor</option>
-                                        <option value="4"> gerente</option>
+                                        <option value="1"> Funcionário</option>
+                                        <option value="2"> Técnico</option>
+                                        <option value="3"> Supervisor</option>
+                                        <option value="4"> Gerente</option>
+
                                     </select>
+
+
                                 </label>
                             </div>
                             <div class="label_g2">
@@ -130,29 +134,22 @@
 
                     </div>
 
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-
-                            {{-- <form action="" method="POST">
-                                 @csrf
-                                 @method('DELETE')
-                                 <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                                 </button>
-                             </form> --}}
-
-                        </button>
+                    <div class="btn-flex">
+                        <div class="mt-2">
+                            <button
+                                    class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                            </button>
+                        </div>
+                        </form>
+                        <div class="mt-2">
+                            <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
+                            </button>
+                            </form>
+                        </div>
                     </div>
-                </form>
-                {{-- CONFLITO ENTRE OS DOIS FORMS
-                <div class="text-right mt-2">
-                    <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                        </button>
-                    </form>
-                </div>
-                --}}
             </div>
         </div>
     </section>

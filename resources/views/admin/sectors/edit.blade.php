@@ -36,22 +36,32 @@
 
                                 <label class="label">
                                     <span class="legend">*Responsável:</span>
-                                    <select name="responsible" class="form-control" required="ON">
+                                    <select name="responsible" class="form-control">
                                         @foreach ($responsibles as $responsible)
                                             <option
-                                                value="{{ $responsible->id }}" {{ ( $responsible->id == $sectorEdit->responsible) ? 'selected' : '' }}> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>
+                                                value="{{ $responsible->id }}" {{ ( $responsible->id == $sectorEdit->responsible) ? 'selected' : '' }}> {{ $responsible->first_name}} {{ $responsible->last_name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="text-right mt-2">
+                    <div class="btn-flex">
+                    <div class="mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                     </div>
+                    </form>
+                    <div class="mt-2">
+                        <form action="{{ route('admin.sector.destroy', ['id' => $sectorEdit->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                </div>
 
-                </form>
             </div>
         </div>
     </section>
