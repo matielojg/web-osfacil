@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** User */
         Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
+        Route::get('/users/{id}/restore', 'UserController@restore')->name('users.restore');
         Route::resource('users', 'UserController');
 
         /** Ordem de Serviço */
@@ -40,11 +41,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
 
-
-    //});
+        /**Servicos */
+        Route::resource('services', 'ServiceController');
+        Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');
 
     /** Logout */
-    Route::get('logout', 'AuthController@logout')->name('logout');
+        Route::get('logout', 'AuthController@logout')->name('logout');
 
 });
 

@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = DB::table('sectors')
-            ->join('users', 'users.sector_id', 'sectors.id')
+            ->join('users', 'users.sector', 'sectors.id')
             ->select('users.*', 'sectors.name_sector')
             ->where('users.deleted_at', null)
             ->get();
@@ -56,12 +56,11 @@ class UserController extends Controller
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
             'function' => $request->function,
-            'sector_id' => $request->sector_id,
+            'sector' => $request->sector,
         ];
 
-        //var_dump($user);
         User::create($user);
-        return redirect()->action('Admin\UserController@index');
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -117,7 +116,7 @@ class UserController extends Controller
         $user->secondary_contact = $request->secondary_contact;
         $user->photo = $request->photo;
         $user->function = $request->function;
-        $user->sector_id = $request->sector_id;
+        $user->sector= $request->sector;
 
         $user->save();
 
@@ -134,18 +133,29 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         User::destroy($user->id);
-        return redirect()->action('Admin\UserController@index');
+        return redirect()->route('admin.users.index');
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->where('id', $id)->first();
+
+        if ($user->trashed()) {
+            $user->restore();
+        }
+
+        return redirect()->route('admin.users.index');
+
     }
 
     public function trashed()
     {
-        $users = User::onlyTrashed()->get();
-        $sector = Sector::all();
-
-        return view('admin.users.index', [
-            'users' => $users,
-            'sector' => $sector
-        ]);
-
+        $users = DB::table('sectors')
+            ->join('users', 'users.sector', 'sectors.id')
+            ->select('users.*', 'sectors.name_sector')
+            ->where('users.deleted_at', '!=', null)
+            ->get();
+        return view('admin.users.indextrashed')->with('users', $users);
     }
+
 }
