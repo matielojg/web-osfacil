@@ -14,8 +14,8 @@ class AlterTableActionsForeignKeyOrder extends Migration
     public function up()
     {
         Schema::table('actions', function (Blueprint $table) {
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->unsignedBigInteger('order');
+            $table->foreign('order')->references('id')->on('orders');
         });
     }
 
@@ -27,7 +27,7 @@ class AlterTableActionsForeignKeyOrder extends Migration
     public function down()
     {
         Schema::table('actions', function (Blueprint $table) {
-            $table->dropForeign('order_id');
+            $table->dropForeign('order');
         });
     }
 }

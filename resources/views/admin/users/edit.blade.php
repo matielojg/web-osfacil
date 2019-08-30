@@ -60,7 +60,7 @@
                                     <select name="sector" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
-                                                    value="{{ $sector->id }}" {{ ( $sector->id == $user->sector) ? 'selected' : '' }}> {{ $sector->name_sector }}
+                                                value="{{ $sector->id }}" {{ ( $sector->id == $user->sector) ? 'selected' : '' }} > {{ $sector->name_sector }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -69,7 +69,7 @@
                                     <span class="legend">*Função:</span>
 
                                     <select name="function" class="form-control" required="ON">
-                                        <option value="{{$user->function}}"> {{ $user->function }} </option>
+                                        <option value="{{$user->function}}"> {{ ucfirst($user->function) }} </option>
                                         <option value="1"> Funcionário</option>
                                         <option value="2"> Técnico</option>
                                         <option value="3"> Supervisor</option>
@@ -137,20 +137,20 @@
                     <div class="btn-flex">
                         <div class="mt-2">
                             <button
-                                    class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                                class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                             </button>
                         </div>
-                        </form>
-                        <div class="mt-2">
-                            <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
-                            </button>
-                            </form>
-                        </div>
-                    </div>
+                </form>
+                <div class="mt-2">
+                    <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir Usuário
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection

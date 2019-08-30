@@ -12,11 +12,11 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-green">Ordens de Serviço</a></li>
+                        <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
                     </ul>
                 </nav>
 
-                <a href="{{ route('admin.order.create') }}" class="btn btn-green ml-1">Nova Ordem</a>
+                <a href="{{ route('admin.orders.create') }}" class="btn btn-green ml-1">Nova Ordem</a>
 
             </div>
         </header>
@@ -38,17 +38,28 @@
                     </thead>
                     <tbody>
 
+                    @foreach($orders as $order)
 
-                    <tr>
-                        <td> #1</td>
-                        <td><a href="" class="text-green">Marcela Turim</a></td>
-                        <td><a href="" class="text-green">Manutenção</a></td>
-                        <td><a href="" class="text-green">Urgente</a></td>
-                        <td><a href="" class="text-green">Aberto</a></td>
-                        <td><a href="" class="text-green">22/08/2019</a></td>
-                        <td><a href="" class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
-                    </tr>
+                        <tr>
+                            <td> #{{$order->id}}</td>
+                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ $order->first_name }} {{ $order->last_name }}</a></td>
 
+                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                   class="text-green"> {{$order->name_sector}}</a>
+                            </td>
+
+                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ ucfirst($order->priority) }}</a></td>
+                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ ucfirst($order->status) }}</a></td>
+                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ $order->created_at }}</a></td>
+                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
+                            {{--                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}" class="text-green"> {{ ( $sector->id == $order->sector_provider_id) ? 'selected' : '' }} > {{ $sector->name_sector }}</a></td>--}}
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

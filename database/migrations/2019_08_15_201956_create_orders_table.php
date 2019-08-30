@@ -20,20 +20,20 @@ class CreateOrdersTable extends Migration
             $table->enum('priority', ['baixa', 'media', 'alta', 'critica']);
             $table->enum('type_service', ['corretiva', 'preventiva']);
             $table->date('closed_at')->nullable();
-            $table->unsignedBigInteger('user_requester_id');
-            $table->unsignedBigInteger('user_responsible_id')->nullable();
-            $table->unsignedBigInteger('sector_requester_id');
-            $table->unsignedBigInteger('sector_provider_id');
-            $table->unsignedBigInteger('evaluation_id')->nullable();
-            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('requester');
+            $table->unsignedBigInteger('responsible')->nullable();
+            $table->unsignedBigInteger('sector_requester');
+            $table->unsignedBigInteger('sector_provider');
+            $table->unsignedBigInteger('evaluation')->nullable();
+            $table->unsignedBigInteger('service');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_requester_id')->references('id')->on('users');
-            $table->foreign('user_responsible_id')->references('id')->on('users');
-            $table->foreign('sector_requester_id')->references('id')->on('sectors');
-            $table->foreign('sector_provider_id')->references('id')->on('sectors');
-            $table->foreign('evaluation_id')->references('id')->on('evaluations');
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('requester')->references('id')->on('users');
+            $table->foreign('responsible')->references('id')->on('users');
+            $table->foreign('sector_requester')->references('id')->on('sectors');
+            $table->foreign('sector_provider')->references('id')->on('sectors');
+            $table->foreign('evaluation')->references('id')->on('evaluations');
+            $table->foreign('service')->references('id')->on('services');
         });
     }
 

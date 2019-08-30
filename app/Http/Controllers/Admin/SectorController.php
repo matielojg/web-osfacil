@@ -18,12 +18,15 @@ class SectorController extends Controller
 
     public function index()
     {
-        $sectors = DB::table('users')
-            ->join('sectors', 'sectors.responsible', 'users.id')
+        $sectors = DB::table('sectors')
+            ->leftJoin('users', 'users.id', 'sectors.responsible')
             ->select('sectors.*', 'users.first_name', 'users.last_name')
             ->whereNull('sectors.deleted_at')
             ->where('users.function', '=', 'supervisor')
+            ->orWhereNull('sectors.responsible')
             ->get();
+
+
         return view('admin.sectors.index')->with('sectors', $sectors);
     }
 
