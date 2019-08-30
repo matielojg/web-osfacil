@@ -21,7 +21,7 @@ class UserController extends Controller
         $users = DB::table('sectors')
             ->join('users', 'users.sector', 'sectors.id')
             ->select('users.*', 'sectors.name_sector')
-            ->where('users.deleted_at', null)
+            ->whereNull('users.deleted_at')
             ->get();
         return view('admin.users.index')->with('users', $users);
     }

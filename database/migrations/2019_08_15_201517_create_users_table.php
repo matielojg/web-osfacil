@@ -19,13 +19,13 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('document')->unique();
-            $table->string('email')->unique()->nullable();
-            $table->string('username')->unique();
+            $table->string('document')->unique(true);
+            $table->string('email')->unique(true);
+            $table->string('username')->unique(true);
             $table->string('password');
             $table->string('primary_contact');
-            $table->string('secondary_contact')->nullable();
-            $table->string('photo')->nullable();
+            $table->string('secondary_contact')->nullable(true);
+            $table->string('photo')->nullable(true);
             $table->enum('function', ['funcionario', 'tecnico', 'supervisor', 'gerente']);
             $table->timestamps();
             $table->softDeletes();

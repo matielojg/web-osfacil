@@ -52,10 +52,10 @@
                     <li class=""><a href="{{ route('admin.users.trashed') }}">Inativos</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.order') }}">Ordens de Serviço</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.order') }}">Ver Todas</a></li>
-                    <li class=""><a href="{{ route('admin.order.create') }}">Criar Nova</a></li>
+                    <li class=""><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
+                    <li class=""><a href="{{ route('admin.orders.create') }}">Criar Nova</a></li>
                  </ul>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
