@@ -18,16 +18,15 @@ class SectorController extends Controller
 
     public function index()
     {
-        // $sectors = Sector::all()->where('deleted_at', null);
-
-
-        $sectors = DB::table('users')
-            ->join('sectors', 'sectors.responsible', 'users.id')
+        $sectors = DB::table('sectors')
+            ->leftJoin('users', 'users.id', 'sectors.responsible')
             ->select('sectors.*', 'users.first_name', 'users.last_name')
-            ->where('sectors.deleted_at', null)
+            ->whereNull('sectors.deleted_at')
             ->where('users.function', '=', 'supervisor')
+            ->orWhereNull('sectors.responsible')
             ->get();
-        // var_dump($sectors);
+
+
         return view('admin.sectors.index')->with('sectors', $sectors);
     }
 
@@ -41,7 +40,7 @@ class SectorController extends Controller
         $responsibles = DB::table('users')
             ->select('users.*')
             ->where('users.function', '=', 'supervisor')
-            ->where('users.deleted_at', null)
+            ->whereNull('users.deleted_at')
             ->get();
         //  var_dump($responsibles);
         return view('admin.sectors.create')->with('responsibles', $responsibles);
@@ -107,7 +106,7 @@ class SectorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $sector=Sector::find($id);
+        $sector = Sector::find($id);
         $sector->name_sector = $request->name_sector;
         $sector->responsible = $request->responsible;
         $sector->save();
@@ -128,19 +127,9 @@ class SectorController extends Controller
     }
 
     /**
-     * Função para desabilitar setor
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * retorna apenas setores excluidos
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function disable($id)
-    {
-        $sector = Sector::find($id);
-        $sector->deleted_at = now();
-        $sector->save();
-        return redirect(route('admin.sector'));
-    }
-
     public function trashed()
     {
         $sectors = Sector::onlyTrashed()->get();

@@ -19,9 +19,9 @@ class UserController extends Controller
     public function index()
     {
         $users = DB::table('sectors')
-            ->join('users', 'users.sector_id', 'sectors.id')
+            ->join('users', 'users.sector', 'sectors.id')
             ->select('users.*', 'sectors.name_sector')
-            ->where('users.deleted_at', null)
+            ->whereNull('users.deleted_at')
             ->get();
         return view('admin.users.index')->with('users', $users);
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
             'function' => $request->function,
-            'sector_id' => $request->sector,
+            'sector' => $request->sector,
         ];
 
         User::create($user);
@@ -116,7 +116,7 @@ class UserController extends Controller
         $user->secondary_contact = $request->secondary_contact;
         $user->photo = $request->photo;
         $user->function = $request->function;
-        $user->sector_id = $request->sector;
+        $user->sector= $request->sector;
 
         $user->save();
 
@@ -160,7 +160,7 @@ class UserController extends Controller
     public function trashed()
     {
         $users = DB::table('sectors')
-            ->join('users', 'users.sector_id', 'sectors.id')
+            ->join('users', 'users.sector', 'sectors.id')
             ->select('users.*', 'sectors.name_sector')
             ->where('users.deleted_at', '!=', null)
             ->get();

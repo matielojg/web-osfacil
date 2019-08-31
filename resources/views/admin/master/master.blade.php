@@ -52,22 +52,22 @@
                     <li class=""><a href="{{ route('admin.users.trashed') }}">Inativos</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.order') }}">Ordens de Serviço</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.order') }}">Ver Todas</a></li>
-                    <li class=""><a href="{{ route('admin.order.create') }}">Criar Nova</a></li>
+                    <li class=""><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
+                    <li class=""><a href="{{ route('admin.orders.create') }}">Criar Nova</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-columns" href="">Setores</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.sector.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="">Serviços</a>
+            <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="dashboard.php?app=users/index">Ver Todos</a></li>
-                    <li class=""><a href="dashboard.php?app=users/create">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.services.index') }}">Ver Todos</a></li>
+                    <li class=""><a href="{{ route('admin.services.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
 

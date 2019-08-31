@@ -28,9 +28,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('users', 'UserController');
 
         /** Ordem de Serviço */
-        Route::get('/ordem', 'OrderController@index')->name('order');
-        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
-        Route::get('/ordem/editar', 'OrderController@edit')->name('order.edit');
+        Route::resource('orders', 'OrderController');
+//        Route::get('/ordem', 'OrderController@index')->name('order');
+//        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
+//        Route::get('/ordem/editar', 'OrderController@edit')->name('order.edit');
 
         /** Setores */
         Route::get('/setor', 'SectorController@index')->name('sector');
@@ -41,11 +42,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
 
-
-    //});
+        /**Servicos */
+        Route::resource('services', 'ServiceController');
+        Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');
 
     /** Logout */
-    Route::get('logout', 'AuthController@logout')->name('logout');
+        Route::get('logout', 'AuthController@logout')->name('logout');
 
 });
 

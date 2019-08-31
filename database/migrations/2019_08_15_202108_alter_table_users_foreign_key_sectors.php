@@ -27,7 +27,7 @@ class AlterTableUsersForeignKeySectors extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('sector_id');
+            $table->dropForeign('sector');
         });
     }
 }
