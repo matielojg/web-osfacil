@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Order;
+use App\Sector;
+use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,21 +24,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-
-//        $users = DB::table('users')
-//            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-//            ->join('orders', 'users.id', '=', 'orders.user_id')
-//            ->select('users.*', 'contacts.phone', 'orders.price')
-//            ->get();
-
-
         $orders = DB::table('orders')
             ->join('users', 'orders.requester', '=', 'users.id')
             ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
             ->join('services', 'orders.service', '=', 'services.id')
             ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
             ->get();
-
         return view('admin.orders.index')->with('orders', $orders);
     }
 
@@ -47,8 +40,20 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //return view('admin.orders.create');
-        return redirect(route('admin.order.edit'));
+        //$sectors = Sector::all();
+        $sectors=DB::table('sectors')->get();
+        $services = DB::table('services')->get();
+
+
+
+        if(!empty($sectors)){
+        return view('admin.orders.create', [
+            'sectors' => $sectors,
+            'services' => $services,
+        ]);
+        }else{
+            return redirect()->action('Admin\OrderController@index');
+        }
     }
 
     /**

@@ -40,7 +40,7 @@ class SectorController extends Controller
         $responsibles = DB::table('users')
             ->select('users.*')
             ->where('users.function', '=', 'supervisor')
-            ->where('users.deleted_at', null)
+            ->whereNull('users.deleted_at')
             ->get();
         //  var_dump($responsibles);
         return view('admin.sectors.create')->with('responsibles', $responsibles);

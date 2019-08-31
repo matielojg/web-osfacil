@@ -12,9 +12,9 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.order') }}" class="text-green">Ordens de Serviço</a></li>
+                        <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-red">Nova Ordem</a></li>
+                        <li><a href="{{ route('admin.orders.create') }}" class="text-red">Nova Ordem</a></li>
                     </ul>
                 </nav>
             </div>
@@ -22,8 +22,9 @@
 
         <div class="dash_content_app_box">
             <div class="nav">
-                <form class="app_form" action="" method="post" enctype="multipart/form-data">
-
+                <form class="app_form" action="{{ route('admin.orders.store') }}" method="post"
+                      enctype="multipart/form-data">
+                    @csrf
                     <div class="nav_tabs_content">
 
 
@@ -31,48 +32,57 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Setor Solicitante:</span>
+
                                     <select name="genre">
-                                        <option value="">--Selecione--</option>
-                                        <option value="">Marketing</option>
-                                        <option value="">Cozinha</option>
-                                        <option value="">Reservas</option>
+                                        @foreach($sectors as $sector)
+                                            <option value="sector_requester">--Selecione--</option>
+                                        @endforeach
                                     </select>
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">*Setor Responsável:</span>
-                                    <select name="genre">
-                                        <option value="">--Selecione--</option>
-                                        <option value="">Manutenção</option>
-                                        <option value="">Zeladoria</option>
+
+                                    <select name="sector_provider">
+                                        @foreach($sectors as $sector)
+                                            <option value="">--Selecione--</option>
+                                        @endforeach
                                     </select>
+
                                 </label>
                             </div>
 
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Serviço:</span>
-                                    <select name="genre">
-                                        <option value="">--Selecione--</option>
-                                        <option value="">Marketing</option>
-                                        <option value="">Cozinha</option>
-                                        <option value="">Reservas</option>
+                                    <span class="legend">*Setor:</span>
+
+                                    <select name="sector">
+                                        <option
+                                            value=""> ::Selecione o setor::
+                                        </option>
+                                        @foreach ($sectors as $sector)
+                                            <option
+                                                value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">*Prioridade:</span>
-                                    <select name="genre">
+                                    <select name="priority">
                                         <option value="">--Selecione--</option>
-                                        <option value="">Manutenção</option>
-                                        <option value="">Zeladoria</option>
+                                        <option value="">--Selecione--</option>
+                                        <option value="">--Selecione--</option>
+                                        <option value="">--Selecione--</option>
                                     </select>
+
                                 </label>
                             </div>
                             <div class="label">
                                 <label class="label">
                                     <span class="legend">*Descreva o Problema:</span>
-                                    <textarea name="name" placeholder="Descreva o Problema" value=""></textarea>
+                                    <textarea name="description" placeholder="Descreva o Problema" value=""></textarea>
                                 </label>
                             </div>
 
@@ -122,9 +132,12 @@
                                     <span class="legend">*Status:</span>
                                     <select name="status">
                                         <option value="">--Selecione--</option>
-                                        <option value="">Concluído</option>
-                                        <option value="">Pendente</option>
+                                        <option value="1">Concluído</option>
+                                        <option value="2">Pendente</option>
+                                        <option value="2">Em execução</option>
+                                        <option value="2">Pendente</option>
                                     </select>
+
                                 </label>
                             </div>
                             <div class="label">
@@ -137,7 +150,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="text-right mt-2">
