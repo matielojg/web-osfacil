@@ -14,7 +14,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="#" class="text-red">Criar Usuário</a></li>
+                        <li><a href="{{ route('admin.users.create') }}" class="text-red">Criar Usuário</a></li>
                     </ul>
                 </nav>
             </div>
@@ -28,6 +28,7 @@
                 <form class="app_form" action=" {{ route('admin.users.store') }}" method="post"
                       enctype="multipart/form-data">
                     @csrf
+
                     <div class="nav_tabs_content">
                         <div id="data">
                             <div class="label_g2">
