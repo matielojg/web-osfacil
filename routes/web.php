@@ -19,7 +19,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     /** Rotas Protegidas */
     //Route::group(['middleware' => ['auth']], function () {
 
-        /** Dashboard Home */
+        /** Dashboards*/
         Route::get('home', 'DashboardController@home')->name('home');
 
         /** User */
