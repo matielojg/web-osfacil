@@ -40,9 +40,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //$sectors = Sector::all();
-        $sectors=DB::table('sectors')->get();
-        $services = DB::table('services')->get();
+        $sectors = Sector::all();
+        $services = Service::all();
+
 
 
 
