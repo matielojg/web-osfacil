@@ -31,11 +31,11 @@
                         <div id="data">
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Setor Solicitante:</span>
+                                    <span class="legend">*Usuario Solicitante:</span>
 
-                                    <select name="genre">
+                                    <select name="sector_requester">
                                         @foreach($sectors as $sector)
-                                            <option value="sector_requester">--Selecione--</option>
+                                            <option value="">--Selecione--</option>
                                         @endforeach
                                     </select>
                                 </label>
@@ -72,9 +72,10 @@
                                     <span class="legend">*Prioridade:</span>
                                     <select name="priority">
                                         <option value="">--Selecione--</option>
-                                        <option value="">--Selecione--</option>
-                                        <option value="">--Selecione--</option>
-                                        <option value="">--Selecione--</option>
+                                        <option value="1">Baixa</option>
+                                        <option value="2">Media</option>
+                                        <option value="3">Alta</option>
+                                        <option value="4">Emergencial</option>
                                     </select>
 
                                 </label>
