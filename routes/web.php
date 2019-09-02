@@ -55,3 +55,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/session',function() {
+
+    session([
+        'function' =>'supervisor'
+    ]);
+    session()->put('name','Matielo');
+    var_dump(session()->all());
+});
