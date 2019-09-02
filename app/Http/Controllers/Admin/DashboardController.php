@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $manager = User::where('function','=', 'gerente')->count();
 
         //PEGAR A FUNÇÃO PELO USUÁRIO LOGADO
-        $userFunction = '';
+        $userFunction = 'tecnico';
 
         if($userFunction == 'funcionario'){
             return view('admin.dashboard.dashboardEmployee');
