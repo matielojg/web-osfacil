@@ -171,9 +171,12 @@
                                 <label class="label">
                                     <span class="legend">*Status:</span>
                                     <select name="status">
-                                        <option value="">--Selecione--</option>
-                                        <option value="">Concluído</option>
-                                        <option value="">Pendente</option>
+                                        <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--</option>
+                                        <option value="3">Em Execução</option>
+                                        <option value="4">Executado</option>
+                                        <option value="5">Suspenso</option>
+                                        <option value="6">Pendente</option>
+
                                     </select>
                                 </label>
                             </div>
@@ -181,7 +184,7 @@
                                 <div class="label">
                                     <label class="label">
                                         <span class="legend">*Descreva suas Alterações:</span>
-                                        <textarea name="name" placeholder="Descreva suas Alterações"
+                                        <textarea name="description" placeholder="Descreva suas Alterações"
                                                   value=""></textarea>
                                     </label>
                                 </div>

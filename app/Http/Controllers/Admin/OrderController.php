@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Action;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Sector;
@@ -101,7 +102,7 @@ class OrderController extends Controller
     public function edit($id)
     {
         $orders = DB::table('orders AS a')
-            ->select('a.*', 'e.name_service', 'c.name_sector as provider','d.name_sector as requester', 'b.first_name', 'b.last_name' )
+            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name', 'b.last_name')
             ->join('users AS b', 'a.requester', '=', 'b.id')
             ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
             ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
@@ -109,10 +110,15 @@ class OrderController extends Controller
             ->where('a.id', $id)
             ->get();
 
-//        var_dump($order);
+        $actions = Action::where('order', $id)->get();
+
+      //  dd($orders, $actions);
 
         if (!empty($orders)) {
-            return view('admin.orders.edit')->with('orders', $orders);
+            return view('admin.orders.edit',[
+                    'orders'=> $orders,
+                    'actions'=> $actions,
+                ]);
         } else {
             return redirect()->route('admin.orders.index');
         }
