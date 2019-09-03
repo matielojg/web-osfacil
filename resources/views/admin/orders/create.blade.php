@@ -14,7 +14,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.create') }}" class="text-red">Nova Ordem</a></li>
+                        <li><a class="text-red">Nova Ordem</a></li>
                     </ul>
                 </nav>
             </div>
@@ -27,130 +27,71 @@
                     @csrf
                     <div class="nav_tabs_content">
 
+                        <div class="label_g2">
+                            <label class="label">
+                                <span class="legend">*Setor Responsável:</span>
 
-                        <div id="data">
-                            <div class="label_g2">
-                                <label class="label">
-                                    <span class="legend">*Setor Solicitante:</span>
-
-                                    <select name="genre">
-                                        @foreach($sectors as $sector)
-                                            <option value="sector_requester">--Selecione--</option>
-                                        @endforeach
-                                    </select>
-                                </label>
-
-                                <label class="label">
-                                    <span class="legend">*Setor Responsável:</span>
-
-                                    <select name="sector_provider">
-                                        @foreach($sectors as $sector)
-                                            <option value="">--Selecione--</option>
-                                        @endforeach
-                                    </select>
-
-                                </label>
-                            </div>
-
-                            <div class="label_g2">
-                                <label class="label">
-                                    <span class="legend">*Setor:</span>
-
-                                    <select name="sector">
+                                <select name="sector_provider">
+                                    <option
+                                            value=""> -- Selecione o setor --
+                                    </option>
+                                    @foreach ($sectors as $sector)
                                         <option
-                                            value=""> ::Selecione o setor::
-                                        </option>
-                                        @foreach ($sectors as $sector)
-                                            <option
                                                 value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </label>
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </label>
 
-                                <label class="label">
-                                    <span class="legend">*Prioridade:</span>
-                                    <select name="priority">
-                                        <option value="">--Selecione--</option>
-                                        <option value="">--Selecione--</option>
-                                        <option value="">--Selecione--</option>
-                                        <option value="">--Selecione--</option>
-                                    </select>
+                            <label class="label">
+                                <span class="legend">*Prioridade:</span>
+                                <select name="priority">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="1">Baixa</option>
+                                    <option value="2">Media</option>
+                                    <option value="3">Alta</option>
+                                    <option value="4">Emergencial</option>
+                                </select>
 
-                                </label>
-                            </div>
-                            <div class="label">
-                                <label class="label">
-                                    <span class="legend">*Descreva o Problema:</span>
-                                    <textarea name="description" placeholder="Descreva o Problema" value=""></textarea>
-                                </label>
-                            </div>
+                            </label>
+                        </div>
+                        <div class="label_g2">
+                            <label class="label">
+                                <span class="legend">*Serviço:</span>
+                                <select name="service">
+                                    <option value="">-- Selecione --</option>
+                                    @foreach ($services as $service)
+                                        <option
+                                                value="{{ $service->id }}" }}> {{ $service->name_service }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </label>
+                            <label class="label">
+                                <span class="legend">*Tipo de Serviço:</span>
+                                <select name="type_service">
+                                    <option value="">-- Selecione --</option>
+                                    <option value="1">Manutenção Corretiva</option>
+                                    <option value="2">Manutenção Preventiva</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="label">
 
-                            <div class="label_g2">
-                                <label class="label">
-                                    <span class="legend">Adicionar Imagem</span>
-                                    <input type="file" name="cover">
-                                </label>
-                            </div>
+                            <label class="label">
+                                <span class="legend">*Descreva o Problema:</span>
+                                <textarea name="description" placeholder="Descreva o Problema" value=""></textarea>
+                            </label>
                         </div>
 
-                        <div id="history" class="d-none">
-                            <div class="label_g4">
-                                <label class="label">
-                                    <img class="" src="{{ url(asset('backend/assets/images/avatar.jpg')) }}" alt=""
-                                         title=""/>
-
-                                </label>
-                                <label class="label_g2">
-                                    <table id="dataTable" class="" width="100" style="width: 100% !important;">
-                                        <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Status</th>
-                                            <th>Comentário</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-
-                                        <tr>
-                                            <td>25/08/2019 - 16h30</td>
-                                            <td><a href="" class="text-green">Jeferson</a></td>
-                                            <td><a href="" class="text-green">Alterou o Status para: <b>Em Execução</b></a>
-                                            </td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div id="change" class="d-none">
-                            <div class="label">
-                                <label class="label">
-                                    <span class="legend">*Status:</span>
-                                    <select name="status">
-                                        <option value="">--Selecione--</option>
-                                        <option value="1">Concluído</option>
-                                        <option value="2">Pendente</option>
-                                        <option value="2">Em execução</option>
-                                        <option value="2">Pendente</option>
-                                    </select>
-
-                                </label>
-                            </div>
-                            <div class="label">
-                                <div class="label">
-                                    <label class="label">
-                                        <span class="legend">*Descreva suas Alterações:</span>
-                                        <textarea name="name" placeholder="Descreva suas Alterações"
-                                                  value=""></textarea>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+{{--                        <div class="label_g2">--}}
+{{--                            <label class="label">--}}
+{{--                                <span class="legend">Adicionar Imagem</span>--}}
+{{--                                <input type="file" name="cover">--}}
+{{--                            </label>--}}
+{{--                        </div>--}}
                     </div>
+
 
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
