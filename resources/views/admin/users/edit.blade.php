@@ -14,7 +14,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="#" class="text-red">Editar Usuário</a></li>
+                        <li><a class="text-red">Editar Usuário</a></li>
                     </ul>
                 </nav>
             </div>

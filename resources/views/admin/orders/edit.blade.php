@@ -5,19 +5,21 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-file-text">Ordem de Serviço Nº: #1235</h2>
+            @foreach($orders as $order)
+                <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
 
-            <div class="dash_content_app_header_actions">
-                <nav class="dash_content_app_breadcrumb">
-                    <ul>
-                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.order') }}" class="text-green">Ordens de Serviço</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-red">Editar Ordem</a></li>
-                    </ul>
-                </nav>
-            </div>
+                <div class="dash_content_app_header_actions">
+                    <nav class="dash_content_app_breadcrumb">
+                        <ul>
+                            <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a>
+                            </li>
+                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li><a href="" class="text-red">Editar Ordem</a></li>
+                        </ul>
+                    </nav>
+                </div>
         </header>
 
         <div class="dash_content_app_box">
@@ -43,46 +45,42 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <h3>Data de Abertura:</h3>
-                                    <p>15h30 - 22/08/2019</p>
+                                    <p> {{ date('d/m/Y H:i', strtotime($order->created_at)) }}</p>
                                 </label>
                                 <label class="label">
                                     <h3>Usuário solicitante:</h3>
-                                    <p>Júlio Royer</p>
+                                    <p>{{ $order->first_name }} {{ $order->last_name }}</p>
                                 </label>
                             </div>
                             <div class="label_g2">
                                 <label class="label">
                                     <h3>Setor solicitante:</h3>
-                                    <p>Marketing</p>
+                                    <p>{{ $order->requester }}</p>
                                 </label>
                                 <label class="label">
                                     <h3>Setor Responsável:</h3>
-                                    <p>Manutenção</p>
+                                    <p>{{ $order->provider }}</p>
                                 </label>
                             </div>
 
                             <div class="label_g2">
                                 <label class="label">
                                     <h3>Serviço:</h3>
-                                    <p>Manutenção Elétrica</p>
+                                    <p>{{ ucfirst($order->name_service) }}</p>
                                 </label>
                                 <label class="label">
                                     <h3>Prioridade:</h3>
-                                    <p>Alta</p>
+                                    <p>{{ ucfirst($order->priority) }}</p>
                                 </label>
                             </div>
                             <div class="label">
                                 <label class="label">
                                     <h3>Descreva o Problema:</h3>
                                     <p>
-                                        Mussum Ipsum, cacilds vidis litro abertis.
-                                        A ordem dos tratores não altera o pão duris.
-                                        Atirei o pau no gatis, per gatis num morreus.
-                                        Detraxit consequat et quo num tendi nada.
-                                        Praesent vel viverra nisi. Mauris aliquet nunc
-                                        non turpis scelerisque, eget.
-                                    </p> 
+                                        {{ $order->description }}
+                                    </p>
                                 </label>
+                                @endforeach
                             </div>
 
                             <div class="label_g2">
@@ -134,7 +132,8 @@
                                                     Atirei o pau no gatis, per gatis num morreus.
                                                 </a>
                                             </td>
-                                        </tr><tr>
+                                        </tr>
+                                        <tr>
                                             <td>26/08/2019 - 16h30</td>
                                             <td><a href="" class="text-green">Marcieli</a></td>
                                             <td><a href="" class="text-green">Alterou o Status para:

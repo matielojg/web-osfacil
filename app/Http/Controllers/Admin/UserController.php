@@ -136,6 +136,11 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
+    /**
+     * Restaura usuários excluídos
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore($id)
     {
         $user = User::onlyTrashed()->where('id', $id)->first();
@@ -148,6 +153,10 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Exibe apenas os usuários excluídos
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function trashed()
     {
         $users = DB::table('sectors')

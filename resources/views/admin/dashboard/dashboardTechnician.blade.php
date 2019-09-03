@@ -3,43 +3,10 @@
 @section('content')
 
     <div style="flex-basis: 100%;">
-        <section class="dash_content_app">
-            <header class="dash_content_app_header">
-                <h2 class="icon-tachometer">Dashboard</h2>
-            </header>
-
-            <div class="dash_content_app_box">
-                <section class="app_dash_home_stats">
-                    <article class="control radius">
-                        <h4 class="icon-users">Usuários</h4>
-                        <p><b>Gerentes:</b> {{ $manager }} </p>
-                        <p><b>Supervisores:</b> {{ $supervisor }} </p>
-                        <p><b>Funcionários:</b> {{ $employee }} </p>
-                        <p><b>Técnicos:</b> {{ $technician }} </p>
-                    </article>
-
-                    <article class="blog radius">
-                        <h4 class="icon-file-text">Ordens</h4>
-                        <p><b>Abertas:</b> 100</p>
-                        <p><b>Pendentes:</b> 100</p>
-                        <p><b>Em execução:</b> 200</p>
-                        <p><b>Finalizadas:</b> 200</p>
-                    </article>
-
-                    <article class="users radius">
-                        <h4 class="icon-file-text">Prioridades de Ordem</h4>
-                        <p><b>Crítica:</b> 57</p>
-                        <p><b>Alta:</b> 57</p>
-                        <p><b>Média:</b> 57</p>
-                        <p><b>Baixa:</b> 57</p>
-                    </article>
-                </section>
-            </div>
-        </section>
 
         <section class="dash_content_app" style="margin-top: 40px;">
             <header class="dash_content_app_header">
-                <h2 class="icon-tachometer">Últimas Ordens de Serviço Cadastradas</h2>
+                <h2 class="icon-tachometer">Serviços a Realizar</h2>
             </header>
 
             <div class="dash_content_app_box">
