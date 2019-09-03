@@ -43,12 +43,12 @@ class OrderController extends Controller
         $sectors = Sector::all();
         $services = Service::all();
 
-        if(!empty($sectors)){
-        return view('admin.orders.create', [
-            'sectors' => $sectors,
-            'services' => $services,
-        ]);
-        }else{
+        if (!empty($sectors)) {
+            return view('admin.orders.create', [
+                'sectors' => $sectors,
+                'services' => $services,
+            ]);
+        } else {
             return redirect()->action('Admin\OrderController@index');
         }
     }
@@ -61,7 +61,24 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = [
+
+//            'requester' => $request->requester ,
+//            'sector_requester' => $request->sector_requester,
+            'requester' => 1,
+            'sector_requester' => 1,
+            'sector_provider' => $request->sector_provider,
+            'service' => $request->service,
+            'description' => $request->description,
+            'priority' => $request->priority,
+            'status' => 1,
+            'type_service' => $request->type_service,
+//            'image' => $request->image
+        ];
+
+        //var_dump($order);
+        Order::create($order);
+        return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -81,9 +98,24 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
-        return view('admin.orders.edit');
+        $orders = DB::table('orders AS a')
+            ->select('a.*', 'e.name_service', 'c.name_sector as provider','d.name_sector as requester', 'b.first_name', 'b.last_name' )
+            ->join('users AS b', 'a.requester', '=', 'b.id')
+            ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
+            ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
+            ->join('services AS e', 'a.service', '=', 'e.id')
+            ->where('a.id', $id)
+            ->get();
+
+//        var_dump($order);
+
+        if (!empty($orders)) {
+            return view('admin.orders.edit')->with('orders', $orders);
+        } else {
+            return redirect()->route('admin.orders.index');
+        }
     }
 
     /**
