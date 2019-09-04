@@ -5,19 +5,23 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-file-text">Ordem de Serviço Nº: #1235</h2>
 
-            <div class="dash_content_app_header_actions">
-                <nav class="dash_content_app_breadcrumb">
-                    <ul>
-                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
-                        <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-red">Editar Ordem</a></li>
-                    </ul>
-                </nav>
-            </div>
+            @foreach($orders as $order)
+                <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
+
+                <div class="dash_content_app_header_actions">
+                    <nav class="dash_content_app_breadcrumb">
+                        <ul>
+                            <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a>
+                            </li>
+                            <li class="separator icon-angle-right icon-notext"></li>
+                            <li><a href="" class="text-red">Editar Ordem</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
         </header>
 
         <div class="dash_content_app_box">
@@ -34,159 +38,118 @@
                     </li>
                 </ul>
 
-                <form class="app_form" action="" method="post" enctype="multipart/form-data">
+                <div class="app_form">
 
                     <div class="nav_tabs_content">
 
                         <div id="data">
-
                             <div class="label_g2">
-                                <label class="label">
+                                <div class="label">
                                     <h3>Data de Abertura:</h3>
-                                    <p>15h30 - 22/08/2019</p>
-                                </label>
-                                <label class="label">
+                                    <p> {{ date('d/m/Y H:i', strtotime($order->created_at)) }}</p>
+                                </div>
+                                <div class="label">
                                     <h3>Usuário solicitante:</h3>
-                                    <p>Júlio Royer</p>
-                                </label>
+                                    <p>{{ $order->first_name }} {{ $order->last_name }}</p>
+                                </div>
                             </div>
                             <div class="label_g2">
-                                <label class="label">
+                                <div class="label">
                                     <h3>Setor solicitante:</h3>
-                                    <p>Marketing</p>
-                                </label>
-                                <label class="label">
+                                    <p>{{ $order->requester }}</p>
+                                </div>
+                                <div class="label">
                                     <h3>Setor Responsável:</h3>
-                                    <p>Manutenção</p>
-                                </label>
+                                    <p>{{ $order->provider }}</p>
+                                </div>
                             </div>
 
                             <div class="label_g2">
-                                <label class="label">
+                                <div class="label">
                                     <h3>Serviço:</h3>
-                                    <p>Manutenção Elétrica</p>
-                                </label>
-                                <label class="label">
+                                    <p>{{ ucfirst($order->name_service) }}</p>
+                                </div>
+                                <div class="label">
                                     <h3>Prioridade:</h3>
-                                    <p>Alta</p>
-                                </label>
+                                    <p>{{ ucfirst($order->priority) }}</p>
+                                </div>
                             </div>
                             <div class="label">
-                                <label class="label">
+                                <div class="label">
                                     <h3>Descreva o Problema:</h3>
                                     <p>
-                                        Mussum Ipsum, cacilds vidis litro abertis.
-                                        A ordem dos tratores não altera o pão duris.
-                                        Atirei o pau no gatis, per gatis num morreus.
-                                        Detraxit consequat et quo num tendi nada.
-                                        Praesent vel viverra nisi. Mauris aliquet nunc
-                                        non turpis scelerisque, eget.
-                                    </p> 
-                                </label>
+                                        {{ $order->description }}
+                                    </p>
+                                </div>
                             </div>
-
                             <div class="label_g2">
-                                <label class="label">
+                                <div class="label">
                                     <h3>Imagens</h3>
                                     <img src="{{ url('backend/assets/images/realty.jpeg') }}" width="250px">
 
-                                </label>
+                                </div>
                             </div>
+                            @endforeach
                         </div>
+
 
                         <div id="history" class="d-none">
                             <div class="label">
-
-                                <label class="label">
-                                    <table id="dataTable" class="" width="100"
-                                           style="width: 100% !important;">
-                                        <thead>
+                                <table id="dataTable" class="" width="100"
+                                       style="width: 100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Usuário</th>
+                                        <th>Status</th>
+                                        <th>Comentário</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($actions as $action)
                                         <tr>
-                                            <th>Data</th>
-                                            <th>Usuário</th>
-                                            <th>Status</th>
-                                            <th>Comentário</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>25/08/2019 - 16h30</td>
-                                            <td><a href="" class="text-green">Jeferson</a></td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    <b>Em Execução</b></a>
+                                            <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
+                                            <td>
+                                                <a class="text-green">{{ $action->first_name }} {{ $action->last_name }}</a>
                                             </td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    Mussum Ipsum, cacilds vidis litro abertis.
-                                                    A ordem dos tratores não altera o pão duris.
-                                                    Atirei o pau no gatis, per gatis num morreus.
+                                            <td><a class="text-green">Alterou o Status para:
+                                                    <b>{{ $action->status }}</b></a>
+                                            </td>
+                                            <td><a class="text-green">{{ $action->description }}
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>26/08/2019 - 16h30</td>
-                                            <td><a href="" class="text-green">Marcieli</a></td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    <b>Em Execução</b></a>
-                                            </td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    Mussum Ipsum, cacilds vidis litro abertis.
-                                                    A ordem dos tratores não altera o pão duris.
-                                                    Atirei o pau no gatis, per gatis num morreus.
-                                                </a>
-                                            </td>
-                                        </tr><tr>
-                                            <td>26/08/2019 - 16h30</td>
-                                            <td><a href="" class="text-green">Marcieli</a></td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    <b>Em Execução</b></a>
-                                            </td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    Mussum Ipsum, cacilds vidis litro abertis.
-                                                    A ordem dos tratores não altera o pão duris.
-                                                    Atirei o pau no gatis, per gatis num morreus.
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>26/08/2019 - 16h30</td>
-                                            <td><a href="" class="text-green">Marcieli</a></td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    <b>Em Execução</b></a>
-                                            </td>
-                                            <td><a href="" class="text-green">Alterou o Status para:
-                                                    Mussum Ipsum, cacilds vidis litro abertis.
-                                                    A ordem dos tratores não altera o pão duris.
-                                                    Atirei o pau no gatis, per gatis num morreus.
-                                                </a>
-                                            </td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </label>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
                         <div id="change" class="d-none">
-                            <div class="label">
+                            <form class="app_form"
+                                  action="{{ route('admin.orders.edit.action', ['id' =>$order->id]) }}" method="post"
+                                  enctype="multipart/form-data">
+                                @csrf
+
                                 <label class="label">
                                     <span class="legend">*Status:</span>
                                     <select name="status">
-                                        <option value="">--Selecione--</option>
-                                        <option value="">Concluído</option>
-                                        <option value="">Pendente</option>
+                                        <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--
+                                        </option>
+                                        <option value="3">Em Execução</option>
+                                        <option value="4">Executado</option>
+                                        <option value="5">Suspenso</option>
+                                        <option value="6">Pendente</option>
                                     </select>
                                 </label>
-                            </div>
-                            <div class="label">
+
                                 <div class="label">
                                     <label class="label">
                                         <span class="legend">*Descreva suas Alterações:</span>
-                                        <textarea name="name" placeholder="Descreva suas Alterações"
+                                        <textarea name="description" placeholder="Descreva suas Alterações"
                                                   value=""></textarea>
                                     </label>
                                 </div>
-                            </div>
                         </div>
 
                     </div>
@@ -194,14 +157,17 @@
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
-                        <form action="" method="POST">
-                            @csrf
-                            @method('DELETE')
-
-                            <button class="btn btn-large btn-red icon-check-square-o" type="submit">Excluir</button>
                         </form>
+
+
+                        {{--                        <form action="" method="POST">--}}
+                        {{--                            @csrf--}}
+                        {{--                            @method('DELETE')--}}
+
+                        {{--                            <button class="btn btn-large btn-red icon-check-square-o" type="submit">Excluir</button>--}}
+                        {{--                        </form>--}}
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </section>

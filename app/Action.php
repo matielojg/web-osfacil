@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Action extends Model
 {
-    protected $guarded = [];
+
+    use SoftDeletes;
     protected $table = 'actions';
-    protected $fillable = ['description'];
+    protected $fillable = [
+        'description',
+        'user',
+        'order',
+        'status'
+    ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }

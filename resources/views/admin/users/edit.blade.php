@@ -14,7 +14,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="#" class="text-red">Editar Usuário</a></li>
+                        <li><a class="text-red">Editar Usuário</a></li>
                     </ul>
                 </nav>
             </div>
@@ -23,10 +23,7 @@
         <div class="dash_content_app_box">
             <div class="nav">
 
-                {{--ADICIONAR O ACTION admin.users.update--}}
-
-
-                <form class="app_form" action=" {{ route('admin.users.update', ['id' =>$user->id]) }} " method="post"
+                 <form class="app_form" action=" {{ route('admin.users.update', ['id' =>$user->id]) }} " method="post"
                       enctype="multipart/form-data">
                     <div class="nav_tabs_content">
                         <div id="data">

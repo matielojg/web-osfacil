@@ -28,10 +28,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('users', 'UserController');
 
         /** Ordem de Serviço */
+        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
         Route::resource('orders', 'OrderController');
 //        Route::get('/ordem', 'OrderController@index')->name('order');
 //        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
-//       Route::get('/ordem/editar', 'OrderController@edit')->name('order.edit');
+
 
         /** Setores */
         Route::get('/setor', 'SectorController@index')->name('sector');
@@ -55,3 +56,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/session',function() {
+
+    session([
+        'function' =>'supervisor'
+    ]);
+    session()->put('name','Matielo');
+    var_dump(session()->all());
+});
