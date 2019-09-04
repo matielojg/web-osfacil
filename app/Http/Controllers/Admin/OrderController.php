@@ -77,7 +77,7 @@ class OrderController extends Controller
 //            'image' => $request->image
         ];
 
-        //var_dump($order);
+//        dd($order);
         Order::create($order);
         return redirect()->route('admin.orders.index');
     }
@@ -90,7 +90,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('admin.orders.edit');
     }
 
     /**
@@ -102,7 +102,8 @@ class OrderController extends Controller
     public function edit($id)
     {
         $orders = DB::table('orders AS a')
-            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name', 'b.last_name')
+            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
+                'b.last_name')
             ->join('users AS b', 'a.requester', '=', 'b.id')
             ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
             ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
@@ -110,18 +111,43 @@ class OrderController extends Controller
             ->where('a.id', $id)
             ->get();
 
-        $actions = Action::where('order', $id)->get();
+        $actions = DB::table('actions AS a')
+            ->latest()
+            ->select('a.*', 'b.first_name', 'b.last_name')
+            ->join('users AS b', 'a.user', '=', 'b.id')
+            ->where('a.order', $id)
+            ->get();
 
-      //  dd($orders, $actions);
+        //dd($orders, $actions, $id);
 
         if (!empty($orders)) {
-            return view('admin.orders.edit',[
-                    'orders'=> $orders,
-                    'actions'=> $actions,
-                ]);
+            return view('admin.orders.edit', [
+                'orders' => $orders,
+                'actions' => $actions
+
+            ]);
         } else {
             return redirect()->route('admin.orders.index');
         }
+    }
+
+    /**
+     * Inserir histórico de alterações
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editActions(Request $request, $id)
+    {
+        $action = new Action();
+        $action->description = $request->description;
+        $action->user = 1;
+        $action->order = $id;
+        $action->status = $request->status;
+
+        //dd($action);
+        $action->save();
+        return redirect()->route('admin.orders.index');
     }
 
     /**

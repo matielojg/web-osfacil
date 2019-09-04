@@ -3,10 +3,8 @@
 @section('content')
 
     <section class="dash_content_app">
-
         <header class="dash_content_app_header">
             <h2 class="icon-file-text">Nova Ordens de Serviço:</h2>
-
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
@@ -30,14 +28,14 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Setor Responsável:</span>
-
                                 <select name="sector_provider">
                                     <option
-                                        value=""> -- Selecione o setor --
+                                            value=""> -- Selecione o setor --
                                     </option>
                                     @foreach ($sectors as $sector)
                                         <option
-                                            value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
+                                                value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
+
                                         </option>
                                     @endforeach
                                 </select>
@@ -52,9 +50,9 @@
                                     <option value="3">Alta</option>
                                     <option value="4">Emergencial</option>
                                 </select>
-
                             </label>
                         </div>
+
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Serviço:</span>
@@ -62,11 +60,12 @@
                                     <option value="">-- Selecione --</option>
                                     @foreach ($services as $service)
                                         <option
-                                            value="{{ $service->id }}" }}> {{ $service->name_service }}
+                                                value="{{ $service->id }}" }}> {{ $service->name_service }}
                                         </option>
                                     @endforeach
                                 </select>
                             </label>
+
                             <label class="label">
                                 <span class="legend">*Tipo de Serviço:</span>
                                 <select name="type_service">
@@ -75,31 +74,35 @@
                                     <option value="2">Manutenção Preventiva</option>
                                 </select>
                             </label>
+
                         </div>
                         <div class="label">
-
                             <label class="label">
                                 <span class="legend">*Descreva o Problema:</span>
                                 <textarea name="description" placeholder="Descreva o Problema" value=""></textarea>
                             </label>
                         </div>
 
-{{--                        <div class="label_g2">--}}
-{{--                            <label class="label">--}}
-{{--                                <span class="legend">Adicionar Imagem</span>--}}
-{{--                                <input type="file" name="cover">--}}
-{{--                            </label>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                        <div class="label">
 
+                            {{--                        <div class="label_g2">--}}
+                            {{--                            <label class="label">--}}
+                            {{--                                <span class="legend">Adicionar Imagem</span>--}}
+                            {{--                                <input type="file" name="cover">--}}
+                            {{--                            </label>--}}
+                            {{--                        </div>--}}
+                            {{--                    </div>--}}
 
+                        </div>
+                    </div>
 
-            <div class="text-right mt-2">
-                <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                </button>
+                    <div class="text-right mt-2">
+                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                            Alterações
+                        </button>
+                    </div>
+                </form>
             </div>
-            </form>
-        </div>
         </div>
     </section>
 
