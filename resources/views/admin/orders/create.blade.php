@@ -85,24 +85,24 @@
 
                         <div class="label">
 
-                            {{--                        <div class="label_g2">--}}
-                            {{--                            <label class="label">--}}
-                            {{--                                <span class="legend">Adicionar Imagem</span>--}}
-                            {{--                                <input type="file" name="cover">--}}
-                            {{--                            </label>--}}
-                            {{--                        </div>--}}
-                            {{--                    </div>--}}
-
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Adicionar Imagem</span>
+                                    <input type="file" name="cover">
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                            Alterações
-                        </button>
                     </div>
-                </form>
             </div>
+
+            <div class="text-right mt-2">
+                <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                    Alterações
+                </button>
+            </div>
+            </form>
+        </div>
         </div>
     </section>
 

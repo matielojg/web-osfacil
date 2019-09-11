@@ -25,12 +25,16 @@ class OrderController extends Controller
      */
     public function index()
     {
+
         $orders = DB::table('orders')
             ->join('users', 'orders.requester', '=', 'users.id')
             ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
             ->join('services', 'orders.service', '=', 'services.id')
             ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
             ->get();
+
+
+
         return view('admin.orders.index')->with('orders', $orders);
     }
 
@@ -169,6 +173,11 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)
+    {
+        //
+    }
+
+    public function trashed()
     {
         //
     }
