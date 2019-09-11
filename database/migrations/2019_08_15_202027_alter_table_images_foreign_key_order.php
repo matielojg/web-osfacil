@@ -15,7 +15,7 @@ class AlterTableImagesForeignKeyOrder extends Migration
     {
         Schema::table('images', function (Blueprint $table) {
             $table->unsignedBigInteger('order');
-            $table->foreign('order')->references('id')->on('orders');
+            $table->foreign('order')->references('id')->on('orders')->onDelete('CASCADE');
         });
     }
 

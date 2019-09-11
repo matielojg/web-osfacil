@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Action;
 use App\Http\Controllers\Controller;
+use App\Image;
 use App\Order;
 use App\Sector;
 use App\Service;
@@ -25,12 +26,44 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = DB::table('orders')
-            ->join('users', 'orders.requester', '=', 'users.id')
-            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-            ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
-            ->get();
+        $cargo = 'supervisor';
+
+        switch ($cargo) {
+            case ('supervisor');
+                $orders = DB::table('orders')
+                    ->join('users', 'orders.requester', '=', 'users.id')
+                    ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+                    ->join('services', 'orders.service', '=', 'services.id')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->orderBy('priority', 'desc')
+                    ->orderBy('created_at', 'asc')
+                    ->get();
+                break;
+            case ('tecnico'):
+                $orders = DB::table('orders')
+                    ->join('users', 'orders.requester', '=', 'users.id')
+                    ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+                    ->join('services', 'orders.service', '=', 'services.id')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->orderBy('priority', 'desc')
+                    ->orderBy('created_at', 'asc')
+//                  ->where('orders.responsible', '=', $cargo->id)
+                    ->get();
+
+                break;
+            case ('funcionario'):
+                $orders = DB::table('orders')
+                    ->join('users', 'orders.requester', '=', 'users.id')
+                    ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+                    ->join('services', 'orders.service', '=', 'services.id')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->orderBy('priority', 'desc')
+                    ->orderBy('created_at', 'asc')
+//                  ->where('orders.requester', '=', $cargo->id)
+                    ->get();
+                break;
+        }
+
         return view('admin.orders.index')->with('orders', $orders);
     }
 
@@ -74,11 +107,21 @@ class OrderController extends Controller
             'priority' => $request->priority,
             'status' => 1,
             'type_service' => $request->type_service,
-//            'image' => $request->image
+            'image' => $request->image
         ];
 
 //        dd($order);
         Order::create($order);
+
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $image = new Image();
+                $image->order = $order->id;
+                $image->image = $image->store('orders/' . $order->id);
+                $image->save();
+            }
+        }
+
         return redirect()->route('admin.orders.index');
     }
 
@@ -120,12 +163,12 @@ class OrderController extends Controller
 
         //dd($orders, $actions, $id);
 
+
         if (!empty($orders)) {
             return view('admin.orders.edit', [
                 'orders' => $orders,
                 'actions' => $actions
-
-            ]);
+            ])->with(['color' => 'green', 'message' => 'Imóvel alterado com sucesso!']);
         } else {
             return redirect()->route('admin.orders.index');
         }
