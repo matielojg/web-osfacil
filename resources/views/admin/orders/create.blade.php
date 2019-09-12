@@ -83,27 +83,52 @@
                             </label>
                         </div>
 
-                        <div class="label">
+                        {{--                        <div id="images" class="d-none">--}}
+                        {{--                            <label class="label">--}}
+                        {{--                                <span class="legend">Imagens</span>--}}
+                        {{--                                <input type="file" name="files[]" multiple>--}}
+                        {{--                            </label>--}}
 
-                            <div class="label_g2">
-                                <label class="label">
-                                    <span class="legend">Adicionar Imagem</span>
-                                    <input type="file" name="cover">
-                                </label>
-                            </div>
-                        </div>
+                        {{--                            <div class="content_image"></div>--}}
+                        {{--                        </div>--}}
+
 
                     </div>
             </div>
+        </div>
 
-            <div class="text-right mt-2">
-                <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                    Alterações
-                </button>
-            </div>
-            </form>
+        <div class="text-right mt-2">
+            <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                Alterações
+            </button>
+        </div>
+        </form>
         </div>
         </div>
     </section>
 
 @endsection
+
+{{--@section('js')--}}
+{{--    <script>--}}
+{{--        $(function () {--}}
+{{--            $('input[name="files[]"]').change(function (files) {--}}
+
+{{--                $('.content_image').text('');--}}
+
+{{--                $.each(files.target.files, function (key, value) {--}}
+{{--                    var reader = new FileReader();--}}
+{{--                    reader.onload = function (value) {--}}
+{{--                        $('.content_image').append(--}}
+{{--                            '<div class="property_image_item">' +--}}
+{{--                            '<div class="embed radius" ' +--}}
+{{--                            'style="background-image: url(' + value.target.result + '); background-size: cover; background-position: center center;">' +--}}
+{{--                            '</div>' +--}}
+{{--                            '</div>');--}}
+{{--                    };--}}
+{{--                    reader.readAsDataURL(value);--}}
+{{--                });--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endsection--}}

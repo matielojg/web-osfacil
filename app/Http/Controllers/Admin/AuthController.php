@@ -20,38 +20,37 @@ class AuthController extends Controller
         return view('admin.index');
     }
 
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function login(Request $request)
     {
-        $this->repository = $repository;
-        $this->validator = $validator;
-    }
 
-//    public function login(Request $request)
-//    {
-//        if (in_array('', $request->only('username', 'password'))) {
-//            $json['message'] = $this->message->error('Ooops, informe todos os dados para efetuar o login')->render();
-//            return response()->json($json);
-//        }
-//
-//        if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
-//            $json['message'] = $this->message->error('Ooops, informe um e-mail válido')->render();
-//            return response()->json($json);
-//        }
-//
-//        $credentials = [
-//            'username' => $request->username,
-//            'password' => $request->password
-//        ];
-//
-//        if(!Auth::attempt($credentials)) {
-//            $json['message'] = $this->message->error('Ooops, usuário e senha não conferem')->render();
-//            return response()->json($json);
-//        }
+        //var_dump($request);
+
+        if (in_array('', $request->only('email', 'password'))) {
+            $json['message'] = $this->message->error('Informe todos os dados para efetuar o login')->render();
+            return response()->json($json);
+        }
+
+        if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            $json['message'] = $this->message->error('Informe um e-mail válido')->render();
+            return response()->json($json);
+        }
+
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+
+        if(!Auth::attempt($credentials)){
+            $json['message'] = $this->message->error('Usuário e senha não conferem')->render();
+            return response()->json($json);
+        }
 //
 //        $this->authenticated($request->getClientIp());
-//        $json['redirect'] = route('admin.home');
-//        return response()->json($json);
-//    }
+
+        $json['redirect'] = route('admin.home');
+        return response()->json($json);
+
+    }
 
     public function logout()
     {
