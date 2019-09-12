@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AuthControler;
 Route::resourceVerbs([
    'create' => 'cadastro',
    'edit' => 'editar',
+   'assign'=>'atribuir'
 ]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
@@ -29,6 +30,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** Ordem de Serviço */
         Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
+        Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
+        Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
         Route::resource('orders', 'OrderController');
 //        Route::get('/ordem', 'OrderController@index')->name('order');
 //        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');

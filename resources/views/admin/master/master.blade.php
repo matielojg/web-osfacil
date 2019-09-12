@@ -56,6 +56,7 @@
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
                     <li class=""><a href="{{ route('admin.orders.create') }}">Criar Nova</a></li>
+                    <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
                  </ul>
             </li>
             <li class="dash_sidebar_nav_item"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
