@@ -55,7 +55,7 @@
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
                                    class="text-green">{{ ucfirst($assign->status) }}</a></td>
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green">{{ ucfirst($assign->status) }}</a></td>
+                                   class="text-green">{{ $assign->responsible_first }} {{ $assign->responsible_last }}</a></td>
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($assign->created_at))}}</a></td>
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"

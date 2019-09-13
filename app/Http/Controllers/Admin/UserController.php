@@ -112,7 +112,7 @@ class UserController extends Controller
         $user->document = $request->document;
         $user->email = $request->email;
         $user->username = $request->username;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->primary_contact = $request->primary_contact;
         $user->secondary_contact = $request->secondary_contact;
         $user->photo = $request->photo;
@@ -151,7 +151,6 @@ class UserController extends Controller
         }
 
         return redirect()->route('admin.users.index');
-
     }
 
     /**

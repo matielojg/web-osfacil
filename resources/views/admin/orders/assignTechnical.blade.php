@@ -106,10 +106,11 @@
                                         <select name="responsible" class="form-control">
                                             @foreach($technicals as $technical)
                                                 <option
-                                                    value="{{ $technical->id }}" {{ ( $technical->id == $assign->responsible) ? 'selected' : '' }}> {{ $technical->first_name}} {{ $technical->last_name}}
+                                                    value="{{ $technical->id }}" {{ ( $technical->id == $assign->responsible) ? 'selected' : "" }}> {{ $technical->first_name}} {{ $technical->last_name}}
                                                 </option>
                                             @endforeach
                                         </select>
+                                    <input type="hidden" name="status"  value="2">
                                     </div>
                             </div>
                         </div>

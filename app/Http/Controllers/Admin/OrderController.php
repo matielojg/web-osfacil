@@ -33,7 +33,8 @@ class OrderController extends Controller
                     ->join('users', 'orders.requester', '=', 'users.id')
                     ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
                     ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+                        'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
                     ->get();
@@ -43,7 +44,8 @@ class OrderController extends Controller
                     ->join('users', 'orders.requester', '=', 'users.id')
                     ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
                     ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+                        'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
 //                  ->where('orders.responsible', '=', $cargo->id)
@@ -55,7 +57,8 @@ class OrderController extends Controller
                     ->join('users', 'orders.requester', '=', 'users.id')
                     ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
                     ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+                        'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
 //                  ->where('orders.requester', '=', $cargo->id)
@@ -94,12 +97,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = [
 
-//            'requester' => $request->requester ,
-//            'sector_requester' => $request->sector_requester,
-            'requester' => 1,
-            'sector_requester' => 1,
+        $order = [
+            'sector_requester' => $request->sector_requester,
+            'requester' => $request->requester,
             'sector_provider' => $request->sector_provider,
             'service' => $request->service,
             'description' => $request->description,
@@ -108,7 +109,6 @@ class OrderController extends Controller
             'type_service' => $request->type_service,
             'image' => $request->image
         ];
-
 //        dd($order);
         Order::create($order);
 
@@ -179,10 +179,12 @@ class OrderController extends Controller
     public function assign()
     {
         $assigns = DB::table('orders')
-            ->join('users', 'orders.requester', '=', 'users.id')
+            ->join('users as a', 'orders.requester', '=', 'a.id')
+            ->leftJoin('users as b', 'orders.responsible', '=', 'b.id')
             ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
             ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'a.first_name', 'a.last_name',
+                'b.first_name as responsible_first', 'b.last_name as responsible_last')
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'asc')
             ->where('orders.status', '=', 'aberto')
@@ -274,6 +276,7 @@ class OrderController extends Controller
     {
         $technical = Order::find($id);
         $technical->responsible = $request->responsible;
+        $technical->status = $request->status;
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
@@ -286,6 +289,11 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)
+    {
+        //
+    }
+
+    public function trashed()
     {
         //
     }
