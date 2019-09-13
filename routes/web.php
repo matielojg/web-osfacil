@@ -37,8 +37,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('orders', 'OrderController');
 //        Route::get('/ordem', 'OrderController@index')->name('order');
 //        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
-        >>>>>>>
-        bb6ae9ffe6f70114ca1cb257ed035892ef38c5d2
+
 
 
         /** User */
