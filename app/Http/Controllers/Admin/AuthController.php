@@ -46,6 +46,11 @@ class AuthController extends Controller
         }
 //
 //        $this->authenticated($request->getClientIp());
+//        session([
+//            'email' => $request->email
+//        ]);
+
+        session()->put('email', $request->email);
 
         $json['redirect'] = route('admin.home');
         return response()->json($json);

@@ -17,10 +17,18 @@ class DashboardController extends Controller
 
     public function home()
     {
+
+
         $employee = User::where('function','=', 'funcionario')->count();
         $technician = User::where('function','=', 'tecnico')->count();
         $supervisor = User::where('function','=', 'supervisor')->count();
         $manager = User::where('function','=', 'gerente')->count();
+
+        //$email = session()->email;
+
+        //$user = User::where('email',$email);
+
+        //var_dump(session()->all());
 
         //$ordersUser = Order::where();
 

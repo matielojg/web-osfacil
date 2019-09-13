@@ -63,4 +63,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 //    ]);
 //    session()->put('name','Matielo');
 //    var_dump(session()->all());
+
 });
