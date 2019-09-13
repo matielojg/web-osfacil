@@ -32,6 +32,9 @@
                     </li>
 
                     <li class="nav_tabs_item">
+                        <a href="#assign" class="nav_tabs_item_link">Atribuir Técnico</a>
+                    </li>
+                    <li class="nav_tabs_item">
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
 
@@ -79,12 +82,26 @@
                                     <h3>Descreva o Problema:</h3>
                                     <p> {{ $assign->description }} </p>
                                 </div>
-                                <form class="app_form"
-                                      action="{{ route('admin.orders.edit', ['id' =>$assign->id]) }}"
-                                      method="post"
+                            </div>
+
+                            <div class="label">
+                                <div class="label">
+                                    <h3>Imagens</h3>
+                                    <img src="{{ url('backend/assets/images/realty.jpeg') }}" width="250px">
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
+                        <div id="assign">
+                            <div class="label">
+                                <div class="label">
+
+                                <form class="app_form" method="post"
+                                      action="{{ route('admin.orders.assign.updateTechnical', ['id' => $assign->id ]) }}"
                                       enctype="multipart/form-data">
+                                    @method('PATCH')
                                     @csrf
-                                    <div class="label">
                                         <h3>Escolha o técnico:</h3>
                                         <select name="responsible" class="form-control">
                                             @foreach($technicals as $technical)
@@ -95,60 +112,53 @@
                                         </select>
                                     </div>
                             </div>
+                        </div>
 
-                            <div class="label_g2">
+
+                            <div id="history" class="d-none">
                                 <div class="label">
-                                    <h3>Imagens</h3>
-                                    <img src="{{ url('backend/assets/images/realty.jpeg') }}" width="250px">
+                                    <table id="dataTable" class="" width="100"
+                                           style="width: 100% !important;">
+                                        <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Usuário</th>
+                                            <th>Status</th>
+                                            <th>Comentário</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($actions as $action)
+                                            <tr>
+                                                <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
+                                                <td>
+                                                    <a class="text-green">{{ $action->first_name }} {{ $action->last_name }}</a>
+                                                </td>
+                                                <td><a class="text-green">Alterou o Status para:
+                                                        <b>{{ $action->status }}</b></a>
+                                                </td>
+                                                <td><a class="text-green">{{ $action->description }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        </div>
-                        @endforeach
 
-                        <div id="history" class="d-none">
-                            <div class="label">
-                                <table id="dataTable" class="" width="100"
-                                       style="width: 100% !important;">
-                                    <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Usuário</th>
-                                        <th>Status</th>
-                                        <th>Comentário</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($actions as $action)
-                                        <tr>
-                                            <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
-                                            <td>
-                                                <a class="text-green">{{ $action->first_name }} {{ $action->last_name }}</a>
-                                            </td>
-                                            <td><a class="text-green">Alterou o Status para:
-                                                    <b>{{ $action->status }}</b></a>
-                                            </td>
-                                            <td><a class="text-green">{{ $action->description }}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
-                    </div>
 
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                            Alterações
-                        </button>
+                        <div class="text-right mt-2">
+                            <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                                Alterações
+                            </button>
+                        </div>
                         </form>
-
 
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
 @endsection

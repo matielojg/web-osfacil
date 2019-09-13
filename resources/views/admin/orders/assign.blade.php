@@ -33,12 +33,12 @@
                         <th>Setor</th>
                         <th>Prioridade</th>
                         <th>Status</th>
+                        <th>Técnico</th>
                         <th>Data de Abertura</th>
                         <th>Ação</th>
                     </tr>
                     </thead>
                     <tbody>
-
                     @foreach($assigns as $assign)
 
                         <tr>
@@ -52,6 +52,8 @@
 
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
                                    class="text-green">{{ ucfirst($assign->priority) }}</a></td>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
+                                   class="text-green">{{ ucfirst($assign->status) }}</a></td>
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
                                    class="text-green">{{ ucfirst($assign->status) }}</a></td>
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"

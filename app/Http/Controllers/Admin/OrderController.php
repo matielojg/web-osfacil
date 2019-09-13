@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Action;
 use App\Http\Controllers\Controller;
-use App\Image;
 use App\Order;
 use App\Sector;
 use App\Service;
@@ -188,6 +187,7 @@ class OrderController extends Controller
             ->orderBy('created_at', 'asc')
             ->where('orders.status', '=', 'aberto')
             ->get();
+
         return view('admin.orders.assign')->with('assigns', $assigns);
 
     }
@@ -260,6 +260,23 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         //
+    }
+
+    /**
+     * Update Technical Responsible in the assignTechnical.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Order $order
+     * @return \Illuminate\Http\Response
+     */
+
+    public function updateTechnical(Request $request, $id)
+    {
+        $technical = Order::find($id);
+        $technical->responsible = $request->responsible;
+        $technical->save();
+
+        return redirect(route('admin.orders.assign'));
     }
 
     /**
