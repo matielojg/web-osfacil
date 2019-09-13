@@ -30,11 +30,11 @@
                                 <span class="legend">*Setor Responsável:</span>
                                 <select name="sector_provider">
                                     <option
-                                        value=""> -- Selecione o setor --
+                                            value=""> -- Selecione o setor --
                                     </option>
                                     @foreach ($sectors as $sector)
                                         <option
-                                            value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
+                                                value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
 
                                         </option>
                                     @endforeach
@@ -60,7 +60,7 @@
                                     <option value="">-- Selecione --</option>
                                     @foreach ($services as $service)
                                         <option
-                                            value="{{ $service->id }}" }}> {{ $service->name_service }}
+                                                value="{{ $service->id }}" }}> {{ $service->name_service }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -83,25 +83,27 @@
                             </label>
                         </div>
 
-{{--                        <div id="images" class="d-none">--}}
-{{--                            <label class="label">--}}
-{{--                                <span class="legend">Imagens</span>--}}
-{{--                                <input type="file" name="files[]" multiple>--}}
-{{--                            </label>--}}
+                        {{--                        <div id="images" class="d-none">--}}
+                        {{--                            <label class="label">--}}
+                        {{--                                <span class="legend">Imagens</span>--}}
+                        {{--                                <input type="file" name="files[]" multiple>--}}
+                        {{--                            </label>--}}
 
-{{--                            <div class="content_image"></div>--}}
-{{--                        </div>--}}
+                        {{--                            <div class="content_image"></div>--}}
+                        {{--                        </div>--}}
 
 
                     </div>
-
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                            Alterações
-                        </button>
-                    </div>
-                </form>
             </div>
+        </div>
+
+        <div class="text-right mt-2">
+            <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                Alterações
+            </button>
+        </div>
+        </form>
+        </div>
         </div>
     </section>
 

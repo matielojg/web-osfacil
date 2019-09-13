@@ -7,6 +7,7 @@ Route::resourceVerbs([
     'create' => 'cadastro',
     'edit' => 'editar',
     'assign' => 'atribuir'
+
 ]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
@@ -16,10 +17,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::post('login', 'AuthController@login')->name('login.do');
 
     /** Rotas Protegidas */
-    //Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth']], function () {
 
-    /** Dashboards*/
-    Route::get('home', 'DashboardController@home')->name('home');
+
+        /** Dashboard*/
+        Route::get('home', 'DashboardController@home')->name('home');
+
 
     /** User */
     Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
@@ -49,21 +52,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::resource('services', 'ServiceController');
     Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');
 
+
     /** Logout */
     Route::get('logout', 'AuthController@logout')->name('logout');
 
 });
 
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/session', function () {
-
-    session([
-        'function' => 'supervisor'
-    ]);
-    session()->put('name', 'Matielo');
-    var_dump(session()->all());
 });

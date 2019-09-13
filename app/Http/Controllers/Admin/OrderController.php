@@ -33,7 +33,8 @@ class OrderController extends Controller
                     ->join('users', 'orders.requester', '=', 'users.id')
                     ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
                     ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+                        'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
                     ->get();
@@ -43,7 +44,8 @@ class OrderController extends Controller
                     ->join('users', 'orders.requester', '=', 'users.id')
                     ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
                     ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+                        'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
 //                  ->where('orders.responsible', '=', $cargo->id)
@@ -55,7 +57,8 @@ class OrderController extends Controller
                     ->join('users', 'orders.requester', '=', 'users.id')
                     ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
                     ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name', 'users.last_name')
+                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+                        'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
 //                  ->where('orders.requester', '=', $cargo->id)
@@ -286,6 +289,11 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)
+    {
+        //
+    }
+
+    public function trashed()
     {
         //
     }

@@ -22,8 +22,12 @@ class DashboardController extends Controller
         $supervisor = User::where('function','=', 'supervisor')->count();
         $manager = User::where('function','=', 'gerente')->count();
 
+        //$ordersUser = Order::where();
+
+
+
         //PEGAR A FUNÇÃO PELO USUÁRIO LOGADO
-        $userFunction = 'tecnico';
+        $userFunction = 'funcionario';
 
         if($userFunction == 'funcionario'){
             return view('admin.dashboard.dashboardEmployee');
