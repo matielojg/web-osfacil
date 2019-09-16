@@ -80,5 +80,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
     });
 
-
 });

@@ -23,20 +23,23 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-        //var_dump($request);
-
-        if (in_array('', $request->only('email', 'password'))) {
-            $json['message'] = $this->message->error('Informe todos os dados para efetuar o login')->render();
+        if (in_array('', $request->only('username', 'password'))) {
+            $json['message'] = $this->message->warning('Informe todos os dados para efetuar o login')->render();
             return response()->json($json);
         }
 
+        /**
+         * USAR ESSE IF CASO FORMA DE LOGIN FOR EMAIL
+         *
         if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             $json['message'] = $this->message->error('Informe um e-mail válido')->render();
             return response()->json($json);
         }
+         */
 
         $credentials = [
-            'email' => $request->email,
+            //'email' => $request->email,
+            'username' => $request->username,
             'password' => $request->password
         ];
 
@@ -44,8 +47,11 @@ class AuthController extends Controller
             $json['message'] = $this->message->error('Usuário e senha não conferem')->render();
             return response()->json($json);
         }
-//
+
 //        $this->authenticated($request->getClientIp());
+//        session([
+//            'email' => $request->email
+//        ]);
 
         $json['redirect'] = route('admin.home');
         return response()->json($json);

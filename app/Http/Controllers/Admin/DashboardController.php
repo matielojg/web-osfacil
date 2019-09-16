@@ -17,17 +17,15 @@ class DashboardController extends Controller
 
     public function home()
     {
+
         $employee = User::where('function','=', 'funcionario')->count();
         $technician = User::where('function','=', 'tecnico')->count();
         $supervisor = User::where('function','=', 'supervisor')->count();
         $manager = User::where('function','=', 'gerente')->count();
 
-        //$ordersUser = Order::where();
+        $userFunction = auth()->user()->function;
 
-
-
-        //PEGAR A FUNÇÃO PELO USUÁRIO LOGADO
-        $userFunction = 'funcionario';
+        //$json['message'] = $this->message->success('Seja Bem-Vindo!')->render();
 
         if($userFunction == 'funcionario'){
             return view('admin.dashboard.dashboardEmployee');

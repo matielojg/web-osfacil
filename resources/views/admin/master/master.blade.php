@@ -42,10 +42,10 @@
         </article>
 
         <ul class="dash_sidebar_nav">
-            <li class="dash_sidebar_nav_item active">
+            <li class="dash_sidebar_nav_item {{ isActive('admin.home') }}">
                 <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-users" href="{{ route('admin.users.index') }}">Usuários</a>
+            <li class="dash_sidebar_nav_item" {{ isActive('admin.users.') }}><a class="icon-users" href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.users.index') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.users.create') }}">Criar Novo</a></li>
