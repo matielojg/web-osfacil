@@ -97,6 +97,8 @@
             </div>
         </div>
 
+        <input type="hidden" name="sector_requester" id="" value="{{ auth()->user()->sector }}">
+        <input type="hidden" name="requester" id="" value="{{ auth()->user()->id }}">
         <div class="text-right mt-2">
             <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                 Alterações

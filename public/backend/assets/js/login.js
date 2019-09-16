@@ -11,10 +11,12 @@ $(function () {
 
         const form = $(this);
         const action = form.attr('action');
-        const email = form.find('input[name="email"]').val();
+        //const email = form.find('input[name="email"]').val();
+        const username = form.find('input[name="username"]').val();
         const password = form.find('input[name="password_check"]').val();
 
-        $.post(action, {email: email, password: password}, function(response){
+        //$.post(action, {email: email, password: password}, function(response){
+        $.post(action, {username: username, password: password}, function(response){
 
             console.log(response);
 

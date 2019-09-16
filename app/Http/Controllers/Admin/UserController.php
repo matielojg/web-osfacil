@@ -51,7 +51,7 @@ class UserController extends Controller
             'document' => $request->document,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => Hash::make($request->newPassword),
+            'password' => bcrypt($request->newPassword),
             'primary_contact' => $request->primary_contact,
             'secondary_contact' => $request->secondary_contact,
             'photo' => $request->photo,
@@ -71,7 +71,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
+
     }
 
     /**

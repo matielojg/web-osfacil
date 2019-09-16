@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\SectorController;
-use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\AuthControler;
 
 /** Edita o nome na URI */
 Route::resourceVerbs([
     'create' => 'cadastro',
     'edit' => 'editar',
+    'assign' => 'atribuir'
+
 ]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
@@ -19,8 +19,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     /** Rotas Protegidas */
     Route::group(['middleware' => ['auth']], function () {
 
+
         /** Dashboard*/
         Route::get('home', 'DashboardController@home')->name('home');
+
 
         /** User */
         Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
@@ -29,9 +31,29 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** Ordem de Serviço */
         Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
+        Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
+        Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
+        Route::patch('/orders/assign/update/technical/{id}', 'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
         Route::resource('orders', 'OrderController');
 //        Route::get('/ordem', 'OrderController@index')->name('order');
 //        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
+
+
+
+        /** User */
+        Route::get('/users/trashed', 'UserController@trashed')->name('users.trashed');
+        Route::get('/users/{id}/restore', 'UserController@restore')->name('users.restore');
+        Route::resource('users', 'UserController');
+
+        /** Ordem de Serviço */
+        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
+        Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
+        Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
+        Route::patch('/orders/assign/update/technical/{id}', 'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
+        Route::resource('orders', 'OrderController');
+//        Route::get('/ordem', 'OrderController@index')->name('order');
+//        Route::get('/ordem/novo', 'OrderController@create')->name('order.create');
+
 
 
         /** Setores */
@@ -43,25 +65,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
 
+    /** Logout */
+    Route::get('logout', 'AuthController@logout')->name('logout');
+
+
         /**Servicos */
         Route::resource('services', 'ServiceController');
         Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');
 
-    });
 
-    /** Logout */
-    Route::get('logout', 'AuthController@logout')->name('logout');
-//
-//Auth::routes();
-//
-//Route::get('/home', 'HomeController@index')->name('home');
-//
-//Route::get('/session',function() {
-//
-//    session([
-//        'function' =>'supervisor'
-//    ]);
-//    session()->put('name','Matielo');
-//    var_dump(session()->all());
+
+        /** Logout */
+        Route::get('logout', 'AuthController@logout')->name('logout');
+
+    });
 
 });

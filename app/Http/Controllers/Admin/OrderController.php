@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Action;
 use App\Http\Controllers\Controller;
-use App\Image;
 use App\Order;
 use App\Sector;
 use App\Service;
@@ -98,12 +97,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = [
 
-//            'requester' => $request->requester ,
-//            'sector_requester' => $request->sector_requester,
-            'requester' => 1,
-            'sector_requester' => 1,
+        $order = [
+            'sector_requester' => $request->sector_requester,
+            'requester' => $request->requester,
             'sector_provider' => $request->sector_provider,
             'service' => $request->service,
             'description' => $request->description,
@@ -112,18 +109,17 @@ class OrderController extends Controller
             'type_service' => $request->type_service,
             'image' => $request->image
         ];
-
 //        dd($order);
         Order::create($order);
 
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $image = new Image();
-                $image->order = $order->id;
-                $image->image = $image->store('orders/' . $order->id);
-                $image->save();
-            }
-        }
+//        if ($request->allFiles()) {
+//            foreach ($request->allFiles()['files'] as $image) {
+//                $image = new Image();
+//                $image->order = $order->id;
+//                $image->image = $image->store('orders/' . $order->id);
+//                $image->save();
+//            }
+//        }
 
         return redirect()->route('admin.orders.index');
     }
@@ -165,15 +161,75 @@ class OrderController extends Controller
             ->get();
 
         //dd($orders, $actions, $id);
-
-
         if (!empty($orders)) {
             return view('admin.orders.edit', [
                 'orders' => $orders,
-                'actions' => $actions
+                'actions' => $actions,
+
             ])->with(['color' => 'green', 'message' => 'Imóvel alterado com sucesso!']);
         } else {
             return redirect()->route('admin.orders.index');
+        }
+    }
+
+    /**
+     * Atribuir técnicos as ordens abertas no sistema
+     *
+     */
+    public function assign()
+    {
+        $assigns = DB::table('orders')
+            ->join('users as a', 'orders.requester', '=', 'a.id')
+            ->leftJoin('users as b', 'orders.responsible', '=', 'b.id')
+            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+            ->join('services', 'orders.service', '=', 'services.id')
+            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'a.first_name', 'a.last_name',
+                'b.first_name as responsible_first', 'b.last_name as responsible_last')
+            ->orderBy('priority', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->where('orders.status', '=', 'aberto')
+            ->get();
+
+        return view('admin.orders.assign')->with('assigns', $assigns);
+
+    }
+
+    public function assignTechnical($id)
+    {
+
+        $assigns = DB::table('orders AS a')
+            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
+                'b.last_name')
+            ->join('users AS b', 'a.requester', '=', 'b.id')
+            ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
+            ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
+            ->join('services AS e', 'a.service', '=', 'e.id')
+            ->where('a.id', $id)
+            ->get();
+
+        $actions = DB::table('actions AS a')
+            ->latest()
+            ->select('a.*', 'b.first_name', 'b.last_name')
+            ->join('users AS b', 'a.user', '=', 'b.id')
+            ->where('a.order', $id)
+            ->get();
+
+        $technicals = DB::table('users')
+            ->whereNull('users.deleted_at')
+            ->where('users.function', '=', 'tecnico')
+            ->get();
+
+//        var_dump($technicals);
+//        die;
+//        dd($orders, $actions, $id);
+        if (!empty($assigns)) {
+            return view('admin.orders.assignTechnical', [
+                'assigns' => $assigns,
+                'actions' => $actions,
+                'technicals' => $technicals
+            ])->with(['color' => 'green', 'message' => 'Tecnico atribuido com sucesso!']);
+        } else {
+            return redirect()->route('admin.orders.assign');
         }
     }
 
@@ -206,6 +262,24 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         //
+    }
+
+    /**
+     * Update Technical Responsible in the assignTechnical.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Order $order
+     * @return \Illuminate\Http\Response
+     */
+
+    public function updateTechnical(Request $request, $id)
+    {
+        $technical = Order::find($id);
+        $technical->responsible = $request->responsible;
+        $technical->status = $request->status;
+        $technical->save();
+
+        return redirect(route('admin.orders.assign'));
     }
 
     /**
