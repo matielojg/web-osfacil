@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
 
@@ -13,6 +12,7 @@ class User extends Authenticatable
     //protected $guarded= [];
 
     use SoftDeletes;
+
     //use Notifiable;
 
     /**
@@ -42,5 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
     //use SoftDeletes;
+
+    public function responsible()
+    {
+        return $this->hasMany(Order::class, 'responsible', 'id');
+    }
+    public function requester()
+    {
+        return $this->hasMany(Order::class, 'requester', 'id');
+    }
 }
+

@@ -29,11 +29,21 @@
                         <div id="data">
                             @csrf
                             @method('PUT')
-                            <div class="label">
+                            <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Nome do Serviço:</span>
                                     <input type="text" name="name_service" id="name_service" autocomplete="off"
                                            value="{{ $service->name_service }}"/>
+                                </label>
+                                <label class="label">
+                                    <span class="legend">*Setor:</span>
+                                    <select name="sector" class="form-control" required="ON">
+                                        <option  value=" "> ::Selecione um Setor:: </option>
+                                        @foreach ($sectors as $sector)
+                                            <option
+                                                value="{{ $sector->id }}" {{ ( $sector->id == $service->sector) ? 'selected' : '' }}> {{ $sector->name_sector}}
+                                        @endforeach
+                                    </select>
                                 </label>
                             </div>
                         </div>

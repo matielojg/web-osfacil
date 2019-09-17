@@ -28,12 +28,22 @@
                     <div class="nav_tabs_content">
                         <div id="data">
                             @csrf
-                            <div class="label">
+                            <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Nome do Serviço:</span>
                                     <input type="text" name="name_service" id="name_service"
                                            placeholder="Nome do Serviço"
                                            autocomplete="off"/>
+                                </label>
+                                <label class="label">
+                                    <span class="legend">*Setor:</span>
+                                    <select name="sector" class="form-control" required="ON">
+                                        <option  value=" "> ::Selecione um Setor:: </option>
+                                        @foreach ($sectors as $sector)
+                                            <option
+                                                value="{{ $sector->id }}"> {{ $sector->name_sector}} </option>
+                                        @endforeach
+                                    </select>
                                 </label>
                             </div>
                         </div>

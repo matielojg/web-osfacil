@@ -20,5 +20,16 @@ class Order extends Model
         'responsible',
         'image'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    public function requester()
+    {
+        return $this->belongsTo(Order::class, 'requester', 'id');
+    }
+
+    public function responsible()
+    {
+        return $this->belongsTo(Order::class, 'responsible', 'id');
+    }
+
 }
 

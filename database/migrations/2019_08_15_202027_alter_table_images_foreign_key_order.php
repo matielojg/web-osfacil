@@ -27,7 +27,9 @@ class AlterTableImagesForeignKeyOrder extends Migration
     public function down()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->dropForeign('order');
+            $table->dropForeign('images_order_foreign');
+            $table->dropColumn('order');
+
         });
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Sector;
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -15,13 +17,19 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
-        $services = Service::all();
 
 
-        //var_dump($services);
+        $services = DB::table('services')
+            ->leftJoin('sectors', 'services.sector', '=', 'sectors.id')
+            ->select('services.*', 'sectors.name_sector')
+            ->get();
+
+
+//        var_dump($services);
+//        die;
         return view('admin.services.index')->with('services', $services);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,9 +38,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
-
-        return view('admin.services.create');
+        $sectors = Sector::all();
+        return view('admin.services.create')->with('sectors',$sectors);
     }
 
     /**
@@ -45,6 +52,7 @@ class ServiceController extends Controller
     {
         $serviceStore = new Service();
         $serviceStore->name_service = $request->get('name_service');
+        $serviceStore->sector = $request->get('sector');
         $serviceStore->save();
         return redirect()->route('admin.services.index');
     }
@@ -70,10 +78,11 @@ class ServiceController extends Controller
     {
         //
         $service = Service::find($id);
-        //var_dump($service);
+        $sectors = Sector::all();
 
         if (!empty($service)) {
-            return view('admin.services.edit')->with('service', $service);
+            return view('admin.services.edit', ['service' => $service, 'sectors' => $sectors
+            ]);
         } else {
             return redirect()->action('ServiceController@index');
         }
