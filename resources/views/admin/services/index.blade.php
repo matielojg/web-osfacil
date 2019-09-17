@@ -29,6 +29,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Serviço</th>
+                        <th>Setor</th>
                         <th>Criado</th>
                         <th>Ação</th>
 
@@ -42,6 +43,8 @@
 
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
                                    class="text-green"> {{ $service->name_service }} </a></td>
+                            <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
+                                   class="text-green"> {{ $service->name_sector }} </a></td>
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($service->created_at))}}</a></td>
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
