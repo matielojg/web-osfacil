@@ -27,7 +27,9 @@ class AlterTableActionsForeignKeyOrder extends Migration
     public function down()
     {
         Schema::table('actions', function (Blueprint $table) {
-            $table->dropForeign('order');
+            $table->dropForeign('actions_order_foreign');
+            $table->dropColumn('order');
+
         });
     }
 }
