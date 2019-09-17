@@ -29,7 +29,6 @@
                 <label>
                     <span class="field icon-user">Login:</span>
                     <input type="text" name="username" placeholder="Informe seu nome de usuário" required/>
-{{--                    value="andrew@andrew.com"--}}
                 </label>
 
                 <label>
