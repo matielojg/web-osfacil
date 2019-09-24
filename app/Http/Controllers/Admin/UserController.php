@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Sector;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\User as UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -43,7 +45,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $user = [
             'first_name' => $request->first_name,

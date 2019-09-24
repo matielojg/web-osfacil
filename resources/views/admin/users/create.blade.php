@@ -23,7 +23,14 @@
         <div class="dash_content_app_box">
             <div class="nav">
 
-                {{-- ADICIONER REQUIRED NOS CAMPOS--}}
+                {{-- Mensagem de Erro--}}
+                @if($errors->all())
+                    @foreach($errors->all() as $error)
+                        @message(['color' => 'red'])
+                        <p class="icon-asterisk">{{ $error }}</p>
+                        @endmessage
+                    @endforeach
+                @endif
 
                 <form class="app_form" action=" {{ route('admin.users.store') }}" method="post"
                       enctype="multipart/form-data">
@@ -33,32 +40,31 @@
                         <div id="data">
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Nome:</span>
-                                    <input type="text" name="first_name" placeholder="Nome"/>
+                                    <span class="legend">* Nome:</span>
+                                    <input type="text" name="first_name" placeholder="Nome" value="{{ old('first_name') }}"/>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*Sobrenome:</span>
-                                    <input type="text" name="last_name" placeholder="Sobrenome"/>
+                                    <span class="legend">* Sobrenome:</span>
+                                    <input type="text" name="last_name" placeholder="Sobrenome" value="{{ old('last_name') }}"/>
                                 </label>
                             </div>
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*E-mail:</span>
-                                    <input type="email" name="email" placeholder="Melhor e-mail"/>
+                                    <span class="legend">* E-mail:</span>
+                                    <input type="email" name="email" placeholder="Melhor e-mail" value="{{ old('email') }}"/>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*CPF:</span>
-                                    <input type="tel" class="mask-doc" name="document" placeholder="Número do CPF"/>
+                                    <span class="legend">* CPF:</span>
+                                    <input type="tel" class="mask-doc" name="document" placeholder="Número do CPF" value="{{ old('document') }}"/>
                                 </label>
                             </div>
 
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Setor:</span>
-
-                                    <select name="sector">
+                                    <span class="legend">* Setor:</span>
+                                    <select name="sector" >
                                         <option
-                                            value=""> ::Selecione o setor::</option>
+                                            value=""> -- Selecione o setor --</option>
                                         @foreach ($sectors as $sector)
                                             <option
                                                     value="{{ $sector->id }}"}}> {{ $sector->name_sector }}
@@ -67,9 +73,9 @@
                                     </select>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*Função:</span>
+                                    <span class="legend">* Função:</span>
                                     <select name="function">
-                                        <option value=""> ::Selecione a função::</option>
+                                        <option value=""> -- Selecione a função --</option>
                                         <option value="funcionario">Funcionário</option>
                                         <option value="tecnico">Técnico</option>
                                         <option value="supervisor">Supervisor</option>
@@ -94,14 +100,14 @@
                                 <div class="app_collapse_content d-none">
                                     <div class="label_g2">
                                         <label class="label">
-                                            <span class="legend">*Celular:</span>
+                                            <span class="legend">* Celular:</span>
                                             <input type="tel" name="primary_contact" class="mask-cell"
-                                                   placeholder="Número do Telefonce com DDD" value=""/>
+                                                   placeholder="Número do Telefonce com DDD" />
                                         </label>
                                         <label class="label">
                                             <span class="legend">Residencial:</span>
                                             <input type="tel" name="secondary_contact" class="mask-phone"
-                                                   placeholder="Número do Telefonce com DDD" value=""/>
+                                                   placeholder="Número do Telefonce com DDD"/>
                                         </label>
                                     </div>
                                 </div>
@@ -116,15 +122,15 @@
                                 <div class="app_collapse_content d-none">
                                     <div class="label_g2">
                                         <label class="label">
-                                            <span class="legend">*Login:</span>
+                                            <span class="legend">* Login:</span>
                                             <input type="text" name="username" placeholder="Nome de usuário"
-                                                   value=""/>
+                                                   />
                                         </label>
 
                                         <label class="label">
-                                            <span class="legend">*Senha:</span>
+                                            <span class="legend">* Senha:</span>
                                             <input type="password" name="password" placeholder="Senha de acesso"
-                                                   value=""/>
+                                                   />
                                         </label>
                                     </div>
                                 </div>

@@ -5,7 +5,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Editar Usuário: # {{ $user->id }}</h2>
+            <h2 class="icon-user">Editar Usuário: # {{ $user->id }}</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -31,29 +31,29 @@
                             <input type="hidden" name="_method" value="PUT">
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Nome:</span>
+                                    <span class="legend">* Nome:</span>
                                     <input type="text" name="first_name" value="{{$user->first_name}} "/>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*Sobrenome:</span>
+                                    <span class="legend">* Sobrenome:</span>
                                     <input type="text" name="last_name" placeholder="Sobrenome"
                                            value="{{$user->last_name}}"/>
                                 </label>
                             </div>
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*E-mail:</span>
+                                    <span class="legend">* E-mail:</span>
                                     <input type="email" name="email" value="{{$user->email}}"/>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*CPF:</span>
-                                    <input type="tel" class="mask-doc" name="document" value="{{$user->document}}"/>
+                                    <span class="legend">* CPF:</span>
+                                    <input type="text" class="mask-doc" name="document" value="{{$user->document}}"/>
                                 </label>
                             </div>
 
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Setor:</span>
+                                    <span class="legend">* Setor:</span>
                                     <select name="sector" class="form-control" required="ON">
                                         @foreach ($sectors as $sector)
                                             <option
@@ -63,7 +63,7 @@
                                     </select>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*Função:</span>
+                                    <span class="legend">* Função:</span>
 
                                     <select name="function" class="form-control" required="ON">
                                         <option value="{{$user->function}}"> {{ ucfirst($user->function) }} </option>
@@ -71,10 +71,7 @@
                                         <option value="2"> Técnico</option>
                                         <option value="3"> Supervisor</option>
                                         <option value="4"> Gerente</option>
-
                                     </select>
-
-
                                 </label>
                             </div>
                             <div class="label_g2">
@@ -91,13 +88,13 @@
                                 <div class="app_collapse_content d-none">
                                     <div class="label_g2">
                                         <label class="label">
-                                            <span class="legend">*Celular:</span>
+                                            <span class="legend">* Celular:</span>
                                             <input type="tel" name="primary_contact" class="mask-cell"
                                                    value="{{ $user->primary_contact }} "/>
                                         </label>
 
                                         <label class="label">
-                                            <span class="legend">Residencial:</span>
+                                            <span class="legend">Telefone Residencial:</span>
                                             <input type="tel" name="secondary_contact" class="mask-phone"
                                                    value=" {{ $user->secondary_contact }} "/>
                                         </label>
@@ -114,13 +111,12 @@
                                 <div class="app_collapse_content d-none">
                                     <div class="label_g2">
                                         <label class="label">
-                                            <span class="legend">*Username:</span>
-                                            {{-- ALTERAR PARA USERNAME DEPOIS QUE RODAR A MIGRATION --}}
+                                            <span class="legend">* Nome de Usuário:</span>
                                             <input type="text" name="username" value="{{$user->username}}"/>
                                         </label>
 
                                         <label class="label">
-                                            <span class="legend">*Senha:</span>
+                                            <span class="legend">* Senha:</span>
                                             <input type="password" name="password" value="{{$user->password}}"/>
                                         </label>
                                     </div>

@@ -13,9 +13,7 @@
         @yield('css')
     @endif
 
-    <!-- ALTERAR A FAVICON -->
     <link rel="icon" type="image/png" href="backend/assets/images/favicon.png"/>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>OS Fácil - Dashboard</title>
@@ -47,14 +45,14 @@
             </li>
             <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users" href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.users.index') }}">Todos Usuários</a></li>
-                    <li class=""><a href="{{ route('admin.users.create') }}">Novo Usuário</a></li>
-                    <li class=""><a href="{{ route('admin.users.trashed') }}">Usuários Inativos</a></li>
+                    <li class="{{ isActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}">Todos Usuários</a></li>
+                    <li class="{{ isActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}">Novo Usuário</a></li>
+                    <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários Inativos</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
+            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders.index') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
+                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
                     <li class=""><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
                     <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
                  </ul>
