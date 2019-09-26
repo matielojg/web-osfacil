@@ -50,10 +50,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
         $userCreate = User::create($request->all());
 
-        if(!empty($request->file('photo'))){
+        if (!empty($request->file('photo'))) {
             $userCreate->photo = $request->file('photo')->store('user');
             $userCreate->save();
         }
@@ -77,7 +76,8 @@ class UserController extends Controller
 //        ];
 //
 //        User::create($user);
-        return redirect()->route('admin.users.index');
+//        return redirect()->route('admin.users.index');
+
     }
 
     /**
@@ -88,8 +88,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
-
+        //
     }
 
     /**
@@ -124,7 +123,7 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->first();
 
-        if(!empty($request->file('photo'))){
+        if (!empty($request->file('photo'))) {
             Storage::delete($user->photo);
             Cropper::flush($user->photo);
             $user->photo = '';
@@ -132,11 +131,11 @@ class UserController extends Controller
 
         $user->fill($request->all());
 
-        if(!empty($request->file('photo'))){
+        if (!empty($request->file('photo'))) {
             $user->photo = $request->file('photo')->store('user');
         }
 
-        if(!$user->save()){
+        if (!$user->save()) {
             return redirect()->back()->withInput()->withErrors();
         }
 
