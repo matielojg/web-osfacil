@@ -67,7 +67,8 @@
                                             value=""> -- Selecione o setor --</option>
                                         @foreach ($sectors as $sector)
                                             <option
-                                                    value="{{ $sector->id }}"}}> {{ $sector->name_sector }}
+                                                    value="{{ $sector->id }}"
+                                                    {{ old('sector') == $sector->id ? 'selected' : '' }}> {{ $sector->name_sector }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -76,10 +77,10 @@
                                     <span class="legend">* Função:</span>
                                     <select name="function">
                                         <option value=""> -- Selecione a função --</option>
-                                        <option value="funcionario">Funcionário</option>
-                                        <option value="tecnico">Técnico</option>
-                                        <option value="supervisor">Supervisor</option>
-                                        <option value="gerente">Gerente</option>
+                                        <option value="funcionario" {{ old('function') == 'funcionario' ? 'selected' : '' }}> Funcionário</option>
+                                        <option value="tecnico" {{ old('function') == 'tecnico' ? 'selected' : '' }}>Técnico</option>
+                                        <option value="supervisor" {{ old('function') == 'supervisor' ? 'selected' : '' }}>Supervisor</option>
+                                        <option value="gerente" {{ old('function') == 'gerente' ? 'selected' : '' }}>Gerente</option>
                                     </select>
                                 </label>
                             </div>
@@ -102,12 +103,12 @@
                                         <label class="label">
                                             <span class="legend">* Celular:</span>
                                             <input type="tel" name="primary_contact" class="mask-cell"
-                                                   placeholder="Número do Telefonce com DDD" />
+                                                   placeholder="Número do Telefonce com DDD" value="{{ old('primary_contact') }}"/>
                                         </label>
                                         <label class="label">
                                             <span class="legend">Residencial:</span>
                                             <input type="tel" name="secondary_contact" class="mask-phone"
-                                                   placeholder="Número do Telefonce com DDD"/>
+                                                   placeholder="Número do Telefonce com DDD" value="{{ old('secondary_contact') }}"/>
                                         </label>
                                     </div>
                                 </div>
@@ -124,13 +125,13 @@
                                         <label class="label">
                                             <span class="legend">* Login:</span>
                                             <input type="text" name="username" placeholder="Nome de usuário"
-                                                   />
+                                                   value="{{ old('username') }}"/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">* Senha:</span>
                                             <input type="password" name="password" placeholder="Senha de acesso"
-                                                   />
+                                                   value="{{ old('password') }}" />
                                         </label>
                                     </div>
                                 </div>

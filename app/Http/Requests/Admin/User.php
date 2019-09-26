@@ -17,6 +17,18 @@ class User extends FormRequest
         return Auth::check();
     }
 
+    public function all($keys = null)
+    {
+        return $this->validateFields(parent::all());
+    }
+
+    public function validateFields(array $inputs)
+    {
+        $inputs['document'] = str_replace(['.', '-'], '', $this->request->all()['document']);
+        return $inputs;
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,17 +39,16 @@ class User extends FormRequest
         return [
             'first_name' => 'required|min:2|max:191',
             'last_name' => 'required|min:2|max:191',
-            'email' => 'required|email|unique:users',
-            'document' => 'required|min:11|max:14|unique:users',
+            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
+            'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,document'),
             'sector' => 'required',
             'function' => 'required',
 
             //Contact
             'primary_contact' => 'required',
-            'secondary_contact' => 'required',
 
             //Access
-            'username' => 'required|unique:users',
+            'username' => (!empty($this->request->all()['id']) ? 'required|unique:users,username,' . $this->request->all()['id'] : 'required|unique:users,username'),
             'password' => 'required',
 
         ];
