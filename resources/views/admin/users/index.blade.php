@@ -31,6 +31,7 @@
                     <th>Setor</th>
                     <th>Função</th>
                     <th>E-mail</th>
+                    <th>Último Login</th>
                     <th>Ação</th>
                 </tr>
                 </thead>
@@ -40,23 +41,17 @@
                     <td>#{{$user->id}}</td>
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                            class="text-green"> {{$user->first_name}}  {{$user->last_name}} </a></td>
-
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                            class="text-green">{{ ucfirst($user->name_sector) }}</a></td>
-
                     <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                            class="text-green">{{ucfirst($user->function) }}</a></td>
-                    <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
+                    <td><a href="mailto:{{ $user->email }}"
                            class="text-green">{{ $user->email }}</a></td>
+                    <td><a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
+                           class="text-green">{{ date('d/m/Y - H:i', strtotime($user->last_login_at))}}</a></td>
                     <td>
                         <a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
                            class="btn btn-green ml-1 icon-check-square-o">Editar</a>
-{{--                        <form action="{{ route('admin.users.destroy', ['id'=>$user->id]) }}" method="POST">--}}
-{{--                            @csrf--}}
-{{--                            @method('DELETE')--}}
-{{--                            --}}
-{{--                            <button class="btn btn-red ml-1 icon-trash" type="submit">Excluir</button>--}}
-{{--                        </form>--}}
                 </tr>
                 @endforeach
                 </tbody>

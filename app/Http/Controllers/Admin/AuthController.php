@@ -6,6 +6,7 @@ use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 
 class AuthController extends Controller
@@ -48,10 +49,8 @@ class AuthController extends Controller
             return response()->json($json);
         }
 
-//        $this->authenticated($request->getClientIp());
-//        session([
-//            'email' => $request->email
-//        ]);
+        //PEGAR O IP DO USUÁRIO
+        $this->authenticated($request->getClientIp());
 
         $json['redirect'] = route('admin.home');
         return response()->json($json);
@@ -64,6 +63,9 @@ class AuthController extends Controller
         return redirect()->route('admin.login');
     }
 
+    /*
+     * Salvar último login e ip do usuário
+     */
     private function authenticated(string $ip)
     {
         $user = User::where('id', Auth::user()->id);

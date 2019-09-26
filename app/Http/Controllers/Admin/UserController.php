@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Sector;
 use App\User;
+
+use Illuminate\Support\Facades\Storage;
+use App\Support\Cropper;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\User as UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -43,23 +48,35 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $user = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'document' => $request->document,
-            'email' => $request->email,
-            'username' => $request->username,
-            'password' => bcrypt($request->newPassword),
-            'primary_contact' => $request->primary_contact,
-            'secondary_contact' => $request->secondary_contact,
-            'photo' => $request->photo,
-            'function' => $request->function,
-            'sector' => $request->sector,
-        ];
 
-        User::create($user);
+        $userCreate = User::create($request->all());
+
+        if(!empty($request->file('photo'))){
+            $userCreate->photo = $request->file('photo')->store('user');
+            $userCreate->save();
+        }
+
+        return redirect()->route('admin.users.edit', [
+            'users' => $userCreate->id
+        ])->with(['color' => 'green', 'message' => 'Usuário cadastrado com sucesso!']);
+
+//        $user = [
+//            'first_name' => $request->first_name,
+//            'last_name' => $request->last_name,
+//            'document' => $request->document,
+//            'email' => $request->email,
+//            'username' => $request->username,
+//            'password' => bcrypt($request->newPassword),
+//            'primary_contact' => $request->primary_contact,
+//            'secondary_contact' => $request->secondary_contact,
+//            'photo' => $request->photo,
+//            'function' => $request->function,
+//            'sector' => $request->sector,
+//        ];
+//
+//        User::create($user);
         return redirect()->route('admin.users.index');
     }
 
@@ -103,25 +120,47 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        $user = User::find($id);
+        $user = User::where('id', $id)->first();
 
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->document = $request->document;
-        $user->email = $request->email;
-        $user->username = $request->username;
-        $user->password = bcrypt($request->password);
-        $user->primary_contact = $request->primary_contact;
-        $user->secondary_contact = $request->secondary_contact;
-        $user->photo = $request->photo;
-        $user->function = $request->function;
-        $user->sector= $request->sector;
+        if(!empty($request->file('photo'))){
+            Storage::delete($user->photo);
+            Cropper::flush($user->photo);
+            $user->photo = '';
+        }
 
-        $user->save();
+        $user->fill($request->all());
 
-        return redirect()->action('Admin\UserController@index');
+        if(!empty($request->file('photo'))){
+            $user->photo = $request->file('photo')->store('user');
+        }
+
+        if(!$user->save()){
+            return redirect()->back()->withInput()->withErrors();
+        }
+
+        return redirect()->route('admin.users.edit', [
+            'users' => $user->id
+        ])->with(['color' => 'green', 'message' => 'Usuário atualizado com sucesso!']);
+
+        //var_dump($user);
+
+//        $user->first_name = $request->first_name;
+//        $user->last_name = $request->last_name;
+//        $user->document = $request->document;
+//        $user->email = $request->email;
+//        $user->username = $request->username;
+//        $user->password = bcrypt($request->password);
+//        $user->primary_contact = $request->primary_contact;
+//        $user->secondary_contact = $request->secondary_contact;
+//        $user->photo = $request->photo;
+//        $user->function = $request->function;
+//        $user->sector= $request->sector;
+//
+//        $user->save();
+//
+//        return redirect()->action('Admin\UserController@index');
 
     }
 

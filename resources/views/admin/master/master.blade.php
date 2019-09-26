@@ -13,9 +13,7 @@
         @yield('css')
     @endif
 
-    <!-- ALTERAR A FAVICON -->
     <link rel="icon" type="image/png" href="backend/assets/images/favicon.png"/>
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>OS Fácil - Dashboard</title>
@@ -34,7 +32,7 @@
 <div class="dash">
     <aside class="dash_sidebar">
         <article class="dash_sidebar_user">
-            <img class="dash_sidebar_user_thumb" src="{{ url(asset('backend/assets/images/avatar.jpg')) }}" alt="" title=""/>
+            <img class="dash_sidebar_user_thumb" src="{{  url(asset(auth()->user()->url_photo)) }}" alt="" title=""/>
 
             <h1 class="dash_sidebar_user_name">
                 <a href="">{{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
@@ -42,37 +40,35 @@
         </article>
 
         <ul class="dash_sidebar_nav">
-            <li class="dash_sidebar_nav_item ('admin.home') ">
+            <li class="dash_sidebar_nav_item {{ isActive('admin.home') }} ">
                 <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-users" href="{{ route('admin.users.index') }}">Usuários</a>
+            <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users" href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.users.index') }}">Ver Todos</a></li>
-                    <li class=""><a href="{{ route('admin.users.create') }}">Criar Novo</a></li>
-                    <li class=""><a href="{{ route('admin.users.trashed') }}">Inativos</a></li>
+                    <li class="{{ isActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}">Todos Usuários</a></li>
+                    <li class="{{ isActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}">Novo Usuário</a></li>
+                    <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários Inativos</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
+            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders.index') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
-                    <li class=""><a href="{{ route('admin.orders.create') }}">Criar Nova</a></li>
+                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
+                    <li class=""><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
                     <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
                  </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
+            <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.sector.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>
+            <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.services.index') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.services.create') }}">Criar Novo</a></li>
                 </ul>
             </li>
-
-
 
             <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile" href="{{route('admin.logout')}}">Sair</a></li>
         </ul>

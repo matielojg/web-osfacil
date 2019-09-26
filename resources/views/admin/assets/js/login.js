@@ -15,6 +15,8 @@ $(function () {
         const username = form.find('input[name="username"]').val();
         const password = form.find('input[name="password_check"]').val();
 
+        console.log(username, password);
+
         //$.post(action, {email: email, password: password}, function(response){
         $.post(action, {username: username, password: password}, function(response){
 
