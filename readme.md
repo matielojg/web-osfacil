@@ -25,6 +25,9 @@
     php artisan key:generate
     npm install
     
+    
+    composer dump-autoload
+    php artisan storage:link
 
 
 
