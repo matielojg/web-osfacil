@@ -146,8 +146,8 @@
 
                                     <label class="label">
                                         <span class="legend">* Senha:</span>
-                                        <input type="password" name="password"
-                                               value="{{ old('password') ?? $user->password}}"/>
+                                        <input type="password" name="password" placeholder="Senha de Acesso"
+                                               value=""/>
                                     </label>
                                 </div>
                             </div>

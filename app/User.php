@@ -77,16 +77,6 @@ class User extends Authenticatable
         return '';
     }
 
-    public function setCellAttribute($value)
-    {
-        $this->attributes['primary_contact'] = $this->clearField($value);
-    }
-
-    public function setTelephoneAttribute($value)
-    {
-        $this->attributes['secondary_contact'] = $this->clearField($value);
-    }
-
     public function setDocumentAttribute($value)
     {
         $this->attributes['document'] = $this->clearField($value);
@@ -97,9 +87,19 @@ class User extends Authenticatable
         return substr($value, 0, 3) . '.' . substr($value, 3, 3) . '.' . substr($value, 6, 3) . '-' . substr($value, 9, 2);
     }
 
+    public function setCellAttribute($value)
+    {
+        $this->attributes['primary_contact'] = $this->clearField($value);
+    }
+
+    public function setTelephoneAttribute($value)
+    {
+        $this->attributes['secondary_contact'] = $this->clearField($value);
+    }
+
     public function setPasswordAttribute($value)
     {
-        if(empty($value)){
+        if (empty($value)) {
             unset($this->attributes['password']);
             return;
         }

@@ -43,13 +43,14 @@ class User extends FormRequest
             'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,document'),
             'sector' => 'required',
             'function' => 'required',
+            'photo' => 'image',
 
             //Contact
             'primary_contact' => 'required',
 
             //Access
             'username' => (!empty($this->request->all()['id']) ? 'required|unique:users,username,' . $this->request->all()['id'] : 'required|unique:users,username'),
-            'password' => 'required',
+            //'password' => 'required',
 
         ];
     }
