@@ -139,11 +139,13 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors();
         }
 
+
+//        var_dump($user);
+
         return redirect()->route('admin.users.edit', [
             'users' => $user->id
         ])->with(['color' => 'green', 'message' => 'Usuário atualizado com sucesso!']);
 
-        //var_dump($user);
 
 //        $user->first_name = $request->first_name;
 //        $user->last_name = $request->last_name;
