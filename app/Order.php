@@ -17,8 +17,9 @@ class Order extends Model
         'priority',
         'status',
         'type_service',
-        'responsible',
-        'image'];
+        'responsible'
+        //'image',
+    ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function requester()
