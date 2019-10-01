@@ -74,13 +74,21 @@
                                     <p>{{ ucfirst($order->priority) }}</p>
                                 </div>
                             </div>
-                            <div class="label">
+                            <div class="label_g2">
                                 <div class="label">
                                     <h3>Descreva o Problema:</h3>
                                     <p>
                                         {{ $order->description }}
                                     </p>
                                 </div>
+                                @if(!empty($order->responsible_first))
+                                    <div class="label">
+                                        <h3>Técnico Responsável:</h3>
+                                        <p>
+                                            {{ $order->responsible_first }} {{ $order->responsible_last }}
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
                             <div class="label_g2">
                                 <div class="label">
@@ -124,10 +132,12 @@
                                 </table>
                             </div>
                         </div>
+                        @php
 
+                        @endphp
                         <div id="change" class="d-none">
                             <form class="app_form"
-                                  action="{{ route('admin.orders.edit.action', ['id' =>$order->id]) }}" method="post"
+                                  action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
 

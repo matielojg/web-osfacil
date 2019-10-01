@@ -77,13 +77,20 @@
                                 </div>
                             </div>
 
-                            <div class="label">
+                            <div class="label_g2">
                                 <div class="label">
                                     <h3>Descreva o Problema:</h3>
                                     <p> {{ $assign->description }} </p>
                                 </div>
+                            @if(!empty($assign->responsible_first))
+                                <div class="label">
+                                    <h3>Técnico Responsável:</h3>
+                                    <p>
+                                        {{ $assign->responsible_first }} {{ $assign->responsible_last }}
+                                    </p>
+                                </div>
+                            @endif
                             </div>
-
                             <div class="label">
                                 <div class="label">
                                     <h3>Imagens</h3>
@@ -91,8 +98,8 @@
                                 </div>
                             </div>
                             @endforeach
-                        </div>
 
+                    </div>
                         <div id="assign">
                             <div class="label">
                                 <div class="label">
@@ -102,6 +109,7 @@
                                       enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
+                                    <div>
                                         <h3>Escolha o técnico:</h3>
                                         <select name="responsible" class="form-control">
                                             @foreach($technicals as $technical)
@@ -116,7 +124,7 @@
                         </div>
 
 
-                            <div id="history" class="d-none">
+                             <div id="history" class="d-none">
                                 <div class="label">
                                     <table id="dataTable" class="" width="100"
                                            style="width: 100% !important;">
@@ -160,6 +168,7 @@
                     </div>
                 </div>
             </div>
+
     </section>
 
 @endsection

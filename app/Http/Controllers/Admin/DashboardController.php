@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Order;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Order;
 use App\User;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
 
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
-
     public function home()
+
     {
         //Users
-        $employee = User::where('function','=', 'funcionario')->count();
-        $technician = User::where('function','=', 'tecnico')->count();
-        $supervisor = User::where('function','=', 'supervisor')->count();
-        $manager = User::where('function','=', 'gerente')->count();
+        $employee = User::where('function', '=', 'funcionario')->count();
+        $technician = User::where('function', '=', 'tecnico')->count();
+        $supervisor = User::where('function', '=', 'supervisor')->count();
+        $manager = User::where('function', '=', 'gerente')->count();
 
         //Orders
         $orderOpen = Order::where('status', '=', 'aberto')->count();
@@ -39,6 +33,7 @@ class DashboardController extends Controller
         $orderLow = Order::where('priority', '=', 'baixa')->count();
 
         //Last Orders
+
         $ordersSupervisor = DB::table('orders')
             ->join('users', 'orders.requester', '=', 'users.id')
             ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
@@ -57,7 +52,7 @@ class DashboardController extends Controller
                 'users.last_name')
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'asc')
-//                  ->where('orders.responsible', '=', $cargo->id)
+            ->where('orders.responsible', '=', auth()->user()->id)  //view técnico
             ->get();
 
         $ordersEmployee = DB::table('orders')
@@ -68,7 +63,7 @@ class DashboardController extends Controller
                 'users.last_name')
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'asc')
-//                  ->where('orders.requester', '=', $cargo->id)
+            ->where('orders.requester', '=', auth()->user()->id)
             ->get();
 
 
@@ -76,15 +71,15 @@ class DashboardController extends Controller
 
         //$json['message'] = $this->message->success('Seja Bem-Vindo!')->render();
 
-        if($userFunction == 'funcionario'){
+        if ($userFunction == 'funcionario') {
             return view('admin.dashboard.dashboardEmployee', [
                 'orders' => $ordersEmployee
             ]);
-        }elseif ($userFunction == 'tecnico'){
+        } elseif ($userFunction == 'tecnico') {
             return view('admin.dashboard.dashboardTechnician', [
                 'orders' => $ordersTechnical
             ]);
-        }else{
+        } else {
             return view('admin.dashboard', [
                 'employee' => $employee,
                 'technician' => $technician,
