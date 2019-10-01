@@ -30,17 +30,19 @@
 <div class="ajax_response"></div>
 
 @php
-    if (\Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . \Illuminate\Support\Facades\Auth::user()->photo)){
-        $photo = \Illuminate\Support\Facades\Auth::user()->url_photo;
-    } else {
-        $photo = url(asset('backend/assets/images/avatar.jpg'));
-    }
+if(\Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . auth()->user()->photo)){
+    $photo = \Illuminate\Support\Facades\Auth::user()->url_photo;
+}else{
+    $photo = url(asset("backend/assets/images/avatar.jpg"));
+}
 @endphp
+
+
 
 <div class="dash">
     <aside class="dash_sidebar">
         <article class="dash_sidebar_user">
-            <img class="dash_sidebar_user_thumb" src="{{ $photo }}" alt="" title=""/>
+            <img class="dash_sidebar_user_thumb" src="{{ $photo  }}" alt="" title=""/>
 
             <h1 class="dash_sidebar_user_name">
                 <a href="">{{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
