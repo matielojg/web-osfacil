@@ -65,6 +65,7 @@
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
                     <li class=""><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
                     <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
+                    <li class=""><a href="{{ route('admin.orders.pending') }}">Ordens Pendentes</a></li>
                 </ul>
             </li>
             <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>

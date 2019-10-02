@@ -29,9 +29,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         /** Ordem de Serviço */
         Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
         Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
+        Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
         Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
         Route::patch('/orders/assign/update/technical/{id}',
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
+
         Route::resource('orders', 'OrderController');
 
         /** Setores */

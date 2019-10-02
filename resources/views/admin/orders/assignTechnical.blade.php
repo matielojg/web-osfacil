@@ -82,14 +82,14 @@
                                     <h3>Descreva o Problema:</h3>
                                     <p> {{ $assign->description }} </p>
                                 </div>
-                            @if(!empty($assign->responsible_first))
-                                <div class="label">
-                                    <h3>Técnico Responsável:</h3>
-                                    <p>
-                                        {{ $assign->responsible_first }} {{ $assign->responsible_last }}
-                                    </p>
-                                </div>
-                            @endif
+                                @if(!empty($assign->responsible_first))
+                                    <div class="label">
+                                        <h3>Técnico Responsável:</h3>
+                                        <p>
+                                            {{ $assign->responsible_first }} {{ $assign->responsible_last }}
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
                             <div class="label">
                                 <div class="label">
@@ -98,18 +98,16 @@
                                 </div>
                             </div>
                             @endforeach
-
-                    </div>
+                        </div>
                         <div id="assign">
                             <div class="label">
                                 <div class="label">
 
-                                <form class="app_form" method="post"
-                                      action="{{ route('admin.orders.assign.updateTechnical', ['id' => $assign->id ]) }}"
-                                      enctype="multipart/form-data">
-                                    @method('PATCH')
-                                    @csrf
-                                    <div>
+                                    <form class="app_form" method="post"
+                                          action="{{ route('admin.orders.assign.updateTechnical', ['id' => $assign->id ]) }}"
+                                          enctype="multipart/form-data">
+                                        @method('PATCH')
+                                        @csrf
                                         <h3>Escolha o técnico:</h3>
                                         <select name="responsible" class="form-control">
                                             @foreach($technicals as $technical)
@@ -118,57 +116,56 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                    <input type="hidden" name="status"  value="2">
-                                    </div>
-                            </div>
-                        </div>
-
-
-                             <div id="history" class="d-none">
-                                <div class="label">
-                                    <table id="dataTable" class="" width="100"
-                                           style="width: 100% !important;">
-                                        <thead>
-                                        <tr>
-                                            <th>Data</th>
-                                            <th>Usuário</th>
-                                            <th>Status</th>
-                                            <th>Comentário</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($actions as $action)
-                                            <tr>
-                                                <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
-                                                <td>
-                                                    <a class="text-green">{{ $action->first_name }} {{ $action->last_name }}</a>
-                                                </td>
-                                                <td><a class="text-green">Alterou o Status para:
-                                                        <b>{{ $action->status }}</b></a>
-                                                </td>
-                                                <td><a class="text-green">{{ $action->description }}
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                        <input type="hidden" name="status"  value="2">
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="text-right mt-2">
-                            <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                                Alterações
-                            </button>
+
+                        <div id="history" class="d-none">
+                            <div class="label">
+                                <table id="dataTable" class="" width="100"
+                                       style="width: 100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Usuário</th>
+                                        <th>Status</th>
+                                        <th>Comentário</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($actions as $action)
+                                        <tr>
+                                            <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
+                                            <td>
+                                                <a class="text-green">{{ $action->first_name }} {{ $action->last_name }}</a>
+                                            </td>
+                                            <td><a class="text-green">Alterou o Status para:
+                                                    <b>{{ $action->status }}</b></a>
+                                            </td>
+                                            <td><a class="text-green">{{ $action->description }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        </form>
 
                     </div>
+
+                    <div class="text-right mt-2">
+                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                            Alterações
+                        </button>
+                    </div>
+                    </form>
+
                 </div>
             </div>
-
+        </div>
     </section>
 
 @endsection
