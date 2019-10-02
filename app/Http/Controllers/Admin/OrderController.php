@@ -176,6 +176,25 @@ class OrderController extends Controller
     }
 
     /**
+     * Visualizar ordens pendentes e devolver ao técnico após solução
+     */
+    public function pending()
+    {
+        $assigns = DB::table('orders')
+            ->join('users as a', 'orders.requester', '=', 'a.id')
+            ->leftJoin('users as b', 'orders.responsible', '=', 'b.id')
+            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+            ->join('services', 'orders.service', '=', 'services.id')
+            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'a.first_name', 'a.last_name',
+                'b.first_name as responsible_first', 'b.last_name as responsible_last')
+            ->orderBy('priority', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->whereIn('orders.status', ['suspenso' , 'pendente'])
+            ->get();
+
+        return view('admin.orders.assign')->with('assigns', $assigns);
+    }
+    /**
      * Atribuir técnicos as ordens abertas no sistema
      *
      */
