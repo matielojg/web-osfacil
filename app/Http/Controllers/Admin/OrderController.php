@@ -97,7 +97,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
         $order = [
             'sector_requester' => $request->sector_requester,
             'requester' => $request->requester,
@@ -111,6 +110,19 @@ class OrderController extends Controller
         ];
 //        dd($order);
         Order::create($order);
+
+        $orderId = Order::all()->last();
+        $user =  auth()->user();
+
+        $action = [
+            'description' => 'Ordem aberta pelo usuário ' . $user->first_name,
+            'user' => $user->id,
+            'order' => $orderId->id,
+            'status' => 1,
+        ];
+
+        Action::create($action);
+
 
 //        if ($request->allFiles()) {
 //            foreach ($request->allFiles()['files'] as $image) {
