@@ -111,8 +111,8 @@ class OrderController extends Controller
 //        dd($order);
         Order::create($order);
 
-        $orderId = Order::all()->last();
-        $user =  auth()->user();
+        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
+        $user = auth()->user();
 
         $action = [
             'description' => 'Ordem aberta pelo usuário ' . $user->first_name,
@@ -201,11 +201,12 @@ class OrderController extends Controller
                 'b.first_name as responsible_first', 'b.last_name as responsible_last')
             ->orderBy('priority', 'desc')
             ->orderBy('created_at', 'asc')
-            ->whereIn('orders.status', ['suspenso' , 'pendente'])
+            ->whereIn('orders.status', ['suspenso', 'pendente'])
             ->get();
 
         return view('admin.orders.assign')->with('assigns', $assigns);
     }
+
     /**
      * Atribuir técnicos as ordens abertas no sistema
      *

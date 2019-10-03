@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableServicesForeignKeySector extends Migration
+class AlterTableServicesForeignKeySectorProviders extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class AlterTableServicesForeignKeySector extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->unsignedBigInteger('sector')->nullable();
-            $table->foreign('sector')->references('id')->on('sectors');
-
+            $table->unsignedBigInteger('sector');
+            $table->foreign('sector')->references('id')->on('sector_providers');
         });
     }
 
