@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Sector;
+use App\SectorProvider;
 use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,8 +20,8 @@ class ServiceController extends Controller
 
 
         $services = DB::table('services')
-            ->leftJoin('sectors', 'services.sector', '=', 'sectors.id')
-            ->select('services.*', 'sectors.name_sector')
+            ->leftJoin('sector_providers', 'services.sector', '=', 'sector_providers.id')
+            ->select('services.*', 'sector_providers.name_sector')
             ->get();
 
 
@@ -38,7 +38,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $sectors = Sector::all();
+        $sectors = SectorProvider::all();
         return view('admin.services.create')->with('sectors',$sectors);
     }
 
@@ -78,7 +78,7 @@ class ServiceController extends Controller
     {
         //
         $service = Service::find($id);
-        $sectors = Sector::all();
+        $sectors = SectorProvider::all();
 
         if (!empty($service)) {
             return view('admin.services.edit', ['service' => $service, 'sectors' => $sectors
