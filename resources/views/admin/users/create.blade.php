@@ -41,21 +41,21 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">* Nome:</span>
-                                    <input type="text" name="first_name" placeholder="Nome" value="{{ old('first_name') }}"/>
+                                    <input type="text" name="first_name" placeholder="Nome" autocomplete="off" value="{{ old('first_name') }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">* Sobrenome:</span>
-                                    <input type="text" name="last_name" placeholder="Sobrenome" value="{{ old('last_name') }}"/>
+                                    <input type="text" name="last_name" placeholder="Sobrenome" autocomplete="off" value="{{ old('last_name') }}"/>
                                 </label>
                             </div>
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">* E-mail:</span>
-                                    <input type="email" name="email" placeholder="Melhor e-mail" value="{{ old('email') }}"/>
+                                    <input type="email" name="email" placeholder="Melhor e-mail" autocomplete="off" value="{{ old('email') }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">* CPF:</span>
-                                    <input type="tel" class="mask-doc" name="document" placeholder="Número do CPF" value="{{ old('document') }}"/>
+                                    <input type="tel" class="mask-doc" name="document" placeholder="Número do CPF" autocomplete="off" value="{{ old('document') }}"/>
                                 </label>
                             </div>
 
