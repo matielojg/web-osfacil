@@ -43,3 +43,9 @@
 
     
 <p> https://packagist.org/packages/coffeecode/cropper </p>
+
+<hr>
+<b> Migrations: </b>
+    
+    php artisan make:migration create_users_table --create=users
+    php artisan make:migration add_votes_to_users_table --table=users
