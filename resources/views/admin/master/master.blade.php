@@ -72,8 +72,15 @@
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.sector.create') }}">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
                 </ul>
             </li>
+{{--            <li class="dash_sidebar_nav_item {{ isActive('admin.sectorproviders.index') }}"><a class="icon-columns" href="{{ route('admin.sectorproviders.index') }}">Setores Manutenção</a>--}}
+{{--                <ul class="dash_sidebar_nav_submenu">--}}
+{{--                    <li class=""><a href="{{ route('admin.sectorproviders.index') }}">Ver Todos</a></li>--}}
+{{--                    <li class=""><a href="{{ route('admin.sectorproviders.create') }}">Criar Novo</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
             <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.services.index') }}">Ver Todos</a></li>

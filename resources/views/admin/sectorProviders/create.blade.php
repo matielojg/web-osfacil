@@ -6,16 +6,16 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Novo Setor</h2>
+            <h2 class="icon-user-plus">Novo Setor Manutencao</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.sector') }}">Setores</a></li>
+                        <li><a href="{{ route('admin.sectorproviders') }}">Setores Manutenção</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.sector.create') }}" class="text-orange">Novo Setor</a></li>
+                        <li><a href="{{ route('admin.sectorproviders.create') }}" class="text-orange">Novo Setor Manutenção</a></li>
                     </ul>
                 </nav>
             </div>
@@ -23,7 +23,7 @@
 
         <div class="dash_content_app_box">
             <div class="nav">
-                <form class="app_form" action="<?= url('admin/setor/store'); ?>" method="post"
+                <form class="app_form" action="<?= url('admin/sectorproviders'); ?>" method="post"
                       enctype="multipart/form-data">
                     <div class="nav_tabs_content">
                         <div id="data">
@@ -38,7 +38,7 @@
                                 <label class="label">
                                     <span class="legend">*Responsável:</span>
                                     <select name="responsible" class="form-control" required="ON">
-                                        <option  value=" "> -- Selecione um Supervisor -- </option>
+                                        <option  value=" "> ::Selecione um Supervisor:: </option>
                                         @foreach ($responsibles as $responsible)
                                             <option
                                                 value="{{ $responsible->id }}"> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>

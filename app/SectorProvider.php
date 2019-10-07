@@ -9,6 +9,6 @@ class SectorProvider extends Model
 {
     use SoftDeletes;
     protected $table = 'sector_providers';
-    protected $fillable = ['name_sector'];
+    protected $fillable = ['name_sector','supervisor'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }

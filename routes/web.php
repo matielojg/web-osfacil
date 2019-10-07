@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\AuthControler;
 Route::resourceVerbs([
     'create' => 'cadastro',
     'edit' => 'editar',
-    'assign' => 'atribuir'
+    'assign' => 'atribuir',
+    //'sectorproviders' => 'manutencao'
 ]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
@@ -44,6 +45,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::put('/setor/update/{id}', 'SectorController@update')->name('sector.update');
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
+
+        /** Setores Manutenção */
+        Route::get('/providers', 'SectorProviderController@index')->name('sectorsProvider.index');
+        Route::get('/providers/editar/{id}', 'SectorProviderController@edit')->name('sectorsProvider.edit');
+        Route::put('/providers/update/{id}', 'SectorProviderController@update')->name('sectorsProvider.update');
+        //Route::resource('sectorproviders', 'SectorProviderController');
 
         /**Servicos */
         Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');

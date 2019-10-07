@@ -18,7 +18,6 @@ class ServiceController extends Controller
     public function index()
     {
 
-
         $services = DB::table('services')
             ->leftJoin('sector_providers', 'services.sector', '=', 'sector_providers.id')
             ->select('services.*', 'sector_providers.name_sector')
