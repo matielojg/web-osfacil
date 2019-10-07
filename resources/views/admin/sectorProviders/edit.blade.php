@@ -6,7 +6,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Novo Setor</h2>
+            <h2 class="icon-columns">Atribuir Supervisor ao Setor: <span class="text-green">{{$sectorEdit->name_sector}}</span></h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -15,7 +15,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.sector') }}">Setores</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.sector.create') }}" class="text-orange">Novo Setor</a></li>
+                        <li><a href="" class="text-orange">Editar Setor</a></li>
                     </ul>
                 </nav>
             </div>
@@ -23,36 +23,43 @@
 
         <div class="dash_content_app_box">
             <div class="nav">
-                <form class="app_form" action="<?= url('admin/setor/store'); ?>" method="post"
-                      enctype="multipart/form-data">
+                <form class="app_form" action=" {{ url('admin/providers/update' , ['id'=>$sectorEdit->id]) }}" method="post" enctype="multipart/form-data">
                     <div class="nav_tabs_content">
                         <div id="data">
                             @csrf
-                            <div class="label_g2">
-                                <label class="label">
-                                    <span class="legend">*Nome do Setor:</span>
-                                    <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor"
-                                           autocomplete="off"/>
-                                </label>
+                            <input type="hidden" name="_method" value="PUT">
+                            <div class="label">
+
 
                                 <label class="label">
                                     <span class="legend">*Responsável:</span>
-                                    <select name="responsible" class="form-control" required="ON">
-                                        <option  value=" "> -- Selecione um Supervisor -- </option>
-                                        @foreach ($responsibles as $responsible)
+                                    <select name="supervisor" class="form-control">
+                                        @foreach ($supervisores as $supervisor)
                                             <option
-                                                value="{{ $responsible->id }}"> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>
+                                                value="{{ $supervisor->id }}" {{ ( $supervisor->id == $sectorEdit->supervisor) ? 'selected' : '' }}> {{ $supervisor->first_name}} {{ $supervisor->last_name}}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </label>
+
                             </div>
                         </div>
                     </div>
-                    <div class="text-right mt-2">
+                    <div class="btn-flex">
+                    <div class="mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                     </div>
-                </form>
+                    </form>
+                    <div class="mt-2">
+                        <form action="{{ route('admin.sector.destroy', ['id' => $sectorEdit->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

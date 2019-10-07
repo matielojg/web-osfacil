@@ -23,11 +23,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('sectors')
-            ->join('users', 'users.sector', 'sectors.id')
+        $users = DB::table('users')
+            ->leftJoin('sectors', 'users.sector', '=','sectors.id')
             ->select('users.*', 'sectors.name_sector')
             ->whereNull('users.deleted_at')
             ->get();
+
         return view('admin.users.index')->with('users', $users);
     }
 
