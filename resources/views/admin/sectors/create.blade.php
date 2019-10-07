@@ -38,7 +38,7 @@
                                 <label class="label">
                                     <span class="legend">*Responsável:</span>
                                     <select name="responsible" class="form-control" required="ON">
-                                        <option  value=" "> ::Selecione um Supervisor:: </option>
+                                        <option  value=" "> -- Selecione um Supervisor -- </option>
                                         @foreach ($responsibles as $responsible)
                                             <option
                                                 value="{{ $responsible->id }}"> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>

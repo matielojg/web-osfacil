@@ -7,7 +7,7 @@
         <header class="dash_content_app_header">
 
             @foreach($assigns as $assign)
-                <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $assign->id }}</h2>
+                <h2 class="icon-file-text">Atribuir Técnico para Ordem de Serviço Nº: {{ $assign->id }}</h2>
 
                 <div class="dash_content_app_header_actions">
                     <nav class="dash_content_app_breadcrumb">
@@ -17,7 +17,7 @@
                             <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a>
                             </li>
                             <li class="separator icon-angle-right icon-notext"></li>
-                            <li><a href="" class="text-red">Editar Ordem</a></li>
+                            <li><a class="text-red">Editar Ordem</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -25,7 +25,9 @@
         </header>
 
         <div class="dash_content_app_box">
+
             <div class="nav">
+
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
                         <a href="#data" class="nav_tabs_item_link active">Informações</a>
@@ -37,7 +39,6 @@
                     <li class="nav_tabs_item">
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
-
                 </ul>
 
                 <div class="app_form">
@@ -77,13 +78,20 @@
                                 </div>
                             </div>
 
-                            <div class="label">
+                            <div class="label_g2">
                                 <div class="label">
                                     <h3>Descreva o Problema:</h3>
                                     <p> {{ $assign->description }} </p>
                                 </div>
+                            @if(!empty($assign->responsible_first))
+                                <div class="label">
+                                    <h3>Técnico Responsável:</h3>
+                                    <p>
+                                        {{ $assign->responsible_first }} {{ $assign->responsible_last }}
+                                    </p>
+                                </div>
+                            @endif
                             </div>
-
                             <div class="label">
                                 <div class="label">
                                     <h3>Imagens</h3>
@@ -91,7 +99,8 @@
                                 </div>
                             </div>
                             @endforeach
-                        </div>
+
+                    </div>
 
                         <div id="assign">
                             <div class="label">
@@ -102,6 +111,7 @@
                                       enctype="multipart/form-data">
                                     @method('PATCH')
                                     @csrf
+                                    <div>
                                         <h3>Escolha o técnico:</h3>
                                         <select name="responsible" class="form-control">
                                             @foreach($technicals as $technical)
@@ -116,7 +126,7 @@
                         </div>
 
 
-                            <div id="history" class="d-none">
+                             <div id="history" class="d-none">
                                 <div class="label">
                                     <table id="dataTable" class="" width="100"
                                            style="width: 100% !important;">
@@ -160,6 +170,7 @@
                     </div>
                 </div>
             </div>
+
     </section>
 
 @endsection

@@ -30,11 +30,11 @@
 <div class="ajax_response"></div>
 
 @php
-if(\Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . auth()->user()->photo)){
-    $photo = \Illuminate\Support\Facades\Auth::user()->url_photo;
-}else{
-    $photo = url(asset("backend/assets/images/avatar.jpg"));
-}
+    if(\Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . auth()->user()->photo)){
+        $photo = \Illuminate\Support\Facades\Auth::user()->url_photo;
+    }else{
+        $photo = url(asset("backend/assets/images/avatar.jpg"));
+    }
 @endphp
 
 
@@ -45,7 +45,7 @@ if(\Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . auth()
             <img class="dash_sidebar_user_thumb" src="{{ $photo  }}" alt="" title=""/>
 
             <h1 class="dash_sidebar_user_name">
-                <a href="">{{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
+                <a href=" {{ route('admin.users.edit', ['id'=>auth()->user()->id]) }} "> {{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
             </h1>
         </article>
 
@@ -58,14 +58,14 @@ if(\Illuminate\Support\Facades\File::exists(public_path() . '/storage/' . auth()
                     <li class="{{ isActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}">Todos Usuários</a></li>
                     <li class="{{ isActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}">Novo Usuário</a></li>
                     <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários Inativos</a></li>
-                 </ul>
+                </ul>
             </li>
-            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders.index') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
+            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
-                    <li class=""><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
-                    <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
-                 </ul>
+                    <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
+                    <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
+                </ul>
             </li>
             <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">

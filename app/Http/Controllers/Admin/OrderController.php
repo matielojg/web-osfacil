@@ -25,7 +25,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cargo = 'supervisor';
+        $cargo = auth()->user()->function;
 
         switch ($cargo) {
             case ('supervisor');
@@ -48,7 +48,7 @@ class OrderController extends Controller
                         'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
-//                  ->where('orders.responsible', '=', $cargo->id)
+                    ->where('orders.responsible', '=', auth()->user()->id)
                     ->get();
 
                 break;
@@ -61,7 +61,7 @@ class OrderController extends Controller
                         'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
-//                  ->where('orders.requester', '=', $cargo->id)
+                    ->where('orders.requester', '=', auth()->user()->id)
                     ->get();
                 break;
         }
@@ -145,8 +145,9 @@ class OrderController extends Controller
     {
         $orders = DB::table('orders AS a')
             ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
-                'b.last_name')
+                'b.last_name', 'f.first_name as responsible_first', 'f.last_name as responsible_last')
             ->join('users AS b', 'a.requester', '=', 'b.id')
+            ->leftJoin('users AS f', 'a.responsible', '=', 'f.id')
             ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
             ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
             ->join('services AS e', 'a.service', '=', 'e.id')
@@ -160,6 +161,8 @@ class OrderController extends Controller
             ->where('a.order', $id)
             ->get();
 
+//        var_dump($orders);
+//        die;
         //dd($orders, $actions, $id);
         if (!empty($orders)) {
             return view('admin.orders.edit', [
@@ -198,15 +201,18 @@ class OrderController extends Controller
     {
 
         $assigns = DB::table('orders AS a')
-            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
-                'b.last_name')
             ->join('users AS b', 'a.requester', '=', 'b.id')
+            ->leftJoin('users AS f', 'a.responsible', '=', 'f.id')
             ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
             ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
             ->join('services AS e', 'a.service', '=', 'e.id')
+            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
+                'b.last_name', 'f.first_name as responsible_first', 'f.last_name as responsible_last')
             ->where('a.id', $id)
             ->get();
 
+//        var_dump($assigns);
+//        die;
         $actions = DB::table('actions AS a')
             ->latest()
             ->select('a.*', 'b.first_name', 'b.last_name')
@@ -243,7 +249,7 @@ class OrderController extends Controller
     {
         $action = new Action();
         $action->description = $request->description;
-        $action->user = 1;
+        $action->user = auth()->user()->id;
         $action->order = $id;
         $action->status = $request->status;
 
