@@ -29,7 +29,7 @@
                     <tr>
                         <th>#</th>
                         <th>Solicitante</th>
-                        <th>Setor</th>
+                        <th>Setor do Solicitante</th>
                         <th>Prioridade</th>
                         <th>Status</th>
                         <th>Data de Abertura</th>

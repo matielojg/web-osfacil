@@ -32,7 +32,7 @@
                                     <option
                                             value=""> -- Selecione o setor --
                                     </option>
-                                    @foreach ($sectors as $sector)
+                                    @foreach ($sectorProviders as $sector)
                                         <option
                                                 value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
 
