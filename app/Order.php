@@ -18,9 +18,10 @@ class Order extends Model
         'status',
         'type_service',
         'responsible'
-        //'image',
     ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**  Usuario */
 
     public function requester()
     {
@@ -30,6 +31,48 @@ class Order extends Model
     public function responsible()
     {
         return $this->belongsTo(Order::class, 'responsible', 'id');
+    }
+
+    public function ancillary()
+    {
+        return $this->belongsTo(Order::class, 'ancillary', 'id');
+    }
+
+    /** setor */
+
+    public function sectorRequester()
+    {
+        return $this->belongsTo(Order::class, 'sector_requester', 'id');
+    }
+
+    public function sectorProvider()
+    {
+        return $this->belongsTo(Order::class, 'sector_provider', 'id');
+    }
+
+    /** Service */
+    public function service()
+    {
+        return $this->belongsTo(Order::class, 'service', 'id');
+    }
+
+    /** Avaliação */
+    public function evaluation()
+    {
+        return $this->hasOne(Evaluation::class, 'order', 'id');
+    }
+
+    /**Histórico */
+    public function action()
+    {
+        return $this->hasMany(Action::class, 'order', 'id');
+    }
+
+    /** Image */
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'order', 'id');
     }
 
 }

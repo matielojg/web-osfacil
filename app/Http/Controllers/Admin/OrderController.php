@@ -49,7 +49,7 @@ class OrderController extends Controller
                         'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
-                    ->where('orders.responsible', '=', auth()->user()->id)
+                    ->where('orders.requester', '=', auth()->user()->id)
                     ->get();
 
                 break;
@@ -159,6 +159,19 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+        /** teste
+
+        $order = Order::where('id', $id)->first();
+        $requester = $order->requester()->first();
+        $service = $order->service()->first();
+        $action = $order->action()->first();
+        $responsible = $order->responsible()->first();
+
+        var_dump($responsible);
+        die;
+
+         */
+
         $orders = DB::table('orders AS a')
             ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
                 'b.last_name', 'f.first_name as responsible_first', 'f.last_name as responsible_last')
