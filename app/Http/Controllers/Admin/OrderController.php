@@ -4,21 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Action;
 use App\Http\Controllers\Controller;
+use App\Image;
 use App\Order;
 use App\Sector;
 use App\SectorProvider;
 use App\Service;
+use App\Support\Cropper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
-
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
-
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +28,8 @@ class OrderController extends Controller
         switch ($cargo) {
             case ('supervisor');
                 $orders = DB::table('orders')
-                    ->join('users', 'orders.requester',  'users.id')
-                    ->join('sectors', 'orders.sector_requester',  'sectors.id')
+                    ->join('users', 'orders.requester', 'users.id')
+                    ->join('sectors', 'orders.sector_requester', 'sectors.id')
                     ->join('services', 'orders.service', 'services.id')
                     ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
                         'users.last_name')
@@ -79,9 +76,9 @@ class OrderController extends Controller
     public function create()
     {
         $sectorProviders = SectorProvider::all();
-      //  $services = DB::table('services')->where('sector',  $sectorProviders)->get();
+        //  $services = DB::table('services')->where('sector',  $sectorProviders)->get();
 
-       $services = Service::all();
+        $services = Service::all();
 
         if (!empty($sectorProviders)) {
             return view('admin.orders.create', [
@@ -101,19 +98,42 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = [
-            'sector_requester' => $request->sector_requester,
-            'requester' => $request->requester,
-            'sector_provider' => $request->sector_provider,
-            'service' => $request->service,
-            'description' => $request->description,
-            'priority' => $request->priority,
-            'status' => 1,
-            'type_service' => $request->type_service,
-            'image' => $request->image
-        ];
-//        dd($order);
-        Order::create($order);
+        $order = new Order();
+        $order->sector_requester = $request->sector_requester;
+        $order->requester = $request->requester;
+        $order->sector_provider = $request->sector_provider;
+        $order->service = $request->service;
+        $order->description = $request->description;
+        $order->priority = $request->priority;
+        $order->status = 1;
+        $order->type_service = $request->type_service;
+
+        $order->save();
+//
+//        $order = [
+//            'sector_requester' => $request->sector_requester,
+//            'requester' => $request->requester,
+//            'sector_provider' => $request->sector_provider,
+//            'service' => $request->service,
+//            'description' => $request->description,
+//            'priority' => $request->priority,
+//            'status' => 1,
+//            'type_service' => $request->type_service,
+//            'image' => $request->image
+//        ];
+//
+//        Order::create($order);
+
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $order->id;
+                $orderImage->image = $image->store('orders/' . $order->id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+        }
 
         $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
         $user = auth()->user();
@@ -159,17 +179,17 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+
         /** teste
-
-        $order = Order::where('id', $id)->first();
-        $requester = $order->requester()->first();
-        $service = $order->service()->first();
-        $action = $order->action()->first();
-        $responsible = $order->responsible()->first();
-
-        var_dump($responsible);
-        die;
-
+         *
+         * $order = Order::where('id', $id)->first();
+         * $requester = $order->requester()->first();
+         * $service = $order->service()->first();
+         * $action = $order->action()->first();
+         * $responsible = $order->responsible()->first();
+         *
+         * var_dump($responsible);
+         * die;
          */
 
         $orders = DB::table('orders AS a')
@@ -190,14 +210,10 @@ class OrderController extends Controller
             ->where('a.order', $id)
             ->get();
 
-//        var_dump($orders);
-//        die;
-        //dd($orders, $actions, $id);
         if (!empty($orders)) {
             return view('admin.orders.edit', [
                 'orders' => $orders,
-                'actions' => $actions,
-
+                'actions' => $actions
             ])->with(['color' => 'green', 'message' => 'Imóvel alterado com sucesso!']);
         } else {
             return redirect()->route('admin.orders.index');
@@ -316,7 +332,30 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $order = Order::where('id', $order->id)->first();
+        $order->status = $request->status;
+        $order->sector_requester = $request->sector_requester;
+        $order->requester = $request->requester;
+        $order->sector_provider = $request->sector_provider;
+        $order->service = $request->service;
+        $order->description = $request->description;
+        $order->priority = $request->priority;
+        $order->status = $request->status;
+        $order->type_service = $request->type_service;
+
+        $order->save();
+
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $order->id;
+                $orderImage->image = $image->store('orders/' . $order->id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+            var_dump($request->allFiles());
+        }
     }
 
     /**
@@ -351,5 +390,20 @@ class OrderController extends Controller
     public function trashed()
     {
         //
+    }
+
+    public function imageRemove(Request $request)
+    {
+        $imageDelete = Image::where('id', $request->id)->first();
+
+        Storage::delete($imageDelete->image);
+        Cropper::flush($imageDelete->image);
+
+        $imageDelete->delete();
+
+        $json = [
+            'success' => true
+        ];
+        return response()->json($json);
     }
 }

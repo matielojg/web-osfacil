@@ -90,13 +90,19 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="label_g2">
-                                <div class="label">
-                                    <h3>Imagens</h3>
-                                    <img src="{{ url('backend/assets/images/realty.jpeg') }}" width="250px">
 
+                            <div class="order_image">
+                                @foreach($images->images()->get() as $image)
+                                <div class="order_image_item">
+                                    <img src="{{ $image->url_cropped }}" alt="">
+                                    <div class="order_image_actions">
+                                        <a href="javascript:void(0)" class="btn btn-red btn-small icon-times icon-notext image-remove"
+                                        data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
+                                    </div>
                                 </div>
+                                @endforeach
                             </div>
+
                             @endforeach
                         </div>
 
@@ -184,26 +190,54 @@
 
 @endsection
 
-{{--$section('js')--}}
-{{--<script>--}}
-{{--    $(function () {--}}
-{{--            $('input[name="files[]"]').change(function (files) {--}}
+@section('js')
+    <script>
+        $(function () {
 
-{{--                $('.content_image').text('');--}}
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-{{--                $.each(files.target.files, function (key, value) {--}}
-{{--                    var reader = new FileReader();--}}
-{{--                    reader.onload = function (value) {--}}
-{{--                        $('.content_image').@append(--}}
-{{--                            '<div class = "property_image_item">' +--}}
-{{--                            'div class = "embed_radius" ' +--}}
-{{--                            'style="background-image: url(' + value.target.result + '); background-size;--}}
+            $('input[name="files[]"]').change(function (files) {
 
-{{--                        );--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            })--}}
-{{--        }--}}
-{{--    )--}}
+                $('.content_image').text('');
 
-{{--</script>--}}
+                $.each(files.target.files, function (key, value) {
+                    var reader = new FileReader();
+                    reader.onload = function (value) {
+                        $('.content_image').append(
+                            '<div class="property_image_item">' +
+                            '<div class="embed radius" ' +
+                            'style="background-image: url(' + value.target.result + '); background-size: cover; background-position: center center;">' +
+                            '</div>' +
+                            '</div>');
+                    };
+                    reader.readAsDataURL(value);
+                });
+            });
+
+            $('.image-remove').click(function(event){
+                event.preventDefault();
+
+                var button = $(this);
+
+                $.ajax({
+                    url: button.data('action'),
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(response){
+
+                        if(response.success === true) {
+                            button.closest('.order_image_item').fadeOut(function(){
+                                $(this).remove();
+                            });
+                        }
+                    }
+                })
+            });
+
+        });
+    </script>
+@endsection

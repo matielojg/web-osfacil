@@ -42,10 +42,10 @@
 <div class="dash">
     <aside class="dash_sidebar">
         <article class="dash_sidebar_user">
-            <img class="dash_sidebar_user_thumb" src="{{  $photo  }} " alt="" title=""/>
+            <img class="dash_sidebar_user_thumb" src="{{ $photo  }}" alt="" title=""/>
 
             <h1 class="dash_sidebar_user_name">
-                <a href="">{{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
+                <a href=" {{ route('admin.users.edit', ['id'=>auth()->user()->id]) }} "> {{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
             </h1>
         </article>
 
@@ -60,12 +60,13 @@
                     <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários Inativos</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders.index') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
+            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
                     <li class=""><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
                     <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
                     <li class=""><a href="{{ route('admin.orders.pending') }}">Ordens Pendentes</a></li>
+
                 </ul>
             </li>
             <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
@@ -75,12 +76,6 @@
                     <li class=""><a href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
                 </ul>
             </li>
-{{--            <li class="dash_sidebar_nav_item {{ isActive('admin.sectorproviders.index') }}"><a class="icon-columns" href="{{ route('admin.sectorproviders.index') }}">Setores Manutenção</a>--}}
-{{--                <ul class="dash_sidebar_nav_submenu">--}}
-{{--                    <li class=""><a href="{{ route('admin.sectorproviders.index') }}">Ver Todos</a></li>--}}
-{{--                    <li class=""><a href="{{ route('admin.sectorproviders.create') }}">Criar Novo</a></li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
             <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.services.index') }}">Ver Todos</a></li>

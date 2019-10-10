@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('users', 'UserController');
 
         /** Ordem de Serviço */
+        Route::delete('/orders/image-remove', 'OrderController@imageRemove')->name('orders.image.remove');
         Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
         Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
         Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');

@@ -83,15 +83,12 @@
                             </label>
                         </div>
 
-                        {{--                        <div id="images" class="d-none">--}}
-                        {{--                            <label class="label">--}}
-                        {{--                                <span class="legend">Imagens</span>--}}
-                        {{--                                <input type="file" name="files[]" multiple>--}}
-                        {{--                            </label>--}}
+                        <label class="label">
+                            <span class="legend">Imagens</span>
+                            <input type="file" name="files[]" multiple>
+                        </label>
 
-                        {{--                            <div class="content_image"></div>--}}
-                        {{--                        </div>--}}
-
+                        <div class="content_image"></div>
 
                     </div>
             </div>
@@ -111,26 +108,26 @@
 
 @endsection
 
-{{--@section('js')--}}
-{{--    <script>--}}
-{{--        $(function () {--}}
-{{--            $('input[name="files[]"]').change(function (files) {--}}
+@section('js')
+    <script>
+        $(function () {
+            $('input[name="files[]"]').change(function (files) {
 
-{{--                $('.content_image').text('');--}}
+                $('.content_image').text('');
 
-{{--                $.each(files.target.files, function (key, value) {--}}
-{{--                    var reader = new FileReader();--}}
-{{--                    reader.onload = function (value) {--}}
-{{--                        $('.content_image').append(--}}
-{{--                            '<div class="property_image_item">' +--}}
-{{--                            '<div class="embed radius" ' +--}}
-{{--                            'style="background-image: url(' + value.target.result + '); background-size: cover; background-position: center center;">' +--}}
-{{--                            '</div>' +--}}
-{{--                            '</div>');--}}
-{{--                    };--}}
-{{--                    reader.readAsDataURL(value);--}}
-{{--                });--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endsection--}}
+                $.each(files.target.files, function (key, value) {
+                    var reader = new FileReader();
+                    reader.onload = function (value) {
+                        $('.content_image').append(
+                            '<div class="property_image_item">' +
+                            '<div class="embed radius" ' +
+                            'style="background-image: url(' + value.target.result + '); background-size: cover; background-position: center center;">' +
+                            '</div>' +
+                            '</div>');
+                    };
+                    reader.readAsDataURL(value);
+                });
+            });
+        });
+    </script>
+@endsection

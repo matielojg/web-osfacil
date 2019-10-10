@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    //use SoftDeletes;
+    use SoftDeletes;
+
     protected $table = 'orders';
+
     protected $fillable = [
         'requester',
         'sector_requester',
@@ -17,12 +19,12 @@ class Order extends Model
         'priority',
         'status',
         'type_service',
-        'responsible'
+        'responsible',
+        'ancillary'
     ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-    /**  Usuario */
-
+    /** Usuario */
     public function requester()
     {
         return $this->belongsTo(Order::class, 'requester', 'id');
@@ -38,8 +40,7 @@ class Order extends Model
         return $this->belongsTo(Order::class, 'ancillary', 'id');
     }
 
-    /** setor */
-
+    /** Setor */
     public function sectorRequester()
     {
         return $this->belongsTo(Order::class, 'sector_requester', 'id');
@@ -68,7 +69,7 @@ class Order extends Model
         return $this->hasMany(Action::class, 'order', 'id');
     }
 
-    /** Image */
+    /** Imagens */
 
     public function images()
     {

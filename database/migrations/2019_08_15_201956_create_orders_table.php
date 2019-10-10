@@ -22,12 +22,14 @@ class CreateOrdersTable extends Migration
             $table->date('closed_at')->nullable();
             $table->unsignedBigInteger('requester');
             $table->unsignedBigInteger('responsible')->nullable();
+            $table->unsignedBigInteger('ancillary')->nullable();
             $table->unsignedBigInteger('sector_requester');
             $table->unsignedBigInteger('service');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('requester')->references('id')->on('users');
             $table->foreign('responsible')->references('id')->on('users');
+            $table->foreign('ancillary')->references('id')->on('users');
             $table->foreign('sector_requester')->references('id')->on('sectors');
             $table->foreign('service')->references('id')->on('services');
         });

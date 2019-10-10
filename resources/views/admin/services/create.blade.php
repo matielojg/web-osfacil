@@ -38,7 +38,7 @@
                                 <label class="label">
                                     <span class="legend">*Setor:</span>
                                     <select name="sector" class="form-control" required="ON">
-                                        <option  value=" "> ::Selecione um Setor:: </option>
+                                        <option  value=" "> -- Selecione um Setor -- </option>
                                         @foreach ($sectors as $sector)
                                             <option
                                                 value="{{ $sector->id }}"> {{ $sector->name_sector}} </option>

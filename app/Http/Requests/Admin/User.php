@@ -50,7 +50,7 @@ class User extends FormRequest
 
             //Access
             'username' => (!empty($this->request->all()['id']) ? 'required|unique:users,username,' . $this->request->all()['id'] : 'required|unique:users,username'),
-            //'password' => 'required',
+            'password' => 'required',
 
         ];
     }

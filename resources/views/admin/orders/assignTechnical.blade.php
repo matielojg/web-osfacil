@@ -7,7 +7,7 @@
         <header class="dash_content_app_header">
 
             @foreach($assigns as $assign)
-                <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $assign->id }}</h2>
+                <h2 class="icon-file-text">Atribuir Técnico para Ordem de Serviço Nº: {{ $assign->id }}</h2>
 
                 <div class="dash_content_app_header_actions">
                     <nav class="dash_content_app_breadcrumb">
@@ -17,7 +17,7 @@
                             <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a>
                             </li>
                             <li class="separator icon-angle-right icon-notext"></li>
-                            <li><a href="" class="text-red">Editar Ordem</a></li>
+                            <li><a class="text-red">Editar Ordem</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -25,7 +25,9 @@
         </header>
 
         <div class="dash_content_app_box">
+
             <div class="nav">
+
                 <ul class="nav_tabs">
                     <li class="nav_tabs_item">
                         <a href="#data" class="nav_tabs_item_link active">Informações</a>
@@ -37,7 +39,6 @@
                     <li class="nav_tabs_item">
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
-
                 </ul>
 
                 <div class="app_form">
@@ -99,6 +100,7 @@
                             </div>
                             @endforeach
                         </div>
+
                         <div id="assign">
                             <div class="label">
                                 <div class="label">
