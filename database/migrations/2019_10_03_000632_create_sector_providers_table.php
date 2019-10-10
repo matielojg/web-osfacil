@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableActionStatus extends Migration
+class CreateSectorProvidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AlterTableActionStatus extends Migration
      */
     public function up()
     {
-        Schema::table('actions', function (Blueprint $table) {
-            $table->enum('status', ['aberto', 'atribuido', 'em execucao', 'executado', 'suspenso', 'pendente','concluido']);
+        Schema::create('sector_providers', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name_sector');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,8 +28,6 @@ class AlterTableActionStatus extends Migration
      */
     public function down()
     {
-        Schema::table('actions', function (Blueprint $table) {
-            $table->dropColumn('status');
-        });
+        Schema::dropIfExists('sector_providers');
     }
 }

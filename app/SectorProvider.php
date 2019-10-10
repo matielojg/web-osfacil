@@ -5,11 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Sector extends Model
+class SectorProvider extends Model
 {
     use SoftDeletes;
-
-    protected $table = 'sectors';
-    protected $fillable = ['name_sector','responsible'];
+    protected $table = 'sector_providers';
+    protected $fillable = ['name_sector','supervisor'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }

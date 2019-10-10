@@ -63,14 +63,17 @@
             <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}><a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver Todas</a></li>
-                    <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
-                    <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
+                    <li class=""><a href="{{ route('admin.orders.create') }}">Nova Ordem de Serviço</a></li>
+                    <li class=""><a href="{{ route('admin.orders.assign') }}">Atribuir Técnico</a></li>
+                    <li class=""><a href="{{ route('admin.orders.pending') }}">Ordens Pendentes</a></li>
+
                 </ul>
             </li>
             <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-columns" href="{{ route('admin.sector') }}">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('admin.sector') }}">Ver Todos</a></li>
                     <li class=""><a href="{{ route('admin.sector.create') }}">Criar Novo</a></li>
+                    <li class=""><a href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
                 </ul>
             </li>
             <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-external-link" href="{{ route('admin.services.index') }}">Serviços</a>

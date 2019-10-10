@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     //use SoftDeletes;
+
     protected $table = 'orders';
+
     protected $fillable = [
         'requester',
         'sector_requester',
@@ -18,9 +20,13 @@ class Order extends Model
         'status',
         'type_service',
         'responsible'
-        //'image',
     ];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'order', 'id');
+    }
 
     public function requester()
     {
@@ -31,6 +37,5 @@ class Order extends Model
     {
         return $this->belongsTo(Order::class, 'responsible', 'id');
     }
-
 }
 

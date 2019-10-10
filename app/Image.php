@@ -3,13 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use App\Support\Cropper;
 
 class Image extends Model
 {
+
+    protected $table = 'images';
+
     protected $fillable = [
         'order',
-        'image',
-        'cover'
+        'image'
     ];
 
     public function getUrlCroppedAttribute()
@@ -18,4 +22,9 @@ class Image extends Model
     }
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function order()
+    {
+        return $this->belongsTo(Image::class, 'order', 'id');
+    }
 }

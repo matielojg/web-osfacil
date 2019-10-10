@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\AuthControler;
 Route::resourceVerbs([
     'create' => 'cadastro',
     'edit' => 'editar',
-    'assign' => 'atribuir'
+    'assign' => 'atribuir',
+    //'sectorproviders' => 'manutencao'
 ]);
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
@@ -27,11 +28,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('users', 'UserController');
 
         /** Ordem de Serviço */
+        Route::delete('/orders/image-remove', 'OrderController@imageRemove')->name('orders.image.remove');
         Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
         Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
+        Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
         Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
         Route::patch('/orders/assign/update/technical/{id}',
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
+
         Route::resource('orders', 'OrderController');
 
         /** Setores */
@@ -42,6 +46,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::put('/setor/update/{id}', 'SectorController@update')->name('sector.update');
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
+
+        /** Setores Manutenção */
+        Route::get('/providers', 'SectorProviderController@index')->name('sectorsProvider.index');
+        Route::get('/providers/editar/{id}', 'SectorProviderController@edit')->name('sectorsProvider.edit');
+        Route::put('/providers/update/{id}', 'SectorProviderController@update')->name('sectorsProvider.update');
+        //Route::resource('sectorproviders', 'SectorProviderController');
 
         /**Servicos */
         Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');
