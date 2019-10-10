@@ -10,6 +10,19 @@ class Sector extends Model
     use SoftDeletes;
 
     protected $table = 'sectors';
-    protected $fillable = ['name_sector','responsible'];
+    protected $fillable = ['name_sector', 'responsible'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    /** Ordem */
+    public function orderRequester()
+    {
+        return $this->hasMany(Order::class, 'sector_requester', 'id');
+    }
+
+    public function orderProvider()
+    {
+        return $this->hasMany(Order::class, 'sector_provider', 'id');
+    }
+
+
 }

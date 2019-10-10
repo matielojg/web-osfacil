@@ -11,4 +11,20 @@ class Service extends Model
     protected $table = 'services';
     protected $fillable = ['name_service','sector'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+
+    /** Ordem */
+
+    public function orderService()
+    {
+        return $this->hasMany(Order::class, 'service', 'id');
+    }
+
+    /** Sector Provider */
+    public function sectorProvider()
+    {
+        return $this->belongsTo(SectorProvider::class, 'sector', 'id');
+    }
+
+
 }
