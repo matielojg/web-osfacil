@@ -6,7 +6,7 @@
 
         <header class="dash_content_app_header">
 
-            @foreach($orders as $order)
+{{--           @foreach($orders as $order)--}}
                 <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
 
                 <div class="dash_content_app_header_actions">
@@ -56,11 +56,11 @@
                             <div class="label_g2">
                                 <div class="label">
                                     <h3>Setor solicitante:</h3>
-                                    <p>{{ $order->requester }}</p>
+                                    <p>{{ $order->sector_requester }}</p>
                                 </div>
                                 <div class="label">
                                     <h3>Setor Responsável:</h3>
-                                    <p>{{ $order->provider }}</p>
+                                    <p>{{ $order->sector_provider }}</p>
                                 </div>
                             </div>
 
@@ -91,19 +91,28 @@
                                 @endif
                             </div>
 
-                            <div class="order_image">
-                                @foreach($images->images()->get() as $image)
-                                <div class="order_image_item">
-                                    <img src="{{ $image->url_cropped }}" alt="">
-                                    <div class="order_image_actions">
-                                        <a href="javascript:void(0)" class="btn btn-red btn-small icon-times icon-notext image-remove"
-                                        data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
+                                <label class="label">
+                                    <h3>Imagens</h3>
+                                    <input type="file" name="files[]" multiple>
+                                </label>
+
+                                <div class="content_image"></div>
+
+                                <div class="order_image">
+                                @foreach($order->images()->get() as $image)
+                                    <div class="order_image_item">
+                                        <img src="{{ $image->url_cropped }}" alt="">
+                                        <div class="order_image_actions">
+                                            <a href="javascript:void(0)" class="btn btn-red btn-small icon-times icon-notext image-remove"
+                                               data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
 
-                            @endforeach
+
+
+{{--                            @endforeach--}}
                         </div>
 
 
@@ -120,7 +129,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($actions as $action)
+
+                                    @foreach($order->action()->get() as $action)
                                         <tr>
                                             <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
                                             <td>
@@ -208,7 +218,7 @@
                     var reader = new FileReader();
                     reader.onload = function (value) {
                         $('.content_image').append(
-                            '<div class="property_image_item">' +
+                            '<div class="order_image_item">' +
                             '<div class="embed radius" ' +
                             'style="background-image: url(' + value.target.result + '); background-size: cover; background-position: center center;">' +
                             '</div>' +
