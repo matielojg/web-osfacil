@@ -6,6 +6,7 @@ use App\Action;
 use App\Http\Controllers\Controller;
 use App\Order;
 use App\Sector;
+use App\SectorProvider;
 use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,9 +31,9 @@ class OrderController extends Controller
         switch ($cargo) {
             case ('supervisor');
                 $orders = DB::table('orders')
-                    ->join('users', 'orders.requester', '=', 'users.id')
-                    ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-                    ->join('services', 'orders.service', '=', 'services.id')
+                    ->join('users', 'orders.requester',  'users.id')
+                    ->join('sectors', 'orders.sector_requester',  'sectors.id')
+                    ->join('services', 'orders.service', 'services.id')
                     ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
                         'users.last_name')
                     ->orderBy('priority', 'desc')
@@ -48,7 +49,7 @@ class OrderController extends Controller
                         'users.last_name')
                     ->orderBy('priority', 'desc')
                     ->orderBy('created_at', 'asc')
-                    ->where('orders.responsible', '=', auth()->user()->id)
+                    ->where('orders.requester', '=', auth()->user()->id)
                     ->get();
 
                 break;
@@ -65,7 +66,8 @@ class OrderController extends Controller
                     ->get();
                 break;
         }
-
+//var_dump($orders);
+//        die;
         return view('admin.orders.index')->with('orders', $orders);
     }
 
@@ -76,12 +78,14 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $sectors = Sector::all();
-        $services = Service::all();
+        $sectorProviders = SectorProvider::all();
+      //  $services = DB::table('services')->where('sector',  $sectorProviders)->get();
 
-        if (!empty($sectors)) {
+       $services = Service::all();
+
+        if (!empty($sectorProviders)) {
             return view('admin.orders.create', [
-                'sectors' => $sectors,
+                'sectorProviders' => $sectorProviders,
                 'services' => $services,
             ]);
         } else {
@@ -155,12 +159,25 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+        /** teste
+
+        $order = Order::where('id', $id)->first();
+        $requester = $order->requester()->first();
+        $service = $order->service()->first();
+        $action = $order->action()->first();
+        $responsible = $order->responsible()->first();
+
+        var_dump($responsible);
+        die;
+
+         */
+
         $orders = DB::table('orders AS a')
             ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
                 'b.last_name', 'f.first_name as responsible_first', 'f.last_name as responsible_last')
             ->join('users AS b', 'a.requester', '=', 'b.id')
             ->leftJoin('users AS f', 'a.responsible', '=', 'f.id')
-            ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
+            ->join('sector_providers AS c', 'c.id', '=', 'a.sector_provider')
             ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
             ->join('services AS e', 'a.service', '=', 'e.id')
             ->where('a.id', $id)

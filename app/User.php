@@ -57,21 +57,41 @@ class User extends Authenticatable
 
     //use SoftDeletes;
 
-    public function responsible()
+    /** Ordem */
+    public function orderRequester()
+    {
+        return $this->hasMany(Order::class, 'requester', 'id');
+    }
+
+    public function orderResponsible()
     {
         return $this->hasMany(Order::class, 'responsible', 'id');
     }
 
-    public function requester()
+    public function orderAncillary()
     {
-        return $this->hasMany(Order::class, 'requester', 'id');
+        return $this->hasMany(Order::class, 'ancillary', 'id');
     }
+
+/** Action */
+    public function action()
+    {
+        return $this->hasMany(Action::class, 'user', 'id');
+    }
+
+    /** Sector Provider */
+    public function supervisor()
+    {
+        return $this->hasMany(SectorProvider::class, 'supervisor', 'id');
+    }
+
+
 
     //Tratamento dos dados para salvar no banco
 
     public function getUrlPhotoAttribute()
     {
-        if(!empty($this->photo)){
+        if (!empty($this->photo)) {
             return Storage::url(Cropper::thumb($this->photo, 500, 500));
         }
         return '';
@@ -109,7 +129,7 @@ class User extends Authenticatable
 
     private function clearField(?string $param)
     {
-        if(empty($param)){
+        if (empty($param)) {
             return '';
         }
 
