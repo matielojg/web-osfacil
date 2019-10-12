@@ -12,7 +12,7 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
+                        <li><a class="text-green">Ordens de Serviço</a></li>
                     </ul>
                 </nav>
 
