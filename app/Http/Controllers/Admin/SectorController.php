@@ -58,7 +58,7 @@ class SectorController extends Controller
         $sectorStore->name_sector = $request->get('name_sector');
         $sectorStore->responsible = $request->get('responsible');
         $sectorStore->save();
-        return redirect(route('admin.sector'));
+        return redirect(route('admin.sector.index'));
     }
 
     /**
@@ -70,7 +70,7 @@ class SectorController extends Controller
     public function show($id)
     {
 
-        return redirect(route('admin.sector'));
+        return redirect(route('admin.sector.index'));
     }
 
     /**
@@ -111,7 +111,7 @@ class SectorController extends Controller
         $sector->responsible = $request->responsible;
         $sector->save();
 
-        return redirect(route('admin.sector'));
+        return redirect(route('admin.sector.index'));
     }
 
     /**
@@ -123,7 +123,7 @@ class SectorController extends Controller
     public function destroy($id)
     {
         Sector::destroy($id);
-        return redirect()->route('admin.sector');
+        return redirect()->route('admin.sector.index');
     }
 
     /**

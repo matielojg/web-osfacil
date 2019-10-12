@@ -5,14 +5,14 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-columns">Setores Cadastrados:</h2>
+            <h2 class="icon-building-o">Setores Cadastrados:</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.sector') }}" class="text-green">Setores</a></li>
+                        <li><a class="text-green">Setores</a></li>
                     </ul>
                 </nav>
 

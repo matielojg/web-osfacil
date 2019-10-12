@@ -5,19 +5,16 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-columns">Setores Cadastrados:</h2>
+            <h2 class="icon-building-o">Setores de Serviço:</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-green">Setores Manutenção</a></li>
+                        <li><a class="text-green">Setores de Serviços</a></li>
                     </ul>
                 </nav>
-
-                <a href="" class="btn btn-green ml-1">Novo Setor Manutenção</a>
-
             </div>
         </header>
 

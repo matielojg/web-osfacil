@@ -6,21 +6,21 @@
 
         <header class="dash_content_app_header">
 
-{{--           @foreach($orders as $order)--}}
-                <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
+            {{--           @foreach($orders as $order)--}}
+            <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
 
-                <div class="dash_content_app_header_actions">
-                    <nav class="dash_content_app_breadcrumb">
-                        <ul>
-                            <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
-                            <li class="separator icon-angle-right icon-notext"></li>
-                            <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a>
-                            </li>
-                            <li class="separator icon-angle-right icon-notext"></li>
-                            <li><a href="" class="text-red">Editar Ordem</a></li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="dash_content_app_header_actions">
+                <nav class="dash_content_app_breadcrumb">
+                    <ul>
+                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li><a href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
+                        </li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li><a href="" class="text-green">Editar Ordem</a></li>
+                    </ul>
+                </nav>
+            </div>
 
         </header>
 
@@ -91,19 +91,14 @@
                                 @endif
                             </div>
 
-                                <label class="label">
-                                    <h3>Imagens</h3>
-                                    <input type="file" name="files[]" multiple>
-                                </label>
 
-                                <div class="content_image"></div>
-
-                                <div class="order_image">
+                            <div class="order_image">
                                 @foreach($order->images()->get() as $image)
                                     <div class="order_image_item">
                                         <img src="{{ $image->url_cropped }}" alt="">
                                         <div class="order_image_actions">
-                                            <a href="javascript:void(0)" class="btn btn-red btn-small icon-times icon-notext image-remove"
+                                            <a href="javascript:void(0)"
+                                               class="btn btn-red btn-small icon-times icon-notext image-remove"
                                                data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
                                         </div>
                                     </div>
@@ -111,8 +106,7 @@
                             </div>
 
 
-
-{{--                            @endforeach--}}
+                            {{--                            @endforeach--}}
                         </div>
 
 
@@ -150,7 +144,7 @@
                         </div>
                         @php
 
-                        @endphp
+                                @endphp
                         <div id="change" class="d-none">
                             <form class="app_form"
                                   action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
@@ -176,6 +170,12 @@
                                                   value=""></textarea>
                                     </label>
                                 </div>
+                                <label class="label">
+                                    <h3>Imagens</h3>
+                                    <input type="file" name="files[]" multiple>
+                                </label>
+
+                                <div class="content_image"></div>
                         </div>
 
                     </div>
@@ -228,7 +228,7 @@
                 });
             });
 
-            $('.image-remove').click(function(event){
+            $('.image-remove').click(function (event) {
                 event.preventDefault();
 
                 var button = $(this);
@@ -237,10 +237,10 @@
                     url: button.data('action'),
                     type: 'DELETE',
                     dataType: 'json',
-                    success: function(response){
+                    success: function (response) {
 
-                        if(response.success === true) {
-                            button.closest('.order_image_item').fadeOut(function(){
+                        if (response.success === true) {
+                            button.closest('.order_image_item').fadeOut(function () {
                                 $(this).remove();
                             });
                         }

@@ -6,16 +6,16 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-columns">Editar Setor</h2>
+            <h2 class="icon-pencil">Editar Setor</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.sector') }}">Setores</a></li>
+                        <li><a href="{{ route('admin.sector.index') }}">Setores</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-orange">Editar Setor</a></li>
+                        <li><a class="text-green">Editar Setor</a></li>
                     </ul>
                 </nav>
             </div>

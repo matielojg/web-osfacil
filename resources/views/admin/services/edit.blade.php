@@ -6,7 +6,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Novo Serviço</h2>
+            <h2 class="icon-pencil">Editar Serviço</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -15,7 +15,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.services.index') }}">Serviços</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.services.create') }}" class="text-orange">Novo Serviço</a></li>
+                        <li><a class="text-green">Editar Serviço</a></li>
                     </ul>
                 </nav>
             </div>
@@ -36,9 +36,9 @@
                                            value="{{ $service->name_service }}"/>
                                 </label>
                                 <label class="label">
-                                    <span class="legend">*Setor:</span>
+                                    <span class="legend">*Setor Responsável:</span>
                                     <select name="sector" class="form-control" required="ON">
-                                        <option  value=" "> ::Selecione um Setor:: </option>
+                                        <option  value=" "> -- Selecione um Setor -- </option>
                                         @foreach ($sectors as $sector)
                                             <option
                                                 value="{{ $sector->id }}" {{ ( $sector->id == $service->sector) ? 'selected' : '' }}> {{ $sector->name_sector}}

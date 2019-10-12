@@ -6,7 +6,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Novo Serviço</h2>
+            <h2 class="icon-plus-square-o">Novo Serviço</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -15,7 +15,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.services.index') }}">Serviços</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.services.create') }}" class="text-orange">Novo Serviço</a></li>
+                        <li><a class="text-green">Novo Serviço</a></li>
                     </ul>
                 </nav>
             </div>
