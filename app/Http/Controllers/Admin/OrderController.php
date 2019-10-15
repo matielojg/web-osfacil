@@ -6,7 +6,6 @@ use App\Action;
 use App\Http\Controllers\Controller;
 use App\Image;
 use App\Order;
-use App\Sector;
 use App\SectorProvider;
 use App\Service;
 use App\Support\Cropper;
@@ -24,6 +23,7 @@ class OrderController extends Controller
     public function index()
     {
         $cargo = auth()->user()->function;
+
 
         switch ($cargo) {
             case ('supervisor');
