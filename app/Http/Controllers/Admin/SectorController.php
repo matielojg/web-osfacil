@@ -37,13 +37,8 @@ class SectorController extends Controller
      */
     public function create()
     {
-        $responsibles = DB::table('users')
-            ->select('users.*')
-            ->where('users.function', '=', 'supervisor')
-            ->whereNull('users.deleted_at')
-            ->get();
-        //  var_dump($responsibles);
-        return view('admin.sectors.create')->with('responsibles', $responsibles);
+
+        return view('admin.sectors.create');
     }
 
     /**
@@ -56,7 +51,6 @@ class SectorController extends Controller
     {
         $sectorStore = new Sector();
         $sectorStore->name_sector = $request->get('name_sector');
-        $sectorStore->responsible = $request->get('responsible');
         $sectorStore->save();
         return redirect(route('admin.sector.index'));
     }
@@ -82,16 +76,8 @@ class SectorController extends Controller
     public function edit($id)
     {
         $sectorEdit = DB::table('sectors')->find($id);
-        $responsibles = DB::table('users')
-            ->select('users.*')
-            ->where('users.function', '=', 'supervisor')
-            ->get();
-        //var_dump($responsibles, $sectorEdit);
         if (!empty($sectorEdit)) {
-            return view('admin.sectors.edit', [
-                'responsibles' => $responsibles,
-                'sectorEdit' => $sectorEdit,
-            ]);
+            return view('admin.sectors.edit')->with('sectorEdit', $sectorEdit);
         } else {
             return redirect()->action('SectorController@index');
         }

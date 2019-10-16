@@ -28,23 +28,14 @@
                     <div class="nav_tabs_content">
                         <div id="data">
                             @csrf
-                            <div class="label_g2">
+                            <div class="label">
                                 <label class="label">
                                     <span class="legend">*Nome do Setor:</span>
                                     <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor"
                                            autocomplete="off"/>
                                 </label>
 
-                                <label class="label">
-                                    <span class="legend">*Responsável:</span>
-                                    <select name="responsible" class="form-control" required="ON">
-                                        <option  value=" "> -- Selecione um Supervisor -- </option>
-                                        @foreach ($responsibles as $responsible)
-                                            <option
-                                                value="{{ $responsible->id }}"> {{ $responsible->first_name}} {{ $responsible->last_name}} </option>
-                                        @endforeach
-                                    </select>
-                                </label>
+
                             </div>
                         </div>
                     </div>
