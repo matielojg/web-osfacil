@@ -39,13 +39,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('orders', 'OrderController');
 
         /** Setores */
-        Route::get('/setor', 'SectorController@index')->name('sector');
+        Route::get('/setor', 'SectorController@index')->name('sector.index');
         Route::get('/setor/novo', 'SectorController@create')->name('sector.create');
         Route::post('/setor/store', 'SectorController@store')->name('sector.store');
         Route::get('/setor/editar/{id}', 'SectorController@edit')->name('sector.edit');
         Route::put('/setor/update/{id}', 'SectorController@update')->name('sector.update');
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
+
+      // Route::resource('setor', 'SectorController');
 
         /** Setores Manutenção */
         Route::get('/providers', 'SectorProviderController@index')->name('sectorsProvider.index');
@@ -55,6 +57,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /**Servicos */
         Route::put('/services/update/{id}', 'ServiceController@update')->name('service.update');
+        Route::get('/services/editar/{id}', 'ServiceController@update')->name('services.edit');
         Route::resource('services', 'ServiceController');
 
         /** Logout */

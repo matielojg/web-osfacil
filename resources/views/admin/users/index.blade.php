@@ -12,7 +12,7 @@
                 <ul>
                     <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="" class="text-green">Usuários</a></li>
+                    <li><a class="text-green">Usuários</a></li>
                 </ul>
             </nav>
 

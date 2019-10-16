@@ -5,14 +5,14 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-columns">Serviços Cadastrados:</h2>
+            <h2 class="icon-cogs">Serviços Cadastrados:</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.services.index') }}" class="text-green">Serviços</a></li>
+                        <li><a class="text-green">Serviços</a></li>
                     </ul>
                 </nav>
 

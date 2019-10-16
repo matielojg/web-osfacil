@@ -83,7 +83,7 @@ class ServiceController extends Controller
             return view('admin.services.edit', ['service' => $service, 'sectors' => $sectors
             ]);
         } else {
-            return redirect()->action('ServiceController@index');
+            return redirect()->action('Admin\ServiceController@index');
         }
     }
 
@@ -96,10 +96,10 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        //var_dump($request,$id);
+
         $service = Service::find($id);
         $service->name_service = $request->name_service;
+        $service->sector = $request->sector;
         $service->save();
         return redirect()->route('admin.services.index');
     }

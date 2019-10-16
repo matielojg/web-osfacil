@@ -10,11 +10,11 @@
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
-                        <li><a class="text-green" href="{{ route('admin.home') }}">Dashboard</a></li>
+                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
+                        <li><a href="{{ route('admin.users.index') }}">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.users.trashed') }}" class="text-red">Usuários Inativos</a></li>
+                        <li><a href="{{ route('admin.users.trashed') }}" class="text-green">Usuários Inativos</a></li>
                     </ul>
                 </nav>
 

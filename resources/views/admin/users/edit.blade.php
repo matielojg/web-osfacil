@@ -5,16 +5,16 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user">Editar Usuário: # {{ $user->id }}</h2>
+            <h2 class="icon-pencil">Editar Usuário: # {{ $user->id }}</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
-                        <li><a class="text-green" href="{{ route('admin.home') }}">Dashboard</a></li>
+                        <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.users.index') }}" class="text-green">Usuários</a></li>
+                        <li><a href="{{ route('admin.users.index') }}">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a class="text-red">Editar Usuário</a></li>
+                        <li><a class="text-green">Editar Usuário</a></li>
                     </ul>
                 </nav>
             </div>

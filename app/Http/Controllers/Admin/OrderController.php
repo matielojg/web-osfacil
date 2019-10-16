@@ -101,6 +101,7 @@ class OrderController extends Controller
         $order = new Order();
         $order->sector_requester = $request->sector_requester;
         $order->requester = $request->requester;
+        $order->sector_requester = auth()->user()->sector;
         $order->sector_provider = $request->sector_provider;
         $order->service = $request->service;
         $order->description = $request->description;
@@ -157,7 +158,7 @@ class OrderController extends Controller
 //            }
 //        }
 
-        return redirect()->route('admin.orders.index');
+       return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -180,17 +181,21 @@ class OrderController extends Controller
     public function edit($id)
     {
 
-        /** teste
-         *
-         * $order = Order::where('id', $id)->first();
-         * $requester = $order->requester()->first();
-         * $service = $order->service()->first();
-         * $action = $order->action()->first();
-         * $responsible = $order->responsible()->first();
-         *
-         * var_dump($responsible);
-         * die;
-         */
+
+         $order = Order::where('id', $id)->first();
+//         $requester = $order->requester()->first();
+//         $service = $order->service()->first();
+//         $actions = $order->actions();
+//         $responsible = $order->responsible()->first();
+
+
+//         var_dump($order->sectorRequester()->first());
+//
+//        die;
+
+        return view('admin.orders.edit', [
+            'order' => $order
+        ]);
 
         $orders = DB::table('orders AS a')
             ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
@@ -345,17 +350,6 @@ class OrderController extends Controller
 
         $order->save();
 
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $orderImage = new Image();
-                $orderImage->order = $order->id;
-                $orderImage->image = $image->store('orders/' . $order->id);
-                $orderImage->save();
-                unset($orderImage);
-
-            }
-            var_dump($request->allFiles());
-        }
     }
 
     /**
