@@ -23,47 +23,28 @@
 
         <div class="dash_content_app_box">
             <div class="nav">
-                <form class="app_form" action=" {{ url('admin/setor/update' , ['id'=>$sectorEdit->id]) }}" method="post" enctype="multipart/form-data">
+                <form class="app_form" action=" {{ url('admin/setor/update' , ['id'=>$sectorEdit->id]) }}" method="post"
+                      enctype="multipart/form-data">
                     <div class="nav_tabs_content">
                         <div id="data">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
-                            <div class="label_g2">
+                            <div class="label">
                                 <label class="label">
                                     <span class="legend">*Nome do Setor:</span>
-                                    <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor" autocomplete="off" value="{{$sectorEdit->name_sector}}"/>
+                                    <input type="text" name="name_sector" id="name_sector" placeholder="Nome do Setor"
+                                           autocomplete="off" value="{{$sectorEdit->name_sector}}"/>
                                 </label>
-
-                                <label class="label">
-                                    <span class="legend">*Responsável:</span>
-                                    <select name="responsible" class="form-control">
-                                        @foreach ($responsibles as $responsible)
-                                            <option
-                                                value="{{ $responsible->id }}" {{ ( $responsible->id == $sectorEdit->responsible) ? 'selected' : '' }}> {{ $responsible->first_name}} {{ $responsible->last_name}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </label>
-
                             </div>
                         </div>
                     </div>
-                    <div class="btn-flex">
-                    <div class="mt-2">
+                    <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                     </div>
-                    </form>
-                    <div class="mt-2">
-                        <form action="{{ route('admin.sector.destroy', ['id' => $sectorEdit->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir</button>
-                        </form>
-                    </div>
-                </div>
-
+                </form>
             </div>
+        </div>
         </div>
     </section>
 

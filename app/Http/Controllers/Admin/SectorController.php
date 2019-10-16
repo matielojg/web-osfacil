@@ -18,14 +18,17 @@ class SectorController extends Controller
 
     public function index()
     {
-        $sectors = DB::table('sectors')
-            ->leftJoin('users', 'users.id', 'sectors.responsible')
-            ->select('sectors.*', 'users.first_name', 'users.last_name')
-            ->whereNull('sectors.deleted_at')
-            ->where('users.function', '=', 'supervisor')
-            ->orWhereNull('sectors.responsible')
-            ->get();
+        $sectors = Sector::all();
 
+//        var_dump($sectors);
+//        die;
+//        $sectors = DB::table('sectors')
+//            ->leftJoin('users', 'users.id', 'sectors.responsible')
+//            ->select('sectors.*', 'users.first_name', 'users.last_name')
+//            ->whereNull('sectors.deleted_at')
+//            ->where('users.function', '=', 'supervisor')
+//            ->orWhereNull('sectors.responsible')
+//            ->get();
 
         return view('admin.sectors.index')->with('sectors', $sectors);
     }
@@ -108,7 +111,6 @@ class SectorController extends Controller
     {
         $sector = Sector::find($id);
         $sector->name_sector = $request->name_sector;
-        $sector->responsible = $request->responsible;
         $sector->save();
 
         return redirect(route('admin.sector.index'));

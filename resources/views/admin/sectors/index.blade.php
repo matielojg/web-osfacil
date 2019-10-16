@@ -29,7 +29,6 @@
                     <tr>
                         <th>Id</th>
                         <th>Setor</th>
-                        <th>Responsável</th>
                         <th>Criado</th>
                         <th>Ação</th>
 
@@ -43,12 +42,18 @@
 
                             <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
                                    class="text-green"> {{ $sector->name_sector }} </a></td>
-                            <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
-                                   class="text-green"> {{ $sector->first_name}} {{ $sector->last_name}} </a></td>
+
                             <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->created_at))}}</a></td>
-                            <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
-                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
+                            <td>
+                                <form action="{{ route('admin.sector.destroy', ['id' => $sector->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
+                                       class="btn btn-green ml-1 icon-check-square-o">Editar</a>
+                                    <button class="btn btn-red ml-1 icon-trash" type="submit">Excluir</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
