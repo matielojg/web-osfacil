@@ -23,6 +23,4 @@ class Sector extends Model
     {
         return $this->hasMany(Order::class, 'sector_provider', 'id');
     }
-
-
 }

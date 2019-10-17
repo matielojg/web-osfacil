@@ -40,7 +40,8 @@
                             <td><a href="{{ route('admin.sectorsProvider.edit', ['id'=>$sector->id]) }}"
                                    class="text-green"> {{ $sector->name_sector }} </a></td>
                             <td><a href="{{ route('admin.sectorsProvider.edit', ['id'=>$sector->id]) }}"
-                                   class="text-green"> {{ $sector->first_name}} {{ $sector->last_name}} </a></td>
+{{--                                   class="text-green"> {{ $sector->first_name}} {{ $sector->last_name}} </a></td>--}}
+                                   class="text-green"> {{ $sector->supervisorSector->first_name }} {{ $sector->supervisorSector->last_name }}  </a></td>
                             <td><a href="{{ route('admin.sectorsProvider.edit', ['id'=>$sector->id]) }}"
                                    class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
                         </tr>
@@ -49,6 +50,8 @@
                 </table>
             </div>
         </div>
+    </section>
+    </section>
     </section>
 
 @endsection

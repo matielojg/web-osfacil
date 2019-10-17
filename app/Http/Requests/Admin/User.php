@@ -39,7 +39,7 @@ class User extends FormRequest
         return [
             'first_name' => 'required|min:2|max:191',
             'last_name' => 'required|min:2|max:191',
-            'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
+            //'email' => (!empty($this->request->all()['id']) ? 'required|email|unique:users,email,' . $this->request->all()['id'] : 'required|email|unique:users,email'),
             'document' => (!empty($this->request->all()['id']) ? 'required|min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'required|min:11|max:14|unique:users,document'),
             'sector' => 'required',
             'function' => 'required',

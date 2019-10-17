@@ -13,9 +13,9 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.sector.index') }}">Setores</a></li>
+                        <li><a href="{{ route('admin.sectorsProvider.index') }}">Setores</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a class="text-orange">Editar Setor</a></li>
+                        <li><a class="text-green">Editar Setor</a></li>
                     </ul>
                 </nav>
             </div>
