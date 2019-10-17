@@ -53,8 +53,9 @@
 
 <hr>
 <b> Policies: </b>
-https://www.youtube.com/watch?v=NrlY-xeqHBg
+
     php artisan make:policy UserPolicy -m User    (para o App\User)
     php artisan
     php artisan help make:policy
+https://www.youtube.com/watch?v=NrlY-xeqHBg
 <hr> 
