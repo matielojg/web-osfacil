@@ -2,19 +2,18 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Policies\UserPolicy;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
-     * @var array
+     * Policies from User::class
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-//        'App\Customer' => 'App\Policies\CustomerPolicy',
+        // 'App\Model' => 'App\Policies\ModelPolicy',   (default laravel)
+        User::class => UserPolicy::class,
     ];
 
     /**

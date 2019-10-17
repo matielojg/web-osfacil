@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('orders', 'OrderController');
 
         /** Setores */
+
         Route::get('/setor', 'SectorController@index')->name('sector.index');
         Route::get('/setor/novo', 'SectorController@create')->name('sector.create');
         Route::post('/setor/store', 'SectorController@store')->name('sector.store');

@@ -51,6 +51,8 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+
+        $this->authorize('create', User::class);
         $userCreate = User::create($request->all());
 
         if (!empty($request->file('photo'))) {

@@ -38,22 +38,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="btn-flex">
-                        <div class="mt-2">
-                            <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                            </button>
-                        </div>
+                    <div class="text-right mt-2">
+                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                        </button>
+                    </div>
                 </form>
-                <div class="mt-2">
-                    <form action="{{ route('admin.sector.destroy', ['id' => $sectorEdit->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-large btn-red ml-1 icon-trash" type="submit">Excluir</button>
-                    </form>
-                </div>
             </div>
-
-        </div>
         </div>
     </section>
 
