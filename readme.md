@@ -50,3 +50,11 @@
     php artisan make:migration create_users_table --create=users
     php artisan make:migration add_votes_to_users_table --table=users
     php artisan migrate:rollback --step=1
+
+<hr>
+<b> Policies: </b>
+https://www.youtube.com/watch?v=NrlY-xeqHBg
+    php artisan make:policy UserPolicy -m User    (para o App\User)
+    php artisan
+    php artisan help make:policy
+<hr> 
