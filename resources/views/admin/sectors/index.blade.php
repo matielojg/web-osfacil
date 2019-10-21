@@ -42,7 +42,6 @@
 
                             <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
                                    class="text-green"> {{ $sector->name_sector }} </a></td>
-
                             <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($sector->created_at))}}</a></td>
                             <td><a href="{{ route('admin.sector.edit', ['id'=>$sector->id]) }}"

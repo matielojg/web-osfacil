@@ -52,6 +52,9 @@
             <li class="dash_sidebar_nav_item {{ isActive('admin.home') }} ">
                 <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
             </li>
+
+            {{-- USER --}}
+            @can('onlyManagersView', App\User::class)
             <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
                                                                                href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
@@ -63,7 +66,11 @@
                             Inativos</a></li>
                 </ul>
             </li>
+            @endcan
+
+            {{-- ORDER --}}
             <li class="dash_sidebar_nav_item {{ isActive('admin.orders') }}" >
+
                 <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
                     de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
@@ -71,12 +78,18 @@
                             Todas</a></li>
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
                             Ordem de Serviço</a></li>
+
+                    @can('onlyManagersView', App\User::class)
                     <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
                             Técnico</a></li>
                     <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
                             Pendentes</a></li>
+                        @endcan
                 </ul>
             </li>
+
+            {{-- SECTOR --}}
+            @can('onlyManagersView', App\User::class)
             <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-building-o"
                                                                                 href="{{ route('admin.sector.index') }}">Setores</a>
                 <ul class="dash_sidebar_nav_submenu">
@@ -88,6 +101,8 @@
                                 href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
                 </ul>
             </li>
+
+            {{-- SERVICE --}}
             <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-cogs"
                                                                                   href="{{ route('admin.services.index') }}">Serviços</a>
                 <ul class="dash_sidebar_nav_submenu">
@@ -97,6 +112,8 @@
                             Novo</a></li>
                 </ul>
             </li>
+            @endcan
+
 
             <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile"
                                                  href="{{route('admin.logout')}}">Sair</a></li>

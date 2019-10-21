@@ -16,9 +16,9 @@ class AuthController extends Controller
     {
 
 //        $user = User::where('id', 2)->first();
-//        $user->password = bcrypt('teste');
+//        $user->password = bcrypt('1234');
 //        $user->save();
-//        dd(bcrypt('teste'));
+//        dd(bcrypt('1234'));
 
         if(Auth::check() === true) {
             return redirect()->route('admin.home');
