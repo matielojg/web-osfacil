@@ -51,7 +51,7 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">* E-mail:</span>
-                                    <input type="email" name="email" placeholder="Melhor e-mail" autocomplete="off" value="{{ old('email') }}"/>
+                                    <input type="email" name="email" placeholder="E-mail" autocomplete="off" value="{{ old('email') }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">* CPF:</span>

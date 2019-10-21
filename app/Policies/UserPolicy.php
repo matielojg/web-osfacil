@@ -16,7 +16,7 @@ class UserPolicy
      * @param  \App\User  $model
      * @return mixed
      */
-    public function view(User $user)
+    public function onlyManagersView(User $user)
     {
         return in_array($user->function, [
             'supervisor',
@@ -24,6 +24,18 @@ class UserPolicy
         ]);
     }
 
+    public function onlyTecnicalView(User $user)
+    {
+        return in_array($user->function, [
+            'tecnico',
+        ]);
+    }
+    public function onlyEmployeeView(User $user)
+    {
+        return in_array($user->function, [
+            'funcionario',
+        ]);
+    }
     /**
      * Determine whether the user can create models.
      *

@@ -51,10 +51,49 @@
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
+                        <a href="" class="btn btn-large btn-red icon-trash jpop_up_delete">Excluir Serviço</a>
                     </div>
                 </form>
             </div>
         </div>
     </section>
 
+@endsection
+
+@section('js')
+    <script>
+        $(function () {
+
+            $(".jpop_up_delete").click(function (e) {
+                e.preventDefault();
+
+                if (!$(".pop_up_delete").length) {
+                    var popupDelete = '<div class="pop_up_delete">';
+                    popupDelete += '<div class="pop_up_delete_box radius">';
+                    popupDelete += '<header>';
+                    popupDelete += '<h1>Excluir Serviço</h1>';
+                    popupDelete += '<p>Está certo disso? Posso perguntar?</p>';
+                    popupDelete += '</header>';
+                    popupDelete += '<form action=" {{route('admin.services.destroy', ['id'=>$service->id])}} " method="POST">';
+                    popupDelete += '@csrf';
+                    popupDelete += '@method('DELETE')';
+                    popupDelete += '<button class="btn btn-red ml-1 icon-trash" type="submit">Excluir Serviço</button>';
+                    popupDelete += '</form>';
+                    popupDelete += '</div>';
+                    popupDelete += '</div>';
+
+                    $("body").prepend(popupDelete);
+                    $(".pop_up_delete").fadeIn(200).css("display", "flex");
+
+                    $("body").click(function (e) {
+                        if ($(e.target).attr("class") === "pop_up_delete") {
+                            $(".pop_up_delete").fadeOut(200, function () {
+                                $(this).remove();
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

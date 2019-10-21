@@ -40,6 +40,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         /** Setores */
 
+
+//        Route::put('/post/{post}', function (Post $post) {
+//        The current user may update the post...
+//        })->middleware('can:update,post');
+
         Route::get('/setor', 'SectorController@index')->name('sector.index');
         Route::get('/setor/novo', 'SectorController@create')->name('sector.create');
         Route::post('/setor/store', 'SectorController@store')->name('sector.store');

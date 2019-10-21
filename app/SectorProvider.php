@@ -18,7 +18,7 @@ class SectorProvider extends Model
         return $this->hasMany(Service::class, 'sector', 'id');
     }
     /** User */
-    public function supervisor()
+    public function supervisorSector()
     {
         return $this->belongsTo(User::class, 'supervisor', 'id');
     }

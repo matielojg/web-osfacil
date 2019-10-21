@@ -39,16 +39,17 @@
 
                     @foreach($services as $service)
                         <tr>
-                            <td> {{$service->id}}  </td>
+                            <td> #{{$service->id}}  </td>
 
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
                                    class="text-green"> {{ $service->name_service }} </a></td>
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
-                                   class="text-green"> {{ $service->name_sector }} </a></td>
+                                   class="text-green"> {{ $service->sectorProvider->name_sector}} </a></td>
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($service->created_at))}}</a></td>
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
-                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
+                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -58,3 +59,4 @@
     </section>
 
 @endsection
+

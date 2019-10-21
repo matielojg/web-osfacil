@@ -10,23 +10,23 @@ use Illuminate\Support\Facades\DB;
 
 class SectorProviderController
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        $sectorProviders = DB::table('sector_providers as a')
-            ->leftJoin('users', 'users.id', '=', 'a.supervisor')
-            ->select('a.*', 'users.first_name', 'users.last_name')
-            ->whereNull('a.deleted_at')
-            ->where('users.function', '=', 'supervisor')
-            ->get();
+//        $sectorProviders = DB::table('sector_providers as a')
+//            ->leftJoin('users', 'users.id', '=', 'a.supervisor')
+//            ->select('a.*', 'users.first_name', 'users.last_name')
+//            ->whereNull('a.deleted_at')
+//            ->where('users.function', '=', 'supervisor')
+//            ->get();
 
-//var_dump($sectorproviders);
-//die;
+        $sectorProviders = SectorProvider::all();
+
         return view('admin.sectorProviders.index')->with('sectorProviders', $sectorProviders);
     }
 
@@ -38,6 +38,7 @@ class SectorProviderController
      */
     public function edit($id)
     {
+
         $sectorEdit = DB::table('sector_providers')->find($id);
         $supervisores = DB::table('users')
             ->select('users.*')

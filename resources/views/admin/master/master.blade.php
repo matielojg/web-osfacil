@@ -47,7 +47,7 @@
                 <a href=" {{ route('admin.users.edit', ['id'=>auth()->user()->id]) }} "> {{auth()->user()->first_name}} {{auth()->user()->last_name}}</a>
             </h1>
         </article>
-
+        @can('onlyManagersView', App\User::class)
         <ul class="dash_sidebar_nav">
             <li class="dash_sidebar_nav_item {{ isActive('admin.home') }} ">
                 <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
@@ -69,7 +69,7 @@
                         @endcan
                 </ul>
             </li>
-            @can('create', App\User::class)
+
             <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
                                                                                href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
@@ -102,6 +102,116 @@
                 </ul>
             </li>
 @endcan
+            @can('onlyTecnicalView', App\User::class)
+                <ul class="dash_sidebar_nav">
+                    <li class="dash_sidebar_nav_item {{ isActive('admin.home') }} ">
+                        <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
+                    </li>
+
+                    <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}>
+                        <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
+                            de Serviço</a>
+                        <ul class="dash_sidebar_nav_submenu">
+                            <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
+                                    Todas</a></li>
+                            <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
+                                    Ordem de Serviço</a></li>
+                            @can('create', App\User::class)
+                                <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
+                                        Técnico</a></li>
+                                <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
+                                        Pendentes</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+
+                    <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
+                                                                                       href="{{ route('admin.users.index') }}">Usuários</a>
+                        <ul class="dash_sidebar_nav_submenu">
+                            <li class=""><a href="{{ route('admin.users.index') }}">Todos
+                                    Usuários</a></li>
+                            <li class=""><a href="{{ route('admin.users.create') }}">Novo
+                                    Usuário</a></li>
+                            <li class=""><a href="{{ route('admin.users.trashed') }}">Usuários
+                                    Inativos</a></li>
+                        </ul>
+                    </li>
+                    <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-building-o"
+                                                                                        href="{{ route('admin.sector.index') }}">Setores</a>
+                        <ul class="dash_sidebar_nav_submenu">
+                            <li class="{{ isActive('admin.sector.index') }}"><a href="{{ route('admin.sector.index') }}">Ver
+                                    Todos</a></li>
+                            <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
+                                    Novo</a></li>
+                            <li class="{{ isActive('admin.sectorsProvider.index') }}"><a
+                                    href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
+                        </ul>
+                    </li>
+                    <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-cogs"
+                                                                                          href="{{ route('admin.services.index') }}">Serviços</a>
+                        <ul class="dash_sidebar_nav_submenu">
+                            <li class="{{ isActive('admin.services.index') }}"><a href="{{ route('admin.services.index') }}">Ver
+                                    Todos</a></li>
+                            <li class="{{ isActive('admin.services.create') }}"><a href="{{ route('admin.services.create') }}">Criar
+                                    Novo</a></li>
+                        </ul>
+                    </li>
+                    @endcan
+                    @can('onlyEmployeeView', App\User::class)
+                        <ul class="dash_sidebar_nav">
+                            <li class="dash_sidebar_nav_item {{ isActive('admin.home') }} ">
+                                <a class="icon-tachometer" href="{{ route('admin.home') }}">Dashboard</a>
+                            </li>
+
+                            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}>
+                                <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
+                                    de Serviço</a>
+                                <ul class="dash_sidebar_nav_submenu">
+                                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
+                                            Todas</a></li>
+                                    <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
+                                            Ordem de Serviço</a></li>
+                                    @can('create', App\User::class)
+                                        <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
+                                                Técnico</a></li>
+                                        <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
+                                                Pendentes</a></li>
+                                    @endcan
+                                </ul>
+                            </li>
+
+                            <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
+                                                                                               href="{{ route('admin.users.index') }}">Usuários</a>
+                                <ul class="dash_sidebar_nav_submenu">
+                                    <li class=""><a href="{{ route('admin.users.index') }}">Todos
+                                            Usuários</a></li>
+                                    <li class=""><a href="{{ route('admin.users.create') }}">Novo
+                                            Usuário</a></li>
+                                    <li class=""><a href="{{ route('admin.users.trashed') }}">Usuários
+                                            Inativos</a></li>
+                                </ul>
+                            </li>
+                            <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-building-o"
+                                                                                                href="{{ route('admin.sector.index') }}">Setores</a>
+                                <ul class="dash_sidebar_nav_submenu">
+                                    <li class="{{ isActive('admin.sector.index') }}"><a href="{{ route('admin.sector.index') }}">Ver
+                                            Todos</a></li>
+                                    <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
+                                            Novo</a></li>
+                                    <li class="{{ isActive('admin.sectorsProvider.index') }}"><a
+                                            href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
+                                </ul>
+                            </li>
+                            <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-cogs"
+                                                                                                  href="{{ route('admin.services.index') }}">Serviços</a>
+                                <ul class="dash_sidebar_nav_submenu">
+                                    <li class="{{ isActive('admin.services.index') }}"><a href="{{ route('admin.services.index') }}">Ver
+                                            Todos</a></li>
+                                    <li class="{{ isActive('admin.services.create') }}"><a href="{{ route('admin.services.create') }}">Criar
+                                            Novo</a></li>
+                                </ul>
+                            </li>
+                            @endcan
             <li class="dash_sidebar_nav_item"><a class="icon-sign-out on_mobile"
                                                  href="{{route('admin.logout')}}">Sair</a></li>
         </ul>

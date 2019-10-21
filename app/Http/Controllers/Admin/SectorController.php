@@ -15,21 +15,9 @@ class SectorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         $sectors = Sector::all();
-
-//        var_dump($sectors);
-//        die;
-//        $sectors = DB::table('sectors')
-//            ->leftJoin('users', 'users.id', 'sectors.responsible')
-//            ->select('sectors.*', 'users.first_name', 'users.last_name')
-//            ->whereNull('sectors.deleted_at')
-//            ->where('users.function', '=', 'supervisor')
-//            ->orWhereNull('sectors.responsible')
-//            ->get();
-
         return view('admin.sectors.index')->with('sectors', $sectors);
     }
 
@@ -40,7 +28,6 @@ class SectorController extends Controller
      */
     public function create()
     {
-
         return view('admin.sectors.create');
     }
 
@@ -53,7 +40,8 @@ class SectorController extends Controller
     public function store(Request $request)
     {
         $sectorStore = new Sector();
-        $sectorStore->name_sector = $request->get('name_sector');
+        $sectorStore->name_sector = $request->name_sector;
+        $sectorStore->responsible = $request->responsible;
         $sectorStore->save();
         return redirect(route('admin.sector.index'));
     }
@@ -66,8 +54,7 @@ class SectorController extends Controller
      */
     public function show($id)
     {
-
-        return redirect(route('admin.sector.index'));
+        //
     }
 
     /**
@@ -78,9 +65,12 @@ class SectorController extends Controller
      */
     public function edit($id)
     {
-        $sectorEdit = DB::table('sectors')->find($id);
+        $sectorEdit = Sector::where('id', $id)->first();
+
         if (!empty($sectorEdit)) {
-            return view('admin.sectors.edit')->with('sectorEdit', $sectorEdit);
+            return view('admin.sectors.edit', [
+                'sectorEdit' => $sectorEdit,
+            ]);
         } else {
             return redirect()->action('SectorController@index');
         }
@@ -115,12 +105,13 @@ class SectorController extends Controller
     }
 
     /**
-     * retorna apenas setores excluidos
+     * Display a listing of the resource.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function trashed()
     {
         $sectors = Sector::onlyTrashed()->get();
-        return view('admin.sectors/index', ['sectors' => $sectors]);
+        return view('admin.sectors.index', ['sectors' => $sectors]);
     }
 }
