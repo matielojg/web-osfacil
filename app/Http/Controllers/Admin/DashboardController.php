@@ -34,6 +34,8 @@ class DashboardController extends Controller
 
         //Last Orders
 
+//        $ordersSupervosr = Order::all();
+
         $ordersSupervisor = DB::table('orders')
             ->join('users', 'orders.requester', '=', 'users.id')
             ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')

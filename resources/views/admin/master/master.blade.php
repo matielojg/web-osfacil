@@ -55,15 +55,15 @@
             <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
                                                                                href="{{ route('admin.users.index') }}">Usuários</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li class=""><a href="{{ route('admin.users.index') }}">Todos
+                    <li class="{{ isActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}">Todos
                             Usuários</a></li>
-                    <li class=""><a href="{{ route('admin.users.create') }}">Novo
+                    <li class="{{ isActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}">Novo
                             Usuário</a></li>
-                    <li class=""><a href="{{ route('admin.users.trashed') }}">Usuários
+                    <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários
                             Inativos</a></li>
                 </ul>
             </li>
-            <li class="dash_sidebar_nav_item" {{ isActive('admin.orders') }}>
+            <li class="dash_sidebar_nav_item {{ isActive('admin.orders') }}" >
                 <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
                     de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
