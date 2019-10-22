@@ -23,4 +23,9 @@ class Sector extends Model
     {
         return $this->hasMany(Order::class, 'sector_provider', 'id');
     }
+
+    public function userSector()
+    {
+        return $this->hasMany(User::class, 'sector', 'id');
+    }
 }

@@ -63,10 +63,10 @@
                             <tr>
                                 <td> #{{$order->id}}</td>
                                 <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                       class="text-green">{{ $order->first_name }} {{ $order->last_name }}</a></td>
+                                       class="text-green">{{ $order->userRequester->first_name }} {{ $order->userRequester->last_name }}</a></td>
 
                                 <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                       class="text-green"> {{$order->name_sector}}</a>
+                                       class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                                 </td>
 
                                 <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
@@ -78,7 +78,7 @@
                                 </td>
                                 <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
                                        class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
-                                                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}" class="text-green"> {{ ( $sector->id == $order->sector_provider_id) ? 'selected' : '' }} > {{ $sector->name_sector }}</a></td>
+                                                            <td></td>
                             </tr>
                         @endforeach
                         </tbody>

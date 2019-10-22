@@ -10,9 +10,9 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
+                        <li><a href="{{ route('admin.orders.index') }}" >Ordens de Serviço</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a class="text-red">Nova Ordem</a></li>
+                        <li><a class="text-green">Nova Ordem</a></li>
                     </ul>
                 </nav>
             </div>
