@@ -84,6 +84,13 @@ class User extends Authenticatable
         return $this->hasMany(SectorProvider::class, 'supervisor', 'id');
     }
 
+    /** Sector */
+    public function userSector()
+    {
+        return $this->belongsTo(Sector::class, 'sector', 'id');
+        //return $this->belongsTo(Order::class, 'responsible', 'id');
+    }
+
 
 
     //Tratamento dos dados para salvar no banco

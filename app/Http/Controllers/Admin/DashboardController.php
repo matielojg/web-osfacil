@@ -32,41 +32,42 @@ class DashboardController extends Controller
         $orderMedium = Order::where('priority', '=', 'media')->count();
         $orderLow = Order::where('priority', '=', 'baixa')->count();
 
-        //Last Orders
 
-        $ordersSupervisor = DB::table('orders')
-            ->join('users', 'orders.requester', '=', 'users.id')
-            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-            ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
-                'users.last_name')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->get();
+//        $ordersSupervisor = DB::table('orders')
+//            ->join('users', 'orders.requester', '=', 'users.id')
+//            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+//            ->join('services', 'orders.service', '=', 'services.id')
+//            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+//                'users.last_name')
+//            ->orderBy('priority', 'desc')
+//            ->orderBy('created_at', 'asc')
+//            ->get();
+//
+//        $ordersTechnical = DB::table('orders')
+//            ->join('users', 'orders.requester', '=', 'users.id')
+//            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+//            ->join('services', 'orders.service', '=', 'services.id')
+//            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+//                'users.last_name')
+//            ->orderBy('priority', 'desc')
+//            ->orderBy('created_at', 'asc')
+//            ->where('orders.responsible', '=', auth()->user()->id)  //view técnico
+//            ->get();
+//
+//        $ordersEmployee = DB::table('orders')
+//            ->join('users', 'orders.requester', '=', 'users.id')
+//            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
+//            ->join('services', 'orders.service', '=', 'services.id')
+//            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
+//                'users.last_name')
+//            ->orderBy('priority', 'desc')
+//            ->orderBy('created_at', 'asc')
+//            ->where('orders.requester', '=', auth()->user()->id)
+//            ->get();
 
-        $ordersTechnical = DB::table('orders')
-            ->join('users', 'orders.requester', '=', 'users.id')
-            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-            ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
-                'users.last_name')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->where('orders.responsible', '=', auth()->user()->id)  //view técnico
-            ->get();
-
-        $ordersEmployee = DB::table('orders')
-            ->join('users', 'orders.requester', '=', 'users.id')
-            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-            ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
-                'users.last_name')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->where('orders.requester', '=', auth()->user()->id)
-            ->get();
-
-
+        $ordersEmployee = Order::where('requester','=', auth()->user()->id);
+        $ordersTechnical = Order::where('responsible','=', auth()->user()->id);
+        $ordersSupervisor = Order::all();
         $userFunction = auth()->user()->function;
 
         //$json['message'] = $this->message->success('Seja Bem-Vindo!')->render();

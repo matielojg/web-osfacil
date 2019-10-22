@@ -6,8 +6,7 @@
 
         <header class="dash_content_app_header">
 
-            {{--           @foreach($orders as $order)--}}
-            <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
+            <h2 class="icon-file-text">Ordem de Serviço Nº {{ $order->id }}</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -50,24 +49,24 @@
                                 </div>
                                 <div class="label">
                                     <h3>Usuário solicitante:</h3>
-                                    <p>{{ $order->first_name }} {{ $order->last_name }}</p>
+                                    <p>{{ $order->userRequester->first_name }} {{ $order->userRequester->last_name }}</p>
                                 </div>
                             </div>
                             <div class="label_g2">
                                 <div class="label">
                                     <h3>Setor solicitante:</h3>
-                                    <p>{{ $order->sector_requester }}</p>
+                                    <p>{{ $order->sectorRequester->name_sector }}</p>
                                 </div>
                                 <div class="label">
                                     <h3>Setor Responsável:</h3>
-                                    <p>{{ $order->sector_provider }}</p>
+                                    <p>{{ $order->sectorProvider->name_sector }}</p>
                                 </div>
                             </div>
 
                             <div class="label_g2">
                                 <div class="label">
                                     <h3>Serviço:</h3>
-                                    <p>{{ ucfirst($order->name_service) }}</p>
+                                    <p>{{ ucfirst($order->serviceProvider->name_service) }}</p>
                                 </div>
                                 <div class="label">
                                     <h3>Prioridade:</h3>
@@ -104,9 +103,6 @@
                                     </div>
                                 @endforeach
                             </div>
-
-
-                            {{--                            @endforeach--}}
                         </div>
 
 
@@ -142,9 +138,7 @@
                                 </table>
                             </div>
                         </div>
-                        @php
 
-                                @endphp
                         <div id="change" class="d-none">
                             <form class="app_form"
                                   action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
@@ -167,7 +161,7 @@
                                     <label class="label">
                                         <span class="legend">*Descreva suas Alterações:</span>
                                         <textarea name="description" placeholder="Descreva suas Alterações"
-                                                  value=""></textarea>
+                                                  value="" required></textarea>
                                     </label>
                                 </div>
                                 <label class="label">

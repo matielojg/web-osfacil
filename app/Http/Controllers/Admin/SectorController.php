@@ -41,7 +41,6 @@ class SectorController extends Controller
     {
         $sectorStore = new Sector();
         $sectorStore->name_sector = $request->name_sector;
-        $sectorStore->responsible = $request->responsible;
         $sectorStore->save();
         return redirect(route('admin.sector.index'));
     }

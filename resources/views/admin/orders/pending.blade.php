@@ -1,4 +1,3 @@
-
 @extends('admin.master.master')
 
 @section('content')
@@ -13,15 +12,11 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}" class="text-green">Ordens de Serviço</a></li>
+                        <li><a class="text-green">Ordens de Serviço Pendentes</a></li>
                     </ul>
                 </nav>
-
-                <a href="{{ route('admin.orders.create') }}" class="btn btn-green ml-1">Nova Ordem</a>
-
             </div>
         </header>
-
 
         <div class="dash_content_app_box">
             <div class="dash_content_app_box_stage">
@@ -39,26 +34,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($assigns as $assign)
+                    @foreach($orders as $order)
 
                         <tr>
-                            <td> #{{$assign->id}}</td>
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green">{{ $assign->first_name }} {{ $assign->last_name }}</a></td>
+                            <td> #{{$order->id}}</td>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ $order->userRequester->first_name }} {{  $order->userRequester->last_name }}</a></td>
 
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green"> {{$assign->name_sector}}</a>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
+                                   class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                             </td>
 
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green">{{ ucfirst($assign->priority) }}</a></td>
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green">{{ ucfirst($assign->status) }}</a></td>
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green">{{ $assign->responsible_first }} {{ $assign->responsible_last }}</a></td>
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
-                                   class="text-green"> {{ date('d/m/Y H:i', strtotime($assign->created_at))}}</a></td>
-                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$assign->id]) }}"
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ ucfirst($order->priority) }}</a></td>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ ucfirst($order->status) }}</a></td>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
+                                   class="text-green">{{ $order->userResponsible->first_name}} {{ $order->userResponsible->last_name }}</a>
+                            </td>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
+                                   class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
+                            <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
                                    class="btn btn-green ml-1 icon-check-square-o">Atribuir Técnico</a></td>
                             {{--                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}" class="text-green"> {{ ( $sector->id == $order->sector_provider_id) ? 'selected' : '' }} > {{ $sector->name_sector }}</a></td>--}}
                         </tr>

@@ -27,15 +27,16 @@ class Order extends Model
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /** Usuario */
-    public function requester()
+    public function userRequester()
     {
-        return $this->belongsTo(Order::class, 'requester', 'id');
-        //return $this->hasMany(User::class, 'id', 'id');
+        return $this->belongsTo(User::class, 'requester', 'id');
+        //return $this->belongsTo(Order::class, 'requester', 'id');
     }
 
-    public function responsible()
+    public function userResponsible()
     {
-        return $this->belongsTo(Order::class, 'responsible', 'id');
+        return $this->belongsTo(User::class, 'responsible', 'id');
+        //return $this->belongsTo(Order::class, 'responsible', 'id');
     }
 
     public function ancillary()
@@ -46,18 +47,18 @@ class Order extends Model
     /** Setor */
     public function sectorRequester()
     {
-        return $this->belongsTo(Order::class, 'sector_requester', 'id');
+        return $this->belongsTo(Sector::class, 'sector_requester', 'id');
     }
 
     public function sectorProvider()
     {
-        return $this->belongsTo(Order::class, 'sector_provider', 'id');
+        return $this->belongsTo(SectorProvider::class, 'sector_provider', 'id');
     }
 
     /** Service */
-    public function service()
+    public function serviceProvider()
     {
-        return $this->belongsTo(Order::class, 'service', 'id');
+        return $this->belongsTo(Service::class, 'service', 'id');
     }
 
     /** Avaliação */
