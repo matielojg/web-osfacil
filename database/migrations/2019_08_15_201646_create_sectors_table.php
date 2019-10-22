@@ -15,11 +15,9 @@ class CreateSectorsTable extends Migration
     {
         Schema::create('sectors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name_sector');
-            $table->unsignedBigInteger('responsible')->nullable();
+            $table->string('name_sector')->unique(true);;
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('responsible')->references('id')->on('users');
         });
     }
 

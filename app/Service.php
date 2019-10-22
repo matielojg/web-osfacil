@@ -9,12 +9,11 @@ class Service extends Model
 {
     use SoftDeletes;
     protected $table = 'services';
-    protected $fillable = ['name_service','sector'];
+    protected $fillable = ['name_service', 'sector'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
 
-    /** Ordem */
-
+    /** Order */
     public function orderService()
     {
         return $this->hasMany(Order::class, 'service', 'id');
@@ -25,6 +24,4 @@ class Service extends Model
     {
         return $this->belongsTo(SectorProvider::class, 'sector', 'id');
     }
-
-
 }

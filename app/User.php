@@ -56,9 +56,7 @@ class User extends Authenticatable
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-    //use SoftDeletes;
-
-    /** Ordem */
+    /** Order */
     public function orderRequester()
     {
         return $this->hasMany(Order::class, 'requester', 'id');
@@ -74,7 +72,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'ancillary', 'id');
     }
 
-/** Action */
+    /** Action */
     public function action()
     {
         return $this->hasMany(Action::class, 'user', 'id');
