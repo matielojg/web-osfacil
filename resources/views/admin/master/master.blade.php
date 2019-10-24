@@ -55,21 +55,21 @@
 
             {{-- USER --}}
             @can('onlyManagersView', App\User::class)
-            <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
-                                                                               href="{{ route('admin.users.index') }}">Usuários</a>
-                <ul class="dash_sidebar_nav_submenu">
-                    <li class="{{ isActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}">Todos
-                            Usuários</a></li>
-                    <li class="{{ isActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}">Novo
-                            Usuário</a></li>
-                    <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários
-                            Inativos</a></li>
-                </ul>
-            </li>
+                <li class="dash_sidebar_nav_item {{ isActive('admin.users') }}"><a class="icon-users"
+                                                                                   href="{{ route('admin.users.index') }}">Usuários</a>
+                    <ul class="dash_sidebar_nav_submenu">
+                        <li class="{{ isActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}">Todos
+                                Usuários</a></li>
+                        <li class="{{ isActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}">Novo
+                                Usuário</a></li>
+                        <li class="{{ isActive('admin.users.trashed') }}"><a href="{{ route('admin.users.trashed') }}">Usuários
+                                Inativos</a></li>
+                    </ul>
+                </li>
             @endcan
 
             {{-- ORDER --}}
-            <li class="dash_sidebar_nav_item {{ isActive('admin.orders') }}" >
+            <li class="dash_sidebar_nav_item {{ isActive('admin.orders') }}">
 
                 <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
                     de Serviço</a>
@@ -80,38 +80,41 @@
                             Ordem de Serviço</a></li>
 
                     @can('onlyManagersView', App\User::class)
-                    <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
-                            Técnico</a></li>
-                    <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
-                            Pendentes</a></li>
-                        @endcan
+                        <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
+                                Técnico</a></li>
+                        <li class="{{ isActive('admin.orders.pending') }}"><a
+                                href="{{ route('admin.orders.pending') }}">Ordens
+                                Pendentes</a></li>
+                    @endcan
                 </ul>
             </li>
 
             {{-- SECTOR --}}
             @can('onlyManagersView', App\User::class)
-            <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-building-o"
-                                                                                href="{{ route('admin.sector.index') }}">Setores</a>
-                <ul class="dash_sidebar_nav_submenu">
-                    <li class="{{ isActive('admin.sector.index') }}"><a href="{{ route('admin.sector.index') }}">Ver
-                            Todos</a></li>
-                    <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
-                            Novo</a></li>
-                    <li class="{{ isActive('admin.sectorsProvider.index') }}"><a
+                <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-building-o"
+                                                                                    href="{{ route('admin.sector.index') }}">Setores</a>
+                    <ul class="dash_sidebar_nav_submenu">
+                        <li class="{{ isActive('admin.sector.index') }}"><a href="{{ route('admin.sector.index') }}">Ver
+                                Todos</a></li>
+                        <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
+                                Novo</a></li>
+                        <li class="{{ isActive('admin.sectorsProvider.index') }}"><a
                                 href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
-                </ul>
-            </li>
+                    </ul>
+                </li>
 
-            {{-- SERVICE --}}
-            <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-cogs"
-                                                                                  href="{{ route('admin.services.index') }}">Serviços</a>
-                <ul class="dash_sidebar_nav_submenu">
-                    <li class="{{ isActive('admin.services.index') }}"><a href="{{ route('admin.services.index') }}">Ver
-                            Todos</a></li>
-                    <li class="{{ isActive('admin.services.create') }}"><a href="{{ route('admin.services.create') }}">Criar
-                            Novo</a></li>
-                </ul>
-            </li>
+                {{-- SERVICE --}}
+                <li class="dash_sidebar_nav_item {{ isActive('admin.services') }}"><a class="icon-cogs"
+                                                                                      href="{{ route('admin.services.index') }}">Serviços</a>
+                    <ul class="dash_sidebar_nav_submenu">
+                        <li class="{{ isActive('admin.services.index') }}"><a
+                                href="{{ route('admin.services.index') }}">Ver
+                                Todos</a></li>
+                        <li class="{{ isActive('admin.services.create') }}"><a
+                                href="{{ route('admin.services.create') }}">Criar
+                                Novo</a></li>
+                    </ul>
+                </li>
             @endcan
 
 
