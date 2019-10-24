@@ -28,15 +28,21 @@ class OrderController extends Controller
         $function = auth()->user()->function;
 
         switch ($function) {
-            case ('supervisor');
-                $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+            case ('gerente');
+                $orders = Order::all();
+                break;
 
-                if (empty($sectorProvider)) {
+            case ('supervisor');
+
+                $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
+
+                if (empty($sectorProviders)) {
                     return view('admin.orders.index');
                     die;
                 }
 
-                $orders = Order::where('sector_provider', '=', $sectorProvider->id)->get();
+                $orders = Order::whereIn('sector_provider', $sectorProviders)->get();
                 break;
 
             default;
@@ -76,6 +82,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $order = new Order();
         $order->sector_requester = $request->sector_requester;
         $order->requester = $request->requester;
@@ -182,6 +189,28 @@ class OrderController extends Controller
     }
 
     /**
+     * Edit order with open status
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editOpen($id)
+    {
+        $sectorProviders = SectorProvider::all();
+        $services = Service::all();
+        $order = Order::where('id', $id)->first();
+
+        if (!empty($sectorProviders)) {
+            return view('admin.orders.editOpen', [
+                'sectorProviders' => $sectorProviders,
+                'services' => $services,
+                'order' => $order
+            ]);
+        } else {
+            return redirect()->action('Admin\OrderController@index');
+        }
+    }
+
+    /**
      * View pending orders
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -270,22 +299,42 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        dd($request);
-        $order = Order::where('id', $order->id)->first();
-        $order->status = $request->status;
-        $order->sector_requester = $request->sector_requester;
-        $order->requester = $request->requester;
-        $order->sector_provider = $request->sector_provider;
-        $order->service = $request->service;
-        $order->description = $request->description;
-        $order->priority = $request->priority;
-        $order->status = $request->status;
-        $order->type_service = $request->type_service;
 
+        $order = Order::where('id', $id)->first();
+
+        $order->requester = auth()->user()->id;
+        $order->sector_requester = auth()->user()->sector;
+        $order->sector_provider = $request->sector_provider;
+        $order->priority = $request->priority;
+        $order->service = $request->service;
+        $order->type_service = $request->type_service;
+        $order->description = $request->description;
         $order->save();
 
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $order->id;
+                $orderImage->image = $image->store('orders/' . $order->id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+        }
+
+        $user = auth()->user();
+
+        $action = [
+            'description' => 'Ordem Editada pelo usuário ' . $user->first_name,
+            'user' => $user->id,
+            'order' => $id,
+        ];
+
+        Action::create($action);
+
+        return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -304,6 +353,47 @@ class OrderController extends Controller
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
+    }
+
+    public function completed()
+    {
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
+
+        switch ($function) {
+            case ('gerente');
+                $orders = Order::whereNotNull('closed_at')
+                    ->where('status', 'concluido')
+                    ->get();
+                break;
+
+            case ('supervisor');
+
+                $sectorProviders = DB::table('sector_providers')
+                    ->where('supervisor', $idUser)
+                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
+
+                if (empty($sectorProviders)) {
+                    return view('admin.orders.index');
+                    die;
+                }
+
+                $orders = Order::whereIn('sector_provider', $sectorProviders)
+                    ->whereNotNull('closed_at')
+                    ->where('status', 'concluido')
+                    ->get();
+                break;
+
+            default;
+                $orders = Order::where('requester', $idUser)
+                    ->whereNotNull('closed_at')
+                    ->where('status', 'concluido')
+                    ->get();
+                break;
+        }
+
+        return view('admin.orders.completed')->with('orders', $orders);
+
     }
 
     /**

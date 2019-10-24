@@ -33,6 +33,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
         Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
         Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
+        Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
+        Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
         Route::patch('/orders/assign/update/technical/{id}',
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
 
