@@ -29,7 +29,7 @@ class OrderController extends Controller
 
         switch ($function) {
             case ('gerente');
-                $orders = Order::all();
+                $orders = Order::where('status', '!=', 'aberto')->get();
                 break;
 
             case ('supervisor');
@@ -42,7 +42,9 @@ class OrderController extends Controller
                     die;
                 }
 
-                $orders = Order::whereIn('sector_provider', $sectorProviders)->get();
+                $orders = Order::whereIn('sector_provider', $sectorProviders)
+                    ->where('status', '!=', 'aberto')
+                    ->get();
                 break;
 
             default;
@@ -199,7 +201,7 @@ class OrderController extends Controller
         $services = Service::all();
         $order = Order::where('id', $id)->first();
 
-        if (!empty($sectorProviders)) {
+        if ($order->requester == auth()->user()->id && $order->status == 'aberto') {
             return view('admin.orders.editOpen', [
                 'sectorProviders' => $sectorProviders,
                 'services' => $services,

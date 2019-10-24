@@ -54,7 +54,7 @@
                             <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
                             <td>
-                                @if($order->status == 'aberto')
+                                @if($order->status == 'aberto' && $order->requester == auth()->user()->id)
                                 <a href="{{ route('admin.orders.edit.open', ['id'=>$order->id]) }}"
                                    class="btn btn-green ml-1 icon-pencil">Editar</a>
                                 @else
