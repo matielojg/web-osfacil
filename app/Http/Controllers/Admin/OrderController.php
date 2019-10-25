@@ -29,7 +29,9 @@ class OrderController extends Controller
 
         switch ($function) {
             case ('gerente');
-                $orders = Order::where('status', '!=', 'aberto')->get();
+                $orders = Order::where('status', '!=', 'aberto')
+                    ->whereNull('closed_at')
+                    ->get();
                 break;
 
             case ('supervisor');
@@ -48,7 +50,9 @@ class OrderController extends Controller
                 break;
 
             default;
-                $orders = Order::where('requester', $idUser)->get();
+                $orders = Order::where('requester', $idUser)
+                    ->whereNull('closed_at')
+                    ->get();
                 break;
         }
 
@@ -130,9 +134,21 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        return view('admin.orders.edit');
+        $sectorProviders = SectorProvider::all();
+        $services = Service::all();
+        $order = Order::where('id', $id)->first();
+
+        if (!empty($order)) {
+            return view('admin.orders.show', [
+                'sectorProviders' => $sectorProviders,
+                'services' => $services,
+                'order' => $order
+            ]);
+        } else {
+            return redirect()->action('Admin\OrderController@index');
+        }
     }
 
     /**

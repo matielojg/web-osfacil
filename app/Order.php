@@ -39,9 +39,10 @@ class Order extends Model
         //return $this->belongsTo(Order::class, 'responsible', 'id');
     }
 
-    public function ancillary()
+    public function technicianAncillary()
     {
-        return $this->belongsTo(Order::class, 'ancillary', 'id');
+        //return $this->belongsTo(Order::class, 'ancillary', 'id');
+        return $this->belongsTo(User::class, 'ancillary', 'id');
     }
 
     /** Setor */

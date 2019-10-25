@@ -79,6 +79,10 @@
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
                             Ordem de Serviço</a></li>
 
+                    @can('onlyTecnicalView', App\User::class)
+                    <li class=""><a href="{{ route('admin.orders.index') }}">Serviços a Realizar</a></li>
+                    @endcan
+
                     @can('onlyManagersView', App\User::class)
                     <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
                             Técnico</a></li>

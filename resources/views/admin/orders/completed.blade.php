@@ -12,11 +12,9 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a class="text-green">Ordens de Serviço</a></li>
+                        <li><a class="text-green">Ordens Finalizadas</a></li>
                     </ul>
                 </nav>
-
-                <a href="{{ route('admin.orders.create') }}" class="btn btn-green ml-1">Nova Ordem</a>
 
             </div>
         </header>
@@ -41,17 +39,13 @@
 
                         <tr>
                             <td> #{{$order->id}}</td>
-                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                   class="text-green">{{ $order->userRequester->first_name }} {{ $order->userRequester->last_name }}</a></td>
-                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                   class="text-green"> {{$order->sectorRequester->name_sector}}</a>
+                            <td><a class="text-green">{{ $order->userRequester->first_name }} {{ $order->userRequester->last_name }}</a></td>
+                            <td><a class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                             </td>
-                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                   class="text-green">{{ ucfirst($order->priority) }}</a></td>
-                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                   class="text-green"> {{ date('d/m/Y H:i', strtotime($order->closed_at))}}</a></td>
+                            <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
+                            <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->closed_at))}}</a></td>
                             <td>
-                                    <a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
+                                    <a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
                                        class="btn btn-green ml-1 icon-check-square-o">Ver</a>
 
                             </td>
