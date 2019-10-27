@@ -9,12 +9,14 @@ use App\Order;
 use App\SectorProvider;
 use App\Service;
 use App\Support\Cropper;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -22,50 +24,36 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $cargo = auth()->user()->function;
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
 
+        switch ($function) {
+            case ('gerente');
+                $orders = Order::where('status', '!=', 'aberto')->get();
+                break;
 
-        switch ($cargo) {
             case ('supervisor');
-                $orders = DB::table('orders')
-                    ->join('users', 'orders.requester', 'users.id')
-                    ->join('sectors', 'orders.sector_requester', 'sectors.id')
-                    ->join('services', 'orders.service', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
-                        'users.last_name')
-                    ->orderBy('priority', 'desc')
-                    ->orderBy('created_at', 'asc')
-                    ->get();
-                break;
-            case ('tecnico'):
-                $orders = DB::table('orders')
-                    ->join('users', 'orders.requester', '=', 'users.id')
-                    ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-                    ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
-                        'users.last_name')
-                    ->orderBy('priority', 'desc')
-                    ->orderBy('created_at', 'asc')
-                    ->where('orders.requester', '=', auth()->user()->id)
-                    ->get();
 
-                break;
-            case ('funcionario'):
-                $orders = DB::table('orders')
-                    ->join('users', 'orders.requester', '=', 'users.id')
-                    ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-                    ->join('services', 'orders.service', '=', 'services.id')
-                    ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'users.first_name',
-                        'users.last_name')
-                    ->orderBy('priority', 'desc')
-                    ->orderBy('created_at', 'asc')
-                    ->where('orders.requester', '=', auth()->user()->id)
+                $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
+
+                if (empty($sectorProviders)) {
+                    return view('admin.orders.index');
+                    die;
+                }
+
+                $orders = Order::whereIn('sector_provider', $sectorProviders)
+                    ->where('status', '!=', 'aberto')
                     ->get();
+                break;
+
+            default;
+                $orders = Order::where('requester', $idUser)->get();
                 break;
         }
-//var_dump($orders);
-//        die;
+
         return view('admin.orders.index')->with('orders', $orders);
+
     }
 
     /**
@@ -76,14 +64,12 @@ class OrderController extends Controller
     public function create()
     {
         $sectorProviders = SectorProvider::all();
-        //  $services = DB::table('services')->where('sector',  $sectorProviders)->get();
-
         $services = Service::all();
 
         if (!empty($sectorProviders)) {
             return view('admin.orders.create', [
                 'sectorProviders' => $sectorProviders,
-                'services' => $services,
+                'services' => $services
             ]);
         } else {
             return redirect()->action('Admin\OrderController@index');
@@ -98,11 +84,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $order = new Order();
         $order->sector_requester = $request->sector_requester;
         $order->requester = $request->requester;
         $order->sector_requester = auth()->user()->sector;
-        $order->sector_provider = $request->sector_provider;
+        $order->sector_provider = $request->filter_sector_provider;   //contem requisição Ajax
         $order->service = $request->service;
         $order->description = $request->description;
         $order->priority = $request->priority;
@@ -110,20 +97,6 @@ class OrderController extends Controller
         $order->type_service = $request->type_service;
 
         $order->save();
-//
-//        $order = [
-//            'sector_requester' => $request->sector_requester,
-//            'requester' => $request->requester,
-//            'sector_provider' => $request->sector_provider,
-//            'service' => $request->service,
-//            'description' => $request->description,
-//            'priority' => $request->priority,
-//            'status' => 1,
-//            'type_service' => $request->type_service,
-//            'image' => $request->image
-//        ];
-//
-//        Order::create($order);
 
         if ($request->allFiles()) {
             foreach ($request->allFiles()['files'] as $image) {
@@ -148,17 +121,7 @@ class OrderController extends Controller
 
         Action::create($action);
 
-
-//        if ($request->allFiles()) {
-//            foreach ($request->allFiles()['files'] as $image) {
-//                $image = new Image();
-//                $image->order = $order->id;
-//                $image->image = $image->store('orders/' . $order->id);
-//                $image->save();
-//            }
-//        }
-
-       return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -180,9 +143,11 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+        $order = Order::where('id', $id)->first();
+
+        //dd($order->userRequester->first_name);
 
 
-         $order = Order::where('id', $id)->first();
 //         $requester = $order->requester()->first();
 //         $service = $order->service()->first();
 //         $actions = $order->actions();
@@ -226,87 +191,89 @@ class OrderController extends Controller
     }
 
     /**
-     * Visualizar ordens pendentes e devolver ao técnico após solução
+     * Edit order with open status
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function pending()
+    public function editOpen($id)
     {
-        $assigns = DB::table('orders')
-            ->join('users as a', 'orders.requester', '=', 'a.id')
-            ->leftJoin('users as b', 'orders.responsible', '=', 'b.id')
-            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-            ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'a.first_name', 'a.last_name',
-                'b.first_name as responsible_first', 'b.last_name as responsible_last')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->whereIn('orders.status', ['suspenso', 'pendente'])
-            ->get();
+        $sectorProviders = SectorProvider::all();
+        $services = Service::all();
+        $order = Order::where('id', $id)->first();
 
-        return view('admin.orders.assign')->with('assigns', $assigns);
+        if ($order->requester == auth()->user()->id && $order->status == 'aberto') {
+            return view('admin.orders.editOpen', [
+                'sectorProviders' => $sectorProviders,
+                'services' => $services,
+                'order' => $order
+            ]);
+        } else {
+            return redirect()->action('Admin\OrderController@index');
+        }
     }
 
     /**
-     * Atribuir técnicos as ordens abertas no sistema
+     * View pending orders
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     */
+    public function pending()
+    {
+        $idUser = auth()->user()->id;
+        $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+
+        if (empty($sectorProvider)) {
+            return view('admin.orders.index');
+            die;
+        }
+
+        $orders = Order::where('sector_provider', '=', $sectorProvider->id)
+            ->where('status', '=', 'pendente')
+            ->get();
+
+        return view('admin.orders.pending')->with('orders', $orders);
+    }
+
+    /**
+     * View orders requiring technician
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function assign()
     {
-        $assigns = DB::table('orders')
-            ->join('users as a', 'orders.requester', '=', 'a.id')
-            ->leftJoin('users as b', 'orders.responsible', '=', 'b.id')
-            ->join('sectors', 'orders.sector_provider', '=', 'sectors.id')
-            ->join('services', 'orders.service', '=', 'services.id')
-            ->select('orders.*', 'services.name_service', 'sectors.name_sector', 'a.first_name', 'a.last_name',
-                'b.first_name as responsible_first', 'b.last_name as responsible_last')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->where('orders.status', '=', 'aberto')
+        $idUser = auth()->user()->id;
+        $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+
+        if (empty($sectorProvider)) {
+            return view('admin.orders.index');
+            die;
+        }
+
+        $orders = Order::where('sector_provider', '=', $sectorProvider->id)
+            ->where('status', '=', 'aberto')
             ->get();
 
-        return view('admin.orders.assign')->with('assigns', $assigns);
-
+        return view('admin.orders.assign')->with('orders', $orders);
     }
 
+    /**
+     * Assign technician
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function assignTechnical($id)
     {
+        $order = Order::where('id', $id)->first();
+        $actions = Action::where('order', $id)->get();
+        $technicals = User::where('function', '=', 'tecnico')->get();
 
-        $assigns = DB::table('orders AS a')
-            ->join('users AS b', 'a.requester', '=', 'b.id')
-            ->leftJoin('users AS f', 'a.responsible', '=', 'f.id')
-            ->join('sectors AS c', 'c.id', '=', 'a.sector_provider')
-            ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
-            ->join('services AS e', 'a.service', '=', 'e.id')
-            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
-                'b.last_name', 'f.first_name as responsible_first', 'f.last_name as responsible_last')
-            ->where('a.id', $id)
-            ->get();
-
-//        var_dump($assigns);
-//        die;
-        $actions = DB::table('actions AS a')
-            ->latest()
-            ->select('a.*', 'b.first_name', 'b.last_name')
-            ->join('users AS b', 'a.user', '=', 'b.id')
-            ->where('a.order', $id)
-            ->get();
-
-        $technicals = DB::table('users')
-            ->whereNull('users.deleted_at')
-            ->where('users.function', '=', 'tecnico')
-            ->get();
-
-//        var_dump($technicals);
-//        die;
-//        dd($orders, $actions, $id);
-        if (!empty($assigns)) {
-            return view('admin.orders.assignTechnical', [
-                'assigns' => $assigns,
-                'actions' => $actions,
-                'technicals' => $technicals
-            ])->with(['color' => 'green', 'message' => 'Tecnico atribuido com sucesso!']);
-        } else {
-            return redirect()->route('admin.orders.assign');
-        }
+        return view('admin.orders.assignTechnical', [
+            'order' => $order,
+            'actions' => $actions,
+            'technicals' => $technicals
+        ]);
     }
 
     /**
@@ -323,7 +290,6 @@ class OrderController extends Controller
         $action->order = $id;
         $action->status = $request->status;
 
-        //dd($action);
         $action->save();
         return redirect()->route('admin.orders.index');
     }
@@ -335,21 +301,42 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        $order = Order::where('id', $order->id)->first();
-        $order->status = $request->status;
-        $order->sector_requester = $request->sector_requester;
-        $order->requester = $request->requester;
-        $order->sector_provider = $request->sector_provider;
-        $order->service = $request->service;
-        $order->description = $request->description;
-        $order->priority = $request->priority;
-        $order->status = $request->status;
-        $order->type_service = $request->type_service;
 
+        $order = Order::where('id', $id)->first();
+
+        $order->requester = auth()->user()->id;
+        $order->sector_requester = auth()->user()->sector;
+        $order->sector_provider = $request->sector_provider;
+        $order->priority = $request->priority;
+        $order->service = $request->service;
+        $order->type_service = $request->type_service;
+        $order->description = $request->description;
         $order->save();
 
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $order->id;
+                $orderImage->image = $image->store('orders/' . $order->id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+        }
+
+        $user = auth()->user();
+
+        $action = [
+            'description' => 'Ordem Editada pelo usuário ' . $user->first_name,
+            'user' => $user->id,
+            'order' => $id,
+        ];
+
+        Action::create($action);
+
+        return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -368,6 +355,47 @@ class OrderController extends Controller
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
+    }
+
+    public function completed()
+    {
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
+
+        switch ($function) {
+            case ('gerente');
+                $orders = Order::whereNotNull('closed_at')
+                    ->where('status', 'concluido')
+                    ->get();
+                break;
+
+            case ('supervisor');
+
+                $sectorProviders = DB::table('sector_providers')
+                    ->where('supervisor', $idUser)
+                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
+
+                if (empty($sectorProviders)) {
+                    return view('admin.orders.index');
+                    die;
+                }
+
+                $orders = Order::whereIn('sector_provider', $sectorProviders)
+                    ->whereNotNull('closed_at')
+                    ->where('status', 'concluido')
+                    ->get();
+                break;
+
+            default;
+                $orders = Order::where('requester', $idUser)
+                    ->whereNotNull('closed_at')
+                    ->where('status', 'concluido')
+                    ->get();
+                break;
+        }
+
+        return view('admin.orders.completed')->with('orders', $orders);
+
     }
 
     /**

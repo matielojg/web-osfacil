@@ -6,8 +6,7 @@
 
         <header class="dash_content_app_header">
 
-            {{--           @foreach($orders as $order)--}}
-            <h2 class="icon-file-text">Ordem de Serviço Nº: {{ $order->id }}</h2>
+            <h2 class="icon-file-text">Ordem de Serviço Nº {{ $order->id }}</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -34,7 +33,7 @@
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
                     <li class="nav_tabs_item">
-                        <a href="#change" class="nav_tabs_item_link">Alterações</a>
+                        <a href="#change" class="nav_tabs_item_link">Inserir Alterações</a>
                     </li>
                 </ul>
 
@@ -50,24 +49,24 @@
                                 </div>
                                 <div class="label">
                                     <h3>Usuário solicitante:</h3>
-                                    <p>{{ $order->first_name }} {{ $order->last_name }}</p>
+                                    <p>{{ $order->userRequester->first_name }} {{ $order->userRequester->last_name }}</p>
                                 </div>
                             </div>
                             <div class="label_g2">
                                 <div class="label">
                                     <h3>Setor solicitante:</h3>
-                                    <p>{{ $order->sector_requester }}</p>
+                                    <p>{{ $order->sectorRequester->name_sector }}</p>
                                 </div>
                                 <div class="label">
                                     <h3>Setor Responsável:</h3>
-                                    <p>{{ $order->sector_provider }}</p>
+                                    <p>{{ $order->sectorProvider->name_sector }}</p>
                                 </div>
                             </div>
 
                             <div class="label_g2">
                                 <div class="label">
                                     <h3>Serviço:</h3>
-                                    <p>{{ ucfirst($order->name_service) }}</p>
+                                    <p>{{ ucfirst($order->serviceProvider->name_service) }}</p>
                                 </div>
                                 <div class="label">
                                     <h3>Prioridade:</h3>
@@ -98,15 +97,12 @@
                                         <img src="{{ $image->url_cropped }}" alt="">
                                         <div class="order_image_actions">
                                             <a href="javascript:void(0)"
-                                               class="btn btn-red btn-small icon-times icon-notext image-remove"
+                                               class=""
                                                data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
-
-
-                            {{--                            @endforeach--}}
                         </div>
 
 
@@ -142,9 +138,7 @@
                                 </table>
                             </div>
                         </div>
-                        @php
 
-                                @endphp
                         <div id="change" class="d-none">
                             <form class="app_form"
                                   action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
@@ -167,7 +161,7 @@
                                     <label class="label">
                                         <span class="legend">*Descreva suas Alterações:</span>
                                         <textarea name="description" placeholder="Descreva suas Alterações"
-                                                  value=""></textarea>
+                                                  value="" required></textarea>
                                     </label>
                                 </div>
                                 <label class="label">
@@ -176,23 +170,18 @@
                                 </label>
 
                                 <div class="content_image"></div>
+
+                                <div class="text-right mt-2">
+                                    <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                                        Alterações
+                                    </button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
 
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                        </button>
-                        </form>
 
-
-                        {{--                        <form action="" method="POST">--}}
-                        {{--                            @csrf--}}
-                        {{--                            @method('DELETE')--}}
-
-                        {{--                            <button class="btn btn-large btn-red icon-check-square-o" type="submit">Excluir</button>--}}
-                        {{--                        </form>--}}
-                    </div>
                 </div>
             </div>
         </div>

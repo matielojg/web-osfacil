@@ -40,10 +40,10 @@
             </form>
 
             <footer>
-                <p>$desenvolvidoPor = alunos( <br>
-                    'Andrew' => '<a href="https://github.com/andrewwalmir">Github</a>'<br>
-                    'Matielo' => '<a href="https://github.com/matielojg">Github</a>'<br>
-                    );
+                <p>$desenvolvidoPor = [ <br>
+                    'Andrew' => '<a href="https://github.com/andrewwalmir" target="_blank">Github</a>'<br>
+                    'Matielo' => '<a href="https://github.com/matieloDev" target="_blank">Github</a>'<br>
+                    ];
                 </p>
                 <br>
                 <p>&copy; <?= date("Y"); ?> - Todos os Direitos Reservados</p>
