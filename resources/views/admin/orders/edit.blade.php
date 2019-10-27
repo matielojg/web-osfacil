@@ -33,7 +33,7 @@
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
                     <li class="nav_tabs_item">
-                        <a href="#change" class="nav_tabs_item_link">Alterações</a>
+                        <a href="#change" class="nav_tabs_item_link">Inserir Alterações</a>
                     </li>
                 </ul>
 
@@ -97,7 +97,7 @@
                                         <img src="{{ $image->url_cropped }}" alt="">
                                         <div class="order_image_actions">
                                             <a href="javascript:void(0)"
-                                               class="btn btn-red btn-small icon-times icon-notext image-remove"
+                                               class=""
                                                data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
                                         </div>
                                     </div>
@@ -170,23 +170,18 @@
                                 </label>
 
                                 <div class="content_image"></div>
+
+                                <div class="text-right mt-2">
+                                    <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                                        Alterações
+                                    </button>
+                                </div>
+                            </form>
                         </div>
 
                     </div>
 
-                    <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                        </button>
-                        </form>
 
-
-                        {{--                        <form action="" method="POST">--}}
-                        {{--                            @csrf--}}
-                        {{--                            @method('DELETE')--}}
-
-                        {{--                            <button class="btn btn-large btn-red icon-check-square-o" type="submit">Excluir</button>--}}
-                        {{--                        </form>--}}
-                    </div>
                 </div>
             </div>
         </div>

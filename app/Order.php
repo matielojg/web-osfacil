@@ -15,7 +15,7 @@ class Order extends Model
     protected $fillable = [
         'requester',
         'sector_requester',
-        'sector_provider',
+        'filter_sector_provider',    //sector_provider
         'service',
         'description',
         'priority',

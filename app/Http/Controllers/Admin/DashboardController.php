@@ -81,6 +81,7 @@ class DashboardController extends Controller
                 'orders' => $ordersTechnical
             ]);
         } else {
+
             return view('admin.dashboard', [
                 'employee' => $employee,
                 'technician' => $technician,

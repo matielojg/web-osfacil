@@ -80,12 +80,14 @@
                             Ordem de Serviço</a></li>
 
                     @can('onlyManagersView', App\User::class)
-                        <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
-                                Técnico</a></li>
-                        <li class="{{ isActive('admin.orders.pending') }}"><a
-                                href="{{ route('admin.orders.pending') }}">Ordens
-                                Pendentes</a></li>
-                    @endcan
+
+                    <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
+                            Técnico</a></li>
+                    <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
+                            Pendentes</a></li>
+                        @endcan
+                    <li class="{{ isActive('admin.orders.completed') }}"><a href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
+
                 </ul>
             </li>
 

@@ -31,14 +31,12 @@
                         <th>Solicitante</th>
                         <th>Setor Solicitante</th>
                         <th>Prioridade</th>
-                        <th>Status</th>
-                        <th>Data de Abertura</th>
+                        <th>Data de Conclusão</th>
                         <th>Ação</th>
                     </tr>
                     </thead>
                     <tbody>
 
-{{--                    @if(!empty($orders))--}}
                     @foreach($orders as $order)
 
                         <tr>
@@ -51,21 +49,14 @@
                             <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
                                    class="text-green">{{ ucfirst($order->priority) }}</a></td>
                             <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                   class="text-green">{{ ucfirst($order->status) }}</a></td>
-                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                   class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
+                                   class="text-green"> {{ date('d/m/Y H:i', strtotime($order->closed_at))}}</a></td>
                             <td>
-                                @if($order->status == 'aberto' && $order->requester == auth()->user()->id)
-                                <a href="{{ route('admin.orders.edit.open', ['id'=>$order->id]) }}"
-                                   class="btn btn-green ml-1 icon-pencil">Editar</a>
-                                @else
                                     <a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                       class="btn btn-green ml-1 icon-eye">Ver</a>
-                                @endif
+                                       class="btn btn-green ml-1 icon-check-square-o">Ver</a>
+
                             </td>
                         </tr>
                     @endforeach
-{{--                        @endif--}}
                     </tbody>
                 </table>
             </div>

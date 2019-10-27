@@ -1,5 +1,41 @@
 $(function () {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    //OSFACIL metodo pra buscar via AJAX o tipo de serviço de acordo com o setor_providers selecionado
+    $('body').on('change', 'select[name*="filter_"]', function () {
+        var search = $(this);
+        var nextIndex = $(this).data('index') + 1;
+        $.post(search.data('action'), {search: search.val()}, function (response) {
+            if (response.status === 'success') {
+                $('select[data-index="' + nextIndex + '"]').empty();
+
+                $.each(response.data, function (key, value) {
+                    $('select[data-index="' + nextIndex + '"]').append(
+                        $('<option>', {
+                            value: value,
+                            text: value
+                        })
+                    );
+                });
+                $.each($('select[name*="filter_"]'), function (index, element) {
+                    if ($(element).data('index') >= nextIndex + 1) {
+                        $(element).empty().append(
+                            $('<option>', {
+                                text: 'Selecione o filtro anterior',
+                            })
+                        );
+                    }
+                });
+                // $('.selectpicker').selectpicker('refresh');
+            }
+        }, 'json');
+    });
+
     // MOBILE MENU
     $(".mobile_menu").click(function (event) {
         event.preventDefault();
@@ -202,8 +238,8 @@ $(function () {
     });
 
     // ENABLE INPUT TO PRICE
-    $('input[type="checkbox"][name="sale"]').change(function(){
-        if($(this).get(0).checked) {
+    $('input[type="checkbox"][name="sale"]').change(function () {
+        if ($(this).get(0).checked) {
             $('input[name="sale_price"]').attr('disabled', false);
         } else {
             $('input[name="sale_price"]').attr('disabled', true);
@@ -211,8 +247,8 @@ $(function () {
     });
 
     // ENABLE INPUT TO PRICE
-    $('input[type="checkbox"][name="rent"]').change(function(){
-        if($(this).get(0).checked) {
+    $('input[type="checkbox"][name="rent"]').change(function () {
+        if ($(this).get(0).checked) {
             $('input[name="rent_price"]').attr('disabled', false);
         } else {
             $('input[name="rent_price"]').attr('disabled', true);
@@ -281,4 +317,6 @@ tinyMCE.init({
     relative_urls: false,
     remove_script_host: false,
     paste_as_text: true
+
 });
+
