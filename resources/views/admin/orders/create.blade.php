@@ -44,13 +44,6 @@
                                 <span class="legend">*Serviço:</span>
                                 <select id="service" name="filter_service" data-index="2">
                                     <option value="">-- Selecione --</option>
-
-
-{{--                                    @foreach ($services as $service)--}}
-{{--                                        <option--}}
-{{--                                            value="{{ $service->id }}" }}> {{ $service->name_service }}--}}
-{{--                                        </option>--}}
-{{--                                    @endforeach--}}
                                 </select>
                             </label>
                         </div>

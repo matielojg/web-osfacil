@@ -64,12 +64,12 @@ class OrderController extends Controller
     public function create()
     {
         $sectorProviders = SectorProvider::all();
-        $services = Service::all();
+//        $services = Service::all();
 
         if (!empty($sectorProviders)) {
             return view('admin.orders.create', [
-                'sectorProviders' => $sectorProviders,
-                'services' => $services
+                'sectorProviders' => $sectorProviders
+//                'services' => $services
             ]);
         } else {
             return redirect()->action('Admin\OrderController@index');
@@ -90,7 +90,7 @@ class OrderController extends Controller
         $order->requester = $request->requester;
         $order->sector_requester = auth()->user()->sector;
         $order->sector_provider = $request->filter_sector_provider;   //contem requisição Ajax
-        $order->service = $request->service;
+        $order->service = $request->filter_service;
         $order->description = $request->description;
         $order->priority = $request->priority;
         $order->status = 1;
@@ -108,9 +108,8 @@ class OrderController extends Controller
 
             }
         }
-
-        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
         $user = auth()->user();
+        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
 
         $action = [
             'description' => 'Ordem aberta pelo usuário ' . $user->first_name,
@@ -351,7 +350,7 @@ class OrderController extends Controller
     {
         $technical = Order::find($id);
         $technical->responsible = $request->responsible;
-        $technical->status = $request->status;
+        $technical->status = 2;
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
