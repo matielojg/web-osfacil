@@ -22,11 +22,8 @@
         </header>
 
         <div class="dash_content_app_box">
-
             <div class="nav">
-
                 <div class="app_form">
-
                     <div class="nav_tabs_content">
                         <div id="data">
                             <div class="label_g2">

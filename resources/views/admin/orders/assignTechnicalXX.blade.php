@@ -123,7 +123,6 @@
                                             @endforeach
                                         </select>
                                     </label>
-                                    {{--                                    <input type="hidden" name="status" value="2">--}}
                                 </div>
                         </div>
                     </div>
@@ -140,13 +139,10 @@
         </div>
         </div>
     </section>
-
 @endsection
-
 @section('js')
     <script>
         $(function () {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
