@@ -80,14 +80,6 @@
                                         {{ $order->description }}
                                     </p>
                                 </div>
-                                {{--                                @if(!empty($order->responsible_first))--}}
-                                {{--                                    <div class="label">--}}
-                                {{--                                        <h3>Técnico Responsável:</h3>--}}
-                                {{--                                        <p>--}}
-                                {{--                                            {{ $order->responsible_first }} {{ $order->responsible_last }}--}}
-                                {{--                                        </p>--}}
-                                {{--                                    </div>--}}
-                                {{--                                @endif--}}
                             </div>
 
 

@@ -97,7 +97,7 @@
                                 </label>
                                 <label class="label">
                                     <span class="legend">Escolha o Auxiliar:</span>
-                                    <select name="responsible" class="form-control">
+                                    <select name="ancillary" class="form-control">
                                         <option value="0">-- Selecione o Auxiliar --</option>
                                         @foreach($technicals as $technical)
                                             <option

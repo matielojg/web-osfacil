@@ -46,7 +46,9 @@ class OrderController extends Controller
                     ->get();
                 break;
             case ('tecnico');
-                $orders = Order::where('responsible', $idUser)->get();
+                $orders = Order::where('responsible', $idUser)
+                    ->whereIn('status', ['atribuido', 'em execucao'])
+                    ->get();
                 break;
             default;
                 $orders = Order::where('requester', $idUser)
@@ -292,6 +294,7 @@ class OrderController extends Controller
     public
     function update(Request $request, $id)
     {
+
         $user = auth()->user();
         $order = Order::where('id', $id)->first();
 
@@ -332,19 +335,18 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public
-    function updateTechnical(Request $request, $id)
+    public function updateTechnical(Request $request, $id)
     {
         $technical = Order::find($id);
         $technical->responsible = $request->responsible;
+        $technical->ancillary = $request->ancillary;
         $technical->status = 2;
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
     }
 
-    public
-    function completed()
+    public function completed()
     {
         $idUser = auth()->user()->id;
         $function = auth()->user()->function;
@@ -356,7 +358,7 @@ class OrderController extends Controller
                     ->get();
                 break;
 
-            case 'supervisor':
+            case ('supervisor');
 
                 $sectorProviders = DB::table('sector_providers')
                     ->where('supervisor', $idUser)
@@ -373,9 +375,14 @@ class OrderController extends Controller
                     ->get();
 
                 break;
+            case ('tecnico');
+                $orders = Order::where('responsible', $idUser)
+                    ->whereNotNull('closed_at')
+                    ->where('status', 4)
+                    ->get();
+//                dd($orders);
+                break;
 
-//            case 'tecnico':
-//
             default;
 
                 $orders = Order::where('requester', $idUser)
