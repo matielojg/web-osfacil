@@ -80,14 +80,14 @@
                                         {{ $order->description }}
                                     </p>
                                 </div>
-                                @if(!empty($order->responsible_first))
-                                    <div class="label">
-                                        <h3>Técnico Responsável:</h3>
-                                        <p>
-                                            {{ $order->responsible_first }} {{ $order->responsible_last }}
-                                        </p>
-                                    </div>
-                                @endif
+                                {{--                                @if(!empty($order->responsible_first))--}}
+                                {{--                                    <div class="label">--}}
+                                {{--                                        <h3>Técnico Responsável:</h3>--}}
+                                {{--                                        <p>--}}
+                                {{--                                            {{ $order->responsible_first }} {{ $order->responsible_last }}--}}
+                                {{--                                        </p>--}}
+                                {{--                                    </div>--}}
+                                {{--                                @endif--}}
                             </div>
 
 
@@ -121,10 +121,11 @@
                                     <tbody>
 
                                     @foreach($order->action()->get() as $action)
+
                                         <tr>
                                             <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
                                             <td>
-                                                <a class="text-green">{{ $action->first_name }} {{ $action->last_name }}</a>
+                                                <a class="text-green">{{ $action->user2->first_name }} {{ $action->user2->last_name }} </a>
                                             </td>
                                             <td><a class="text-green">Alterou o Status para:
                                                     <b>{{ $action->status }}</b></a>
@@ -192,17 +193,13 @@
 @section('js')
     <script>
         $(function () {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $('input[name="files[]"]').change(function (files) {
-
                 $('.content_image').text('');
-
                 $.each(files.target.files, function (key, value) {
                     var reader = new FileReader();
                     reader.onload = function (value) {
@@ -216,18 +213,14 @@
                     reader.readAsDataURL(value);
                 });
             });
-
             $('.image-remove').click(function (event) {
                 event.preventDefault();
-
                 var button = $(this);
-
                 $.ajax({
                     url: button.data('action'),
                     type: 'DELETE',
                     dataType: 'json',
                     success: function (response) {
-
                         if (response.success === true) {
                             button.closest('.order_image_item').fadeOut(function () {
                                 $(this).remove();
@@ -236,7 +229,6 @@
                     }
                 })
             });
-
         });
     </script>
 @endsection

@@ -4,13 +4,13 @@
 
     <section class="dash_content_app">
         <header class="dash_content_app_header">
-            <h2 class="icon-file-text">Nova Ordens de Serviço:</h2>
+            <h2 class="icon-file-text">Nova Ordem de Serviço:</h2>
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}" >Ordens de Serviço</a></li>
+                        <li><a href="{{ route('admin.orders.index') }}">Ordens de Serviço</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a class="text-green">Nova Ordem</a></li>
                     </ul>
@@ -28,19 +28,27 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Setor Responsável:</span>
-                                <select name="sector_provider">
-                                    <option
-                                            value=""> -- Selecione o setor --
-                                    </option>
+                                <select id="sector_provider" name="filter_sector_provider"
+                                        title="Escolha ..."
+                                        data-action="{{ route('admin.main-filter.search') }}" data-index="1">
+                                    <option value="">-- Selecione --</option>
                                     @foreach ($sectorProviders as $sector)
                                         <option
-                                                value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
-
+                                            value="{{ $sector->id }}" }}> {{ $sector->name_sector }}
                                         </option>
                                     @endforeach
                                 </select>
                             </label>
 
+                            <label class="label">
+                                <span class="legend">*Serviço:</span>
+                                <select id="service" name="filter_service" data-index="2">
+                                    <option value="">-- Selecione --</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Prioridade:</span>
                                 <select name="priority">
@@ -49,20 +57,6 @@
                                     <option value="2">Media</option>
                                     <option value="3">Alta</option>
                                     <option value="4">Emergencial</option>
-                                </select>
-                            </label>
-                        </div>
-
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">*Serviço:</span>
-                                <select name="service">
-                                    <option value="">-- Selecione --</option>
-                                    @foreach ($services as $service)
-                                        <option
-                                                value="{{ $service->id }}" }}> {{ $service->name_service }}
-                                        </option>
-                                    @endforeach
                                 </select>
                             </label>
 

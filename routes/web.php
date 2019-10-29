@@ -10,7 +10,12 @@ Route::resourceVerbs([
     //'sectorproviders' => 'manutencao'
 ]);
 
+
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
+
+    /**Requisições Ajax */
+    Route::post('main-filter/search','FilterController@search')->name('main-filter.search');
 
     /** Formulário de Login */
     Route::get('/', 'AuthController@showLoginForm')->name('login');
@@ -41,8 +46,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('orders', 'OrderController');
 
         /** Setores */
-
-
 //        Route::put('/post/{post}', function (Post $post) {
 //        The current user may update the post...
 //        })->middleware('can:update,post');
@@ -56,6 +59,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
 
       // Route::resource('setor', 'SectorController');
+
+
+
 
         /** Setores Manutenção */
         Route::get('/providers', 'SectorProviderController@index')->name('sectorsProvider.index');
@@ -72,5 +78,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('logout', 'AuthController@logout')->name('logout');
 
     });
+
 
 });

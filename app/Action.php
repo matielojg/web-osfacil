@@ -20,7 +20,7 @@ class Action extends Model
 
 /** User */
 
-    public function user()
+    public function user2()
     {
         return $this->belongsTo(User::class, 'user', 'id');
     }
