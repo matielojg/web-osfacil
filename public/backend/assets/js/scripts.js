@@ -17,8 +17,8 @@ $(function () {
                 $.each(response.data, function (key, value) {
                     $('select[data-index="' + nextIndex + '"]').append(
                         $('<option>', {
-                            value: value,
-                            text: value
+                            value: value.id,
+                            text: value.name_service
                         })
                     );
                 });

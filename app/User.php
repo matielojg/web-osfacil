@@ -91,8 +91,6 @@ class User extends Authenticatable
         //return $this->belongsTo(Order::class, 'responsible', 'id');
     }
 
-
-
     //Tratamento dos dados para salvar no banco
 
     public function getUrlPhotoAttribute()

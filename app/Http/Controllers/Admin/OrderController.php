@@ -10,6 +10,7 @@ use App\SectorProvider;
 use App\Service;
 use App\Support\Cropper;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -31,22 +32,20 @@ class OrderController extends Controller
             case ('gerente');
                 $orders = Order::where('status', '!=', 'aberto')->get();
                 break;
-
             case ('supervisor');
-
                 $sectorProviders = SectorProvider::where('supervisor', $idUser)
                     ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
-
                 if (empty($sectorProviders)) {
                     return view('admin.orders.index');
                     die;
                 }
-
                 $orders = Order::whereIn('sector_provider', $sectorProviders)
                     ->where('status', '!=', 'aberto')
                     ->get();
                 break;
-
+            case ('tecnico');
+                $orders = Order::where('responsible', $idUser)->get();
+                break;
             default;
                 $orders = Order::where('requester', $idUser)->get();
                 break;
@@ -64,12 +63,12 @@ class OrderController extends Controller
     public function create()
     {
         $sectorProviders = SectorProvider::all();
-        $services = Service::all();
+//        $services = Service::all();
 
         if (!empty($sectorProviders)) {
             return view('admin.orders.create', [
-                'sectorProviders' => $sectorProviders,
-                'services' => $services
+                'sectorProviders' => $sectorProviders
+//                'services' => $services
             ]);
         } else {
             return redirect()->action('Admin\OrderController@index');
@@ -90,7 +89,7 @@ class OrderController extends Controller
         $order->requester = $request->requester;
         $order->sector_requester = auth()->user()->sector;
         $order->sector_provider = $request->filter_sector_provider;   //contem requisição Ajax
-        $order->service = $request->service;
+        $order->service = $request->filter_service;
         $order->description = $request->description;
         $order->priority = $request->priority;
         $order->status = 1;
@@ -108,9 +107,8 @@ class OrderController extends Controller
 
             }
         }
-
-        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
         $user = auth()->user();
+        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
 
         $action = [
             'description' => 'Ordem aberta pelo usuário ' . $user->first_name,
@@ -143,51 +141,12 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::where('id', $id)->first();
-
-        //dd($order->userRequester->first_name);
-
-
-//         $requester = $order->requester()->first();
-//         $service = $order->service()->first();
-//         $actions = $order->actions();
-//         $responsible = $order->responsible()->first();
-
-
-//         var_dump($order->sectorRequester()->first());
-//
-//        die;
-
+        $order = Order::where('id', $id)
+            ->first();
         return view('admin.orders.edit', [
             'order' => $order
         ]);
 
-        $orders = DB::table('orders AS a')
-            ->select('a.*', 'e.name_service', 'c.name_sector as provider', 'd.name_sector as requester', 'b.first_name',
-                'b.last_name', 'f.first_name as responsible_first', 'f.last_name as responsible_last')
-            ->join('users AS b', 'a.requester', '=', 'b.id')
-            ->leftJoin('users AS f', 'a.responsible', '=', 'f.id')
-            ->join('sector_providers AS c', 'c.id', '=', 'a.sector_provider')
-            ->join('sectors AS d', 'd.id', '=', 'a.sector_requester')
-            ->join('services AS e', 'a.service', '=', 'e.id')
-            ->where('a.id', $id)
-            ->get();
-
-        $actions = DB::table('actions AS a')
-            ->latest()
-            ->select('a.*', 'b.first_name', 'b.last_name')
-            ->join('users AS b', 'a.user', '=', 'b.id')
-            ->where('a.order', $id)
-            ->get();
-
-        if (!empty($orders)) {
-            return view('admin.orders.edit', [
-                'orders' => $orders,
-                'actions' => $actions
-            ])->with(['color' => 'green', 'message' => 'Imóvel alterado com sucesso!']);
-        } else {
-            return redirect()->route('admin.orders.index');
-        }
     }
 
     /**
@@ -278,19 +237,32 @@ class OrderController extends Controller
 
     /**
      * Inserir histórico de alterações
-     *
+     * Tecnico executa ordem, atualiza status e preenche o closed_at
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function editActions(Request $request, $id)
     {
+//        dd($request->status, $idUser->function);
         $action = new Action();
         $action->description = $request->description;
         $action->user = auth()->user()->id;
         $action->order = $id;
         $action->status = $request->status;
-
         $action->save();
+
+
+        Order::where('id', $id)
+            ->update(['status' => $request->status]);
+
+
+        $idUser = auth()->user();
+        if (($idUser->function == 'tecnico' xor $idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '4') {
+            Order::where('id', $id)
+                ->update(['closed_at' => Carbon::now()]);
+        }
+
+
         return redirect()->route('admin.orders.index');
     }
 
@@ -301,9 +273,10 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
-
+        $user = auth()->user();
         $order = Order::where('id', $id)->first();
 
         $order->requester = auth()->user()->id;
@@ -325,15 +298,11 @@ class OrderController extends Controller
 
             }
         }
-
-        $user = auth()->user();
-
         $action = [
             'description' => 'Ordem Editada pelo usuário ' . $user->first_name,
             'user' => $user->id,
             'order' => $id,
         ];
-
         Action::create($action);
 
         return redirect()->route('admin.orders.index');
@@ -347,29 +316,31 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function updateTechnical(Request $request, $id)
+    public
+    function updateTechnical(Request $request, $id)
     {
         $technical = Order::find($id);
         $technical->responsible = $request->responsible;
-        $technical->status = $request->status;
+        $technical->status = 2;
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
     }
 
-    public function completed()
+    public
+    function completed()
     {
         $idUser = auth()->user()->id;
         $function = auth()->user()->function;
 
         switch ($function) {
-            case ('gerente');
+            case 'gerente':
                 $orders = Order::whereNotNull('closed_at')
                     ->where('status', 'concluido')
                     ->get();
                 break;
 
-            case ('supervisor');
+            case 'supervisor':
 
                 $sectorProviders = DB::table('sector_providers')
                     ->where('supervisor', $idUser)
@@ -384,9 +355,13 @@ class OrderController extends Controller
                     ->whereNotNull('closed_at')
                     ->where('status', 'concluido')
                     ->get();
+
                 break;
 
+//            case 'tecnico':
+//
             default;
+
                 $orders = Order::where('requester', $idUser)
                     ->whereNotNull('closed_at')
                     ->where('status', 'concluido')
@@ -404,17 +379,20 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public
+    function destroy(Order $order)
     {
         //
     }
 
-    public function trashed()
+    public
+    function trashed()
     {
         //
     }
 
-    public function imageRemove(Request $request)
+    public
+    function imageRemove(Request $request)
     {
         $imageDelete = Image::where('id', $request->id)->first();
 

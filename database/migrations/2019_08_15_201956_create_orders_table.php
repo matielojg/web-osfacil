@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->enum('status', ['aberto', 'atribuido', 'em execucao', 'executado', 'suspenso', 'pendente', 'concluido']);
             $table->enum('priority', ['baixa', 'media', 'alta', 'critica']);
             $table->enum('type_service', ['corretiva', 'preventiva']);
-            $table->date('closed_at')->nullable();
+            $table->dateTimeTz('closed_at')->nullable();
             $table->unsignedBigInteger('requester');
             $table->unsignedBigInteger('responsible')->nullable();
             $table->unsignedBigInteger('ancillary')->nullable();
