@@ -45,12 +45,13 @@ class OrderController extends Controller
                     ->where('status', '!=', 'aberto')
                     ->get();
                 break;
-            case ('tecnico');
-                $orders = Order::where('responsible', $idUser)->get();
-                break;
+//            case ('tecnico');
+//                $orders = Order::where('responsible', $idUser)->get();
+//                break;
             default;
                 $orders = Order::where('requester', $idUser)
                     ->whereNull('closed_at')
+                    //->latest()
                     ->get();
                 break;
         }

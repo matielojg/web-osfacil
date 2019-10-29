@@ -74,14 +74,15 @@
                 <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
                     de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
+
+                    @can('onlyTecnicalView', App\User::class)
+                        <li class=""><a href="{{ route('admin.orders.index') }}">Serviços a Realizar</a></li>
+                    @endcan
+
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
                             Todas</a></li>
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
                             Ordem de Serviço</a></li>
-
-                    @can('onlyTecnicalView', App\User::class)
-                    <li class=""><a href="{{ route('admin.orders.index') }}">Serviços a Realizar</a></li>
-                    @endcan
 
                     @can('onlyManagersView', App\User::class)
 

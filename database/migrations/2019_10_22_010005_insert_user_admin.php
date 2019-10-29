@@ -29,13 +29,10 @@ class InsertUserAdmin extends Migration
             'name_sector' => 'Marketing',
             'created_at' => now()
         ]);
-        DB::table('sectors')->insert([
-            'name_sector' => 'Outros',
-            'created_at' => now()
-        ]);
 
         $username = env('ADMIN_USERNAME', 'admin');
         $password = bcrypt(env('ADMIN_PASSWORD', 'osfacildemais'));
+
         DB::table('users')->insert([
             'first_name' => 'Administrador',
             'last_name' => 'Sistema',
@@ -126,6 +123,7 @@ class InsertUserAdmin extends Migration
             'primary_contact' => '(45) 99877-5463',
             'created_at' => now()
         ]);
+
         DB::table('sector_providers')->insert([
             'name_sector' => 'Governança',
             'supervisor' => 3,
@@ -134,6 +132,12 @@ class InsertUserAdmin extends Migration
         DB::table('sector_providers')->insert([
             'name_sector' => 'Manutenção',
             'supervisor' => 2,
+            'created_at' => now()
+        ]);
+
+        DB::table('sector_providers')->insert([
+            'name_sector' => 'Manutenção',
+            'supervisor' => 1,
             'created_at' => now()
         ]);
     }

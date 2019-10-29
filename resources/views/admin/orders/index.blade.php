@@ -38,7 +38,6 @@
                     </thead>
                     <tbody>
 
-{{--                    @if(!empty($orders))--}}
                     @foreach($orders as $order)
 
                         <tr>
@@ -62,7 +61,7 @@
                             </td>
                         </tr>
                     @endforeach
-{{--                        @endif--}}
+
                     </tbody>
                 </table>
             </div>
