@@ -34,6 +34,7 @@ class FilterController extends Controller
 //        $json['success'] = $teste;
 //        return response()->json($json);
     }
+
     private function createQuery($field)
     {
         $governanca = session('governanca');
@@ -51,6 +52,7 @@ class FilterController extends Controller
             })
             ->get([$field]);
     }
+
     private function setResponse(string $status, array $data = null, string $message = null)
     {
         return [

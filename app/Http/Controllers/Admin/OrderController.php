@@ -30,7 +30,9 @@ class OrderController extends Controller
 
         switch ($function) {
             case ('gerente');
-                $orders = Order::where('status', '!=', 'aberto')->get();
+                $orders = Order::where('status', '!=', 'aberto')
+                    ->whereNull('closed_at')
+                    ->get();
                 break;
             case ('supervisor');
                 $sectorProviders = SectorProvider::where('supervisor', $idUser)
@@ -44,10 +46,14 @@ class OrderController extends Controller
                     ->get();
                 break;
             case ('tecnico');
-                $orders = Order::where('responsible', $idUser)->get();
+                $orders = Order::where('responsible', $idUser)
+                    ->whereIn('status', ['atribuido', 'em execucao'])
+                    ->get();
                 break;
             default;
-                $orders = Order::where('requester', $idUser)->get();
+                $orders = Order::where('requester', $idUser)
+                    ->whereNull('closed_at')
+                    ->get();
                 break;
         }
 
@@ -128,9 +134,21 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show($id)
     {
-        return view('admin.orders.edit');
+        $sectorProviders = SectorProvider::all();
+        $services = Service::all();
+        $order = Order::where('id', $id)->first();
+
+        if (!empty($order)) {
+            return view('admin.orders.show', [
+                'sectorProviders' => $sectorProviders,
+                'services' => $services,
+                'order' => $order
+            ]);
+        } else {
+            return redirect()->action('Admin\OrderController@index');
+        }
     }
 
     /**
@@ -276,6 +294,7 @@ class OrderController extends Controller
     public
     function update(Request $request, $id)
     {
+
         $user = auth()->user();
         $order = Order::where('id', $id)->first();
 
@@ -316,19 +335,18 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public
-    function updateTechnical(Request $request, $id)
+    public function updateTechnical(Request $request, $id)
     {
         $technical = Order::find($id);
         $technical->responsible = $request->responsible;
+        $technical->ancillary = $request->ancillary;
         $technical->status = 2;
         $technical->save();
 
         return redirect(route('admin.orders.assign'));
     }
 
-    public
-    function completed()
+    public function completed()
     {
         $idUser = auth()->user()->id;
         $function = auth()->user()->function;
@@ -340,7 +358,7 @@ class OrderController extends Controller
                     ->get();
                 break;
 
-            case 'supervisor':
+            case ('supervisor');
 
                 $sectorProviders = DB::table('sector_providers')
                     ->where('supervisor', $idUser)
@@ -357,9 +375,14 @@ class OrderController extends Controller
                     ->get();
 
                 break;
+            case ('tecnico');
+                $orders = Order::where('responsible', $idUser)
+                    ->whereNotNull('closed_at')
+                    ->where('status', 4)
+                    ->get();
+//                dd($orders);
+                break;
 
-//            case 'tecnico':
-//
             default;
 
                 $orders = Order::where('requester', $idUser)
