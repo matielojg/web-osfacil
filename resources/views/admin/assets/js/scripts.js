@@ -18,7 +18,8 @@ $(function () {
                     $('select[data-index="' + nextIndex + '"]').append(
                         $('<option>', {
                             value: value.id,
-                            value: value.name_service
+                            text: value.name_service
+
                         })
                     );
                 });
@@ -26,7 +27,7 @@ $(function () {
                     if ($(element).data('index') >= nextIndex + 1) {
                         $(element).empty().append(
                             $('<option>', {
-                                text: 'Selecione o filtro anterior',
+
                             })
                         );
                     }
