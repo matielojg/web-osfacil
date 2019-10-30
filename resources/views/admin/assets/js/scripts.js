@@ -18,7 +18,7 @@ $(function () {
                     $('select[data-index="' + nextIndex + '"]').append(
                         $('<option>', {
                             value: value.id,
-                            value: value.name()
+                            value: value.name_service
                         })
                     );
                 });

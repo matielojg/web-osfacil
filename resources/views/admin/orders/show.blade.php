@@ -29,7 +29,7 @@
                                 <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                             </label>
 
-                            @if($order->status == 'concluido')
+                            @if($order->status == 'executado')
                             <label class="label">
                                 <span class="legend">Data de Encerramento:</span>
                                 <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
@@ -76,12 +76,12 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">Técnico Responsável:</span>
-                                <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
+                                <p>{{ $order->userResponsible->first_name ?? "-"}} {{ $order->userResponsibleg->last_name ?? "" }}</p>
                             </label>
 
                             <label class="label">
                                 <span class="legend">Auxiliar:</span>
-                                <p></p>
+                                <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
                             </label>
                         </div>
 

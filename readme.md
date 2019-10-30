@@ -46,7 +46,19 @@
 
 <hr>
 <b> Migrations: </b>
-    
+
+<p> Para renomear colunas necessario instalar: </p>
+
+    composer require doctrine/dbal
     php artisan make:migration create_users_table --create=users
     php artisan make:migration add_votes_to_users_table --table=users
     php artisan migrate:rollback --step=1
+
+<hr>
+<b> Policies: </b>
+
+    php artisan make:policy UserPolicy -m User    (para o App\User)
+    php artisan
+    php artisan help make:policy
+https://www.youtube.com/watch?v=NrlY-xeqHBg
+<hr> 
