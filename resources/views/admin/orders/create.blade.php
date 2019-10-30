@@ -40,10 +40,11 @@
                                 </select>
                             </label>
 
+
                             <label class="label">
                                 <span class="legend">*Serviço:</span>
                                 <select id="service" name="filter_service" data-index="2">
-                                    <option value="">-- Selecione --</option>
+                                    <option value=" ">-- Selecione --</option>
                                 </select>
                             </label>
                         </div>
