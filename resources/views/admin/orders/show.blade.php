@@ -29,11 +29,11 @@
                                 <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                             </label>
 
-                            @if($order->status == 'executado')
-                            <label class="label">
-                                <span class="legend">Data de Encerramento:</span>
-                                <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
-                            </label>
+                            @if($order->status == 'concluido')
+                                <label class="label">
+                                    <span class="legend">Data de Encerramento:</span>
+                                    <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
+                                </label>
                             @endif
                         </div>
 
@@ -115,13 +115,19 @@
             <input type="hidden" name="sector_requester" id="" value="{{ auth()->user()->sector }}">
             <input type="hidden" name="requester" id="" value="{{ auth()->user()->id }}">
             <div class="text-right mt-2">
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left" >Voltar</a>
-                <a class="btn btn-large btn-blue icon-print" onClick="self.print();" >Imprimir</a>
-                </button>
+                <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
+                <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
+                @if($order->status =='concluido')
+                    <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
+                    @endif
+                    </button>
             </div>
             </form>
         </div>
         </div>
+
+
+
     </section>
 
 @endsection
@@ -174,6 +180,88 @@
                 })
             });
 
+        });
+
+
+        $(function () {
+
+            $(".jpop_up_rate").click(function (e) {
+                e.preventDefault();
+
+                if (!$(".pop_up_delete").length) {
+                    var popupDelete = '<div class="pop_up_delete">';
+                    popupDelete += '<div class="pop_up_delete_box radius">';
+                    popupDelete += '<header>';
+                    popupDelete += '<h1>Avaliar Ordem </h1>';
+                    popupDelete += '<p>Qual nota você dá pelo serviço executado?</p>';
+                    popupDelete += '</header>';
+                    popupDelete += '<div align="center" style="background: #FFFFFF ; padding: 10px;color:white;">';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="0"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="1"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="2"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="3"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="4"></i>';
+                    popupDelete += '<br><br>';
+                    popupDelete += '</div>';
+                    popupDelete += '<form action=" {{route('admin.orders.rate', ['id'=>$order->id])}} " method="POST">';
+                    popupDelete += '@csrf';
+                    popupDelete += '@method('post')';
+                    popupDelete += '<button class="btn btn-yellow ml-1 icon-star" type="submit">Avaliar</button>';
+                    popupDelete += '</form>';
+                    popupDelete += '</div>';
+                    popupDelete += '</div>';
+
+                    $("body").prepend(popupDelete);
+                    $(".pop_up_delete").fadeIn(400).css("display", "flex");
+
+                    $("body").click(function (e) {
+                        if ($(e.target).attr("class") === "pop_up_delete") {
+                            $(".pop_up_delete").fadeOut(400, function () {
+                                $(this).remove();
+                            });
+                        }
+                    });
+
+
+                    var ratedIndex = -1, uID = 0;
+
+                    $(document).ready(function () {
+                        resetStarColors();
+
+                        if (localStorage.getItem('ratedIndex') != null) {
+                            setStars(parseInt(localStorage.getItem('ratedIndex')));
+                            uID = localStorage.getItem('uID');
+                        }
+
+                        $('.fa-star').on('click', function () {
+                            ratedIndex = parseInt($(this).data('index'));
+                            localStorage.setItem('ratedIndex', ratedIndex);
+                            saveToTheDB();
+                        });
+
+                        $('.fa-star').mouseover(function () {
+                            resetStarColors();
+                            var currentIndex = parseInt($(this).data('index'));
+                            setStars(currentIndex);
+                        });
+
+                        $('.fa-star').mouseleave(function () {
+                            resetStarColors();
+
+                            if (ratedIndex != -1)
+                                setStars(ratedIndex);
+                        });
+                    });
+                    function setStars(max) {
+                        for (var i=0; i <= max; i++)
+                            $('.fa-star:eq('+i+')').css('color', 'blue');
+                    }
+
+                    function resetStarColors() {
+                        $('.fa-star').css('color', 'white');
+                    }
+                }
+            });
         });
     </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Action;
+use App\Evaluation;
 use App\Http\Controllers\Controller;
 use App\Image;
 use App\Order;
@@ -398,20 +399,28 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public
-    function destroy(Order $order)
+    public function destroy(Order $order)
     {
-        //
+
     }
 
-    public
     function trashed()
     {
         //
     }
 
-    public
-    function imageRemove(Request $request)
+    public function rate(Request $request,$id)
+    {
+        dd($request->all());
+        $rate = new Evaluation();
+        $rate->order = $request->$id;
+        $rate->rating = $request->rating;
+        $rate->comment = $request->comment;
+        $rate->save();
+    }
+
+
+    public function imageRemove(Request $request)
     {
         $imageDelete = Image::where('id', $request->id)->first();
 
