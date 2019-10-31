@@ -136,7 +136,7 @@ class InsertUserAdmin extends Migration
         ]);
 
         DB::table('sector_providers')->insert([
-            'name_sector' => 'Manutenção',
+            'name_sector' => 'Zeladoria',
             'supervisor' => 1,
             'created_at' => now()
         ]);

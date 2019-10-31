@@ -76,22 +76,25 @@
                 <ul class="dash_sidebar_nav_submenu">
 
                     @can('onlyTecnicalView', App\User::class)
-                        <li class=""><a href="{{ route('admin.orders.index') }}">Serviços a Realizar</a></li>
+                        <li class="{{ isActive('admin.orders.do') }}"><a href="{{ route('admin.orders.servicesToDo') }}">Serviços a Realizar</a></li>
                     @endcan
 
-                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
-                            Todas</a></li>
+                    <li class="{{ isActive('admin.orders.my') }}"><a href="{{ route('admin.orders.myOrders') }}">Minhas Ordens</a></li>
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
                             Ordem de Serviço</a></li>
 
                     @can('onlyManagersView', App\User::class)
+                        <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
+                                Todas</a></li>
 
-                    <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
-                            Técnico</a></li>
-                    <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
-                            Pendentes</a></li>
-                        @endcan
-                    <li class="{{ isActive('admin.orders.completed') }}"><a href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
+                        <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
+                                Técnico</a></li>
+                        <li class="{{ isActive('admin.orders.pending') }}"><a
+                                    href="{{ route('admin.orders.pending') }}">Ordens
+                                Pendentes</a></li>
+                    @endcan
+                    <li class="{{ isActive('admin.orders.completed') }}"><a
+                                href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
 
                 </ul>
             </li>
@@ -106,7 +109,7 @@
                         <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
                                 Novo</a></li>
                         <li class="{{ isActive('admin.sectorsProvider.index') }}"><a
-                                href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
+                                    href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
                     </ul>
                 </li>
 
@@ -115,10 +118,10 @@
                                                                                       href="{{ route('admin.services.index') }}">Serviços</a>
                     <ul class="dash_sidebar_nav_submenu">
                         <li class="{{ isActive('admin.services.index') }}"><a
-                                href="{{ route('admin.services.index') }}">Ver
+                                    href="{{ route('admin.services.index') }}">Ver
                                 Todos</a></li>
                         <li class="{{ isActive('admin.services.create') }}"><a
-                                href="{{ route('admin.services.create') }}">Criar
+                                    href="{{ route('admin.services.create') }}">Criar
                                 Novo</a></li>
                     </ul>
                 </li>
