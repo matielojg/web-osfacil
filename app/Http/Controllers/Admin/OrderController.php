@@ -136,12 +136,14 @@ class OrderController extends Controller
         $sectorProviders = SectorProvider::all();
         $services = Service::all();
         $order = Order::where('id', $id)->first();
+        $rate = Evaluation::where('order',$id)->exists();
 
         if (!empty($order)) {
             return view('admin.orders.show', [
                 'sectorProviders' => $sectorProviders,
                 'services' => $services,
-                'order' => $order
+                'order' => $order,
+                'rate' => $rate
             ]);
         } else {
             return redirect()->action('Admin\OrderController@index');
@@ -409,14 +411,16 @@ class OrderController extends Controller
         //
     }
 
-    public function rate(Request $request,$id)
+    public function rate(Request $request, $id)
     {
-        dd($request->all());
+
+           //      return DB::table('orders')->where('finalized', $id)->exists();
         $rate = new Evaluation();
-        $rate->order = $request->$id;
+        $rate->order = $id;
         $rate->rating = $request->rating;
         $rate->comment = $request->comment;
         $rate->save();
+        return redirect()->action('Admin\OrderController@completed');
     }
 
 

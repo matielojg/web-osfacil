@@ -117,7 +117,7 @@
             <div class="text-right mt-2">
                 <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
                 <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
-                @if($order->status =='concluido')
+                @if(!$rate)
                     <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
                     @endif
                     </button>
@@ -125,7 +125,6 @@
             </form>
         </div>
         </div>
-
 
 
     </section>
@@ -182,9 +181,7 @@
 
         });
 
-
         $(function () {
-
             $(".jpop_up_rate").click(function (e) {
                 e.preventDefault();
 
@@ -201,12 +198,14 @@
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="2"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="3"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="4"></i>';
-                    popupDelete += '<br><br>';
                     popupDelete += '</div>';
-                    popupDelete += '<form action=" {{route('admin.orders.rate', ['id'=>$order->id])}} " method="POST">';
+                    popupDelete += '<form action="{{route('admin.orders.rate', ['id'=>$order->id])}}" method="POST">';
+                    popupDelete += '<input type="hidden" name="rating" id="rating-selecionado">';
+                    popupDelete += '<textarea name="comment" rows="4" cols="40" placeholder="Comente aqui" value="" required></textarea>';
+                    popupDelete += '<br>';
                     popupDelete += '@csrf';
                     popupDelete += '@method('post')';
-                    popupDelete += '<button class="btn btn-yellow ml-1 icon-star" type="submit">Avaliar</button>';
+                    popupDelete += '<button class="btn btn-yellow ml-1 icon-star" required type="submit">Avaliar</button>';
                     popupDelete += '</form>';
                     popupDelete += '</div>';
                     popupDelete += '</div>';
@@ -222,9 +221,7 @@
                         }
                     });
 
-
-                    var ratedIndex = -1, uID = 0;
-
+                    var ratedIndex = 0, uID = 0;
                     $(document).ready(function () {
                         resetStarColors();
 
@@ -235,8 +232,8 @@
 
                         $('.fa-star').on('click', function () {
                             ratedIndex = parseInt($(this).data('index'));
-                            localStorage.setItem('ratedIndex', ratedIndex);
-                            saveToTheDB();
+                            //localStorage.setItem('ratedIndex', ratedIndex);
+                            $('#rating-selecionado').val(ratedIndex);
                         });
 
                         $('.fa-star').mouseover(function () {
@@ -252,13 +249,14 @@
                                 setStars(ratedIndex);
                         });
                     });
+
                     function setStars(max) {
-                        for (var i=0; i <= max; i++)
-                            $('.fa-star:eq('+i+')').css('color', 'blue');
+                        for (var i = 0; i <= max; i++)
+                            $('.fa-star:eq(' + i + ')').css('color', 'orange');
                     }
 
                     function resetStarColors() {
-                        $('.fa-star').css('color', 'white');
+                        $('.fa-star').css('color', 'gray');
                     }
                 }
             });
