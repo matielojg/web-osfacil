@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Sector;
-use App\User;
-
-use Illuminate\Support\Facades\Storage;
-use App\Support\Cropper;
-use Illuminate\Http\Request;
 use App\Http\Requests\Admin\User as UserRequest;
+use App\Sector;
+use App\Support\Cropper;
+use App\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 
 class UserController extends Controller
@@ -19,12 +21,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $users = DB::table('users')
-            ->leftJoin('sectors', 'users.sector', '=','sectors.id')
+            ->leftJoin('sectors', 'users.sector', '=', 'sectors.id')
             ->select('users.*', 'sectors.name_sector')
             ->whereNull('users.deleted_at')
             ->get();
@@ -35,7 +37,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -46,13 +48,13 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(UserRequest $request)
     {
 
-                                                                                                $this->authorize('create', User::class);
+        $this->authorize('create', User::class);
         $userCreate = User::create($request->all());
 
         if (!empty($request->file('photo'))) {
@@ -87,7 +89,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -98,7 +100,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $idd
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -118,9 +120,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(UserRequest $request, $id)
     {
@@ -172,7 +174,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(User $user)
     {
@@ -183,7 +185,7 @@ class UserController extends Controller
     /**
      * Restaura usuários excluídos
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function restore($id)
     {
@@ -198,7 +200,7 @@ class UserController extends Controller
 
     /**
      * Exibe apenas os usuários excluídos
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function trashed()
     {

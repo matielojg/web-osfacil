@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
         Route::patch('/orders/assign/update/technical/{id}',
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
-
+        Route::post('/orders/rate/{id}', 'OrderController@rate')->name('orders.rate');
         Route::resource('orders', 'OrderController');
 
         /** Setores */
