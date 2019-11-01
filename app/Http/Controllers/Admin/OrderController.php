@@ -19,11 +19,26 @@ class OrderController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * view all orders where the logged in user is the requestor
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $orders = Order::where('requester', auth()->user()->id)
+            ->whereNull('closed_at')
+            ->latest()
+            ->get();
+
+        return view('admin.orders.index')->with('orders', $orders);
+    }
+
+    /**
+     * View all orders
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function allOrders()
     {
         $idUser = auth()->user()->id;
         $function = auth()->user()->function;
@@ -45,36 +60,24 @@ class OrderController extends Controller
                     ->where('status', '!=', 'aberto')
                     ->get();
                 break;
-            default;
-                $orders = Order::where('requester', $idUser)
-                    ->whereNull('closed_at')
-                    //->latest()
-                    ->get();
-                break;
         }
 
         return view('admin.orders.index')->with('orders', $orders);
-
     }
+
 
     /**
-     * List my orders
-     * 
+     * View orders with services to perform
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myOrders()
-    {
-        $orders = Order::where('requester', auth()->user()->id)
-            ->whereNull('closed_at')
-            ->get();
-
-        return view('admin.orders.index')->with('orders', $orders);
-    }
-
     public function servicesToDo()
     {
-        $orders = Order::where('responsible', auth()->user()->id)
-            ->where('status', 'atribuido')
+        $idUser = auth()->user()->id;
+
+        $orders = Order::where('status', 'atribuido')
+            ->where('responsible', $idUser)
+            ->orWhere('ancillary', $idUser)
             ->whereNull('closed_at')
             ->get();
 
@@ -89,12 +92,10 @@ class OrderController extends Controller
     public function create()
     {
         $sectorProviders = SectorProvider::all();
-//        $services = Service::all();
 
         if (!empty($sectorProviders)) {
             return view('admin.orders.create', [
                 'sectorProviders' => $sectorProviders
-//                'services' => $services
             ]);
         } else {
             return redirect()->action('Admin\OrderController@index');
@@ -109,7 +110,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
         $order = new Order();
         $order->sector_requester = $request->sector_requester;
         $order->requester = $request->requester;
@@ -133,6 +133,7 @@ class OrderController extends Controller
 
             }
         }
+
         $user = auth()->user();
         $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
 
@@ -311,12 +312,8 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public
-    function update(
-        Request $request,
-        $id
-    ) {
-
+    public function update(Request $request, $id)
+    {
         $user = auth()->user();
         $order = Order::where('id', $id)->first();
 
@@ -336,11 +333,11 @@ class OrderController extends Controller
                 $orderImage->image = $image->store('orders/' . $order->id);
                 $orderImage->save();
                 unset($orderImage);
-
             }
         }
+
         $action = [
-            'description' => 'Ordem Editada pelo usuário ' . $user->first_name,
+            'description' => 'Ordem Editada pelo usuário ' . $user->first_name . $user->last_name,
             'user' => $user->id,
             'order' => $id,
         ];
@@ -424,23 +421,27 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public
-    function destroy(
-        Order $order
-    ) {
-        //
-    }
-
-    public
-    function trashed()
+    public function destroy(Order $order)
     {
         //
     }
 
-    public
-    function imageRemove(
-        Request $request
-    ) {
+    /**
+     * View deleted orders
+     */
+    public function trashed()
+    {
+        //
+    }
+
+    /**
+     * Remove Images
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function imageRemove(Request $request)
+    {
         $imageDelete = Image::where('id', $request->id)->first();
 
         Storage::delete($imageDelete->image);

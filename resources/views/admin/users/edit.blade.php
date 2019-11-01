@@ -168,6 +168,7 @@
                         </button>
                         @can('onlyManagersView', App\User::class)
                         <a href="" class="btn btn-large btn-red icon-trash jpop_up_delete">Excluir Usuário</a>
+                                <a href="" class="btn btn-large btn-yellow icon-star-o jpop_up_rate">Avaliar Usuário</a>
                         @endcan
                     </div>
                 </form>

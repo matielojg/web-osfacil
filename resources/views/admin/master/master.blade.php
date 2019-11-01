@@ -75,16 +75,17 @@
                     de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
 
+                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Minhas Ordens</a></li>
+
                     @can('onlyTecnicalView', App\User::class)
-                        <li class="{{ isActive('admin.orders.do') }}"><a href="{{ route('admin.orders.servicesToDo') }}">Serviços a Realizar</a></li>
+                        <li class="{{ isActive('admin.orders.servicesToDo') }}"><a href="{{ route('admin.orders.servicesToDo') }}">Serviços a Realizar</a></li>
                     @endcan
 
-                    <li class="{{ isActive('admin.orders.my') }}"><a href="{{ route('admin.orders.myOrders') }}">Minhas Ordens</a></li>
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
                             Ordem de Serviço</a></li>
 
                     @can('onlyManagersView', App\User::class)
-                        <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
+                        <li class="{{ isActive('admin.orders.allOrders') }}"><a href="{{ route('admin.orders.allOrders') }}">Ver
                                 Todas</a></li>
 
                         <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
