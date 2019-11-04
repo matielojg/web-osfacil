@@ -76,10 +76,11 @@ class OrderController extends Controller
     {
         $idUser = auth()->user()->id;
 
-        $orders = Order::where('status', 'atribuido')
-            ->where('responsible', $idUser)
+        $orders = Order::where('responsible', $idUser)
             ->orWhere('ancillary', $idUser)
+            ->where('status', 'atribuido')
             ->whereNull('closed_at')
+            ->orderBy('priority', 'desc') //CONFIRMAR ESSA REGRA DE NEGÓCIO
             ->get();
 
         return view('admin.orders.index')->with('orders', $orders);

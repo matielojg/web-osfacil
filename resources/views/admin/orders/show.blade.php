@@ -189,10 +189,10 @@
                     var popupDelete = '<div class="pop_up_delete">';
                     popupDelete += '<div class="pop_up_delete_box radius">';
                     popupDelete += '<header>';
-                    popupDelete += '<h1>Avaliar Ordem </h1>';
+                    popupDelete += '<h1 class="text-yellow">Avaliar Ordem </h1>';
                     popupDelete += '<p>Qual nota você dá pelo serviço executado?</p>';
                     popupDelete += '</header>';
-                    popupDelete += '<div align="center" style="background: #FFFFFF ; padding: 10px;color:white;">';
+                    popupDelete += '<div align="center" style="background: #FFFFFF ; padding: 10px; color:white; margin: 10px;">';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="0"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="1"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="2"></i>';
@@ -200,12 +200,16 @@
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="4"></i>';
                     popupDelete += '</div>';
                     popupDelete += '<form action="{{route('admin.orders.rate', ['id'=>$order->id])}}" method="POST">';
-                    popupDelete += '<input type="hidden" name="rating" id="rating-selecionado">';
-                    popupDelete += '<textarea name="comment" rows="4" cols="40" placeholder="Comente aqui" value="" required></textarea>';
-                    popupDelete += '<br>';
                     popupDelete += '@csrf';
                     popupDelete += '@method('post')';
-                    popupDelete += '<button class="btn btn-yellow ml-1 icon-star" required type="submit">Avaliar</button>';
+                    popupDelete += '<input type="hidden" name="rating" id="rating-selecionado">';
+                    popupDelete += '<div>';
+                    popupDelete += '<textarea style="border-radius: 4px; display: block; width: 100% !important; color: #000000;' +
+                        'padding: 5px; border: 1px solid #cccccc; background: #ffffff; resize: none; outline: none; " ' +
+                        'name="comment" placeholder="Deixe seu comentário" value="" required></textarea>';
+                    popupDelete += '</div>';
+                    popupDelete += '<br>';
+                    popupDelete += '<button class="btn btn-yellow icon-star" required type="submit">Enviar Avaliação</button>';
                     popupDelete += '</form>';
                     popupDelete += '</div>';
                     popupDelete += '</div>';
@@ -252,7 +256,7 @@
 
                     function setStars(max) {
                         for (var i = 0; i <= max; i++)
-                            $('.fa-star:eq(' + i + ')').css('color', 'orange');
+                            $('.fa-star:eq(' + i + ')').css('color', '#F5B946');
                     }
 
                     function resetStarColors() {
