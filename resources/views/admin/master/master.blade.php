@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
-{{--  link do fontAwesome necessário pro arquivo Rating no show.blade da order  --}}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    {{--  link do fontAwesome necessário pro arquivo Rating no show.blade da order  --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/reset.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/libs.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/boot.css')) }}"/>
@@ -75,26 +76,28 @@
                 <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
                     de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
-
+                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Minhas
+                            Ordens</a></li>
                     @can('onlyTecnicalView', App\User::class)
-                        <li class=""><a href="{{ route('admin.orders.index') }}">Serviços a Realizar</a></li>
+                        <li class="{{ isActive('admin.orders.servicesToDo') }}"><a
+                                href="{{ route('admin.orders.servicesToDo') }}">Serviços a Realizar</a></li>
                     @endcan
-
-                    <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Ver
-                            Todas</a></li>
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}">Nova
                             Ordem de Serviço</a></li>
 
                     @can('onlyManagersView', App\User::class)
+                        <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
+                                Técnico</a></li>
+                        <li class="{{ isActive('admin.orders.pending') }}"><a
+                                href="{{ route('admin.orders.pending') }}">Ordens
+                                Pendentes</a></li>
+                        <li class="{{ isActive('admin.orders.avaliate') }}"><a
+                                href="{{ route('admin.orders.avaliate') }}">Ordens Executadas
+                            </a></li>
+                    @endcan
+                    <li class="{{ isActive('admin.orders.completed') }}"><a
+                            href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
 
-                    <li class="{{ isActive('admin.orders.assign') }}"><a href="{{ route('admin.orders.assign') }}">Atribuir
-                            Técnico</a></li>
-                    <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
-                            Pendentes</a></li>
-                            <li class="{{ isActive('admin.orders.avaliate') }}"><a href="{{ route('admin.orders.avaliate') }}">Avaliar Ordens
-                                    </a></li>
-                        @endcan
-                    <li class="{{ isActive('admin.orders.completed') }}"><a href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
 
                 </ul>
             </li>

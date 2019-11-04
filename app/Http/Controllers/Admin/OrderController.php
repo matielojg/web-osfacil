@@ -59,6 +59,30 @@ class OrderController extends Controller
     }
 
     /**
+     * List my orders
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myOrders()
+    {
+        $orders = Order::where('requester', auth()->user()->id)
+            ->whereNull('closed_at')
+            ->get();
+
+        return view('admin.orders.index')->with('orders', $orders);
+    }
+
+    public function servicesToDo()
+    {
+        $orders = Order::where('responsible', auth()->user()->id)
+            ->where('status', 'atribuido')
+            ->whereNull('closed_at')
+            ->get();
+
+        return view('admin.orders.index')->with('orders', $orders);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -296,7 +320,7 @@ class OrderController extends Controller
 
 
         $idUser = auth()->user();
-        if (($idUser->function == 'tecnico' xor $idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
+        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
         }
@@ -313,7 +337,10 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public
-    function update(Request $request, $id)
+    function update(
+        Request $request,
+        $id
+    )
     {
 
         $user = auth()->user();
@@ -427,15 +454,16 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Order $order)
     {
-
     }
 
     function trashed()
     {
         //
     }
+
 
     public function rate(Request $request, $id)
     {
