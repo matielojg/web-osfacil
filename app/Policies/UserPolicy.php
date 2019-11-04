@@ -24,7 +24,7 @@ class UserPolicy
         ]);
     }
 
-    public function onlyTecnicalView(User $user)
+    public function onlyTechnicalView(User $user)
     {
         return in_array($user->function, [
             'tecnico',

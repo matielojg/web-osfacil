@@ -78,7 +78,7 @@
                 <ul class="dash_sidebar_nav_submenu">
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}">Minhas
                             Ordens</a></li>
-                    @can('onlyTecnicalView', App\User::class)
+                    @can('onlyTechnicalView', App\User::class)
                         <li class="{{ isActive('admin.orders.servicesToDo') }}"><a
                                     href="{{ route('admin.orders.servicesToDo') }}">Serviços a Realizar</a></li>
                     @endcan
@@ -102,8 +102,6 @@
                     @endcan
                     <li class="{{ isActive('admin.orders.completed') }}"><a
                                 href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
-
-
                 </ul>
             </li>
 
@@ -112,7 +110,7 @@
                 <li class="dash_sidebar_nav_item {{ isActive('admin.sector') }}"><a class="icon-building-o"
                                                                                     href="{{ route('admin.sector.index') }}">Setores</a>
                     <ul class="dash_sidebar_nav_submenu">
-                        <li class="{{ isActive('admin.sector.index') }}"><a href="{{ route('admin.sector.index') }}">Ver
+                        <li class="{{ isActive('admin.sector.index') }}"><a href="{{  route('admin.sector.index') }}">Ver
                                 Todos</a></li>
                         <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
                                 Novo</a></li>
