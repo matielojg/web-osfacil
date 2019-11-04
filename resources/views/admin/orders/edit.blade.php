@@ -147,6 +147,9 @@
                                         <option value="4">Executado</option>
                                         <option value="5">Suspenso</option>
                                         <option value="6">Pendente</option>
+                                        @can('onlyManagersView', App\User::class)
+                                            <option value="7">Concluido</option>
+                                        @endcan
                                     </select>
                                 </label>
 

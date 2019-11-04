@@ -91,6 +91,8 @@
                             Técnico</a></li>
                     <li class="{{ isActive('admin.orders.pending') }}"><a href="{{ route('admin.orders.pending') }}">Ordens
                             Pendentes</a></li>
+                            <li class="{{ isActive('admin.orders.avaliate') }}"><a href="{{ route('admin.orders.avaliate') }}">Avaliar Ordens
+                                    </a></li>
                         @endcan
                     <li class="{{ isActive('admin.orders.completed') }}"><a href="{{ route('admin.orders.completed') }}">Ordens Finalizadas</a></li>
 

@@ -117,7 +117,7 @@
             <div class="text-right mt-2">
                 <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
                 <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
-                @if(!$rate)
+                @if($order->status =='concluido' && !$rate)
                     <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
                     @endif
                     </button>
