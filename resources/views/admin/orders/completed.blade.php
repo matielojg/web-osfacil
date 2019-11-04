@@ -35,6 +35,7 @@
                     </thead>
                     <tbody>
 
+                    @if(!Empty($orders))
                     @foreach($orders as $order)
 
                         <tr>
@@ -51,6 +52,7 @@
                             </td>
                         </tr>
                     @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

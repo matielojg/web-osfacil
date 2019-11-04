@@ -68,7 +68,11 @@ class OrderController extends Controller
 
 
     /**
+<<<<<<< HEAD
      * View orders with services to perform
+=======
+     * List my orders
+>>>>>>> 6a2b08a6940f41c52a135fabfa8338f093eefb43
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -225,16 +229,38 @@ class OrderController extends Controller
         $idUser = auth()->user()->id;
         $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
 
+//        if (empty($sectorProvider)) {
+//            return view('admin.orders.index');
+//            die;
+//        }
+
+        $orders = Order::where('sector_provider', '=', $sectorProvider->id)
+            ->where('status', '=', 'pendente')
+            ->get();
+
+        if (empty($orders)) {
+            return view('admin.orders.assignTechnical')->with('orders', $orders);
+        } else {
+            return redirect()->action('Admin\OrderController@index');
+        }
+    }
+
+    public function avaliate()
+    {
+        $idUser = auth()->user()->id;
+        $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+
         if (empty($sectorProvider)) {
             return view('admin.orders.index');
             die;
         }
 
         $orders = Order::where('sector_provider', '=', $sectorProvider->id)
-            ->where('status', '=', 'pendente')
+            ->where('status', '=', 'executado')
             ->get();
 
         return view('admin.orders.pending')->with('orders', $orders);
+
     }
 
     /**
@@ -300,7 +326,7 @@ class OrderController extends Controller
 
 
         $idUser = auth()->user();
-        if (($idUser->function == 'tecnico' xor $idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '4') {
+        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
         }
@@ -415,7 +441,11 @@ class OrderController extends Controller
                 break;
         }
 
-        return view('admin.orders.completed')->with('orders', $orders);
+        if ($orders) {
+            return view('admin.orders.completed')->with('orders', $orders);
+        } else {
+            return redirect()->route('admin.orders.index');
+        }
 
     }
 
@@ -438,9 +468,10 @@ class OrderController extends Controller
         //
     }
 
+
     public function rate(Request $request, $id)
     {
-        //return DB::table('orders')->where('finalized', $id)->exists();
+        //      return DB::table('orders')->where('finalized', $id)->exists();
         $rate = new Evaluation();
         $rate->order = $id;
         $rate->rating = $request->rating;
