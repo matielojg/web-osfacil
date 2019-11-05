@@ -68,11 +68,11 @@ class OrderController extends Controller
 
 
     /**
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      * View orders with services to perform
-=======
+     * =======
      * List my orders
->>>>>>> 6a2b08a6940f41c52a135fabfa8338f093eefb43
+     * >>>>>>> 6a2b08a6940f41c52a135fabfa8338f093eefb43
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -84,7 +84,7 @@ class OrderController extends Controller
             ->orWhere('ancillary', $idUser)
             ->where('status', 'atribuido')
             ->whereNull('closed_at')
-            ->orderBy('priority', 'desc') //CONFIRMAR ESSA REGRA DE NEGÓCIO
+            ->orderBy('priority', 'desc')//CONFIRMAR ESSA REGRA DE NEGÓCIO
             ->get();
 
         return view('admin.orders.index')->with('orders', $orders);
@@ -226,23 +226,16 @@ class OrderController extends Controller
      */
     public function pending()
     {
-        $idUser = auth()->user()->id;
-        $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');
 
-//        if (empty($sectorProvider)) {
-//            return view('admin.orders.index');
-//            die;
-//        }
-
-        $orders = Order::where('sector_provider', '=', $sectorProvider->id)
+        $orders = Order::whereIn('sector_provider', $sectorProvider)
             ->where('status', '=', 'pendente')
             ->get();
 
-        if (empty($orders)) {
-            return view('admin.orders.assignTechnical')->with('orders', $orders);
-        } else {
-            return redirect()->action('Admin\OrderController@index');
-        }
+        return view('admin.orders.index')->with('orders', $orders);
+
     }
 
     public function avaliate()
