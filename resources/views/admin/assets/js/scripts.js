@@ -19,6 +19,7 @@ $(function () {
                         $('<option>', {
                             value: value.id,
                             text: value.name_service
+
                         })
                     );
                 });
@@ -137,7 +138,7 @@ $(function () {
     // DATATABLES
     $('#dataTable').DataTable({
         responsive: true,
-        "pageLength": 25,
+        "pageLength": 10,
         "language": {
             "sEmptyTable": "Nenhum registro encontrado",
             "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
