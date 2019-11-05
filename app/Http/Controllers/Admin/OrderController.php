@@ -81,8 +81,8 @@ class OrderController extends Controller
         $idUser = auth()->user()->id;
 
         $orders = Order::where('responsible', $idUser)
-            ->orWhere('ancillary', $idUser)
-            ->where('status', 'atribuido')
+//            ->orWhere('ancillary', $idUser)
+            ->whereIn('status', ['atribuido', 'em execucao'])
             ->whereNull('closed_at')
             ->orderBy('priority', 'desc')//CONFIRMAR ESSA REGRA DE NEGÓCIO
             ->get();
@@ -240,17 +240,23 @@ class OrderController extends Controller
 
     public function avaliate()
     {
-        $idUser = auth()->user()->id;
-        $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');
+
+//        dd($sectorProvider);
 
         if (empty($sectorProvider)) {
             return view('admin.orders.index');
             die;
         }
 
-        $orders = Order::where('sector_provider', '=', $sectorProvider->id)
-            ->where('status', '=', 'executado')
+        $orders = Order::whereIn('sector_provider', $sectorProvider)
+            ->where('status', 'executado')
             ->get();
+
+//        dd($orders);
 
         return view('admin.orders.pending')->with('orders', $orders);
 
@@ -322,8 +328,13 @@ class OrderController extends Controller
         if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
+        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
+            Order::where('id', $id)
+                ->update([
+                    'responsible' => null,
+                    'ancillary' => null
+                ]);
         }
-
 
         return redirect()->route('admin.orders.index');
     }
@@ -384,6 +395,15 @@ class OrderController extends Controller
         $technical->ancillary = $request->ancillary;
         $technical->status = 2;
         $technical->save();
+
+        $action = [
+            'description' => 'Atribuido pelo gestor ' . auth()->user()->first_name . 'ao técnico: ' . $technical->userResponsible->first_name . ' e auxiliar: ' . $technical->technicianAncillary->first_name,
+            'user' => auth()->user()->id,
+            'order' => $technical->id,
+            'status' => 2,
+        ];
+
+        Action::create($action);
 
         return redirect(route('admin.orders.assign'));
     }

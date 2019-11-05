@@ -119,7 +119,7 @@
                                             <td>
                                                 <a class="text-green">{{ $action->user2->first_name }} {{ $action->user2->last_name }} </a>
                                             </td>
-                                            <td><a class="text-green">Alterou o Status para:
+                                            <td><a class="text-green">Alterou o status para:
                                                     <b>{{ $action->status }}</b></a>
                                             </td>
                                             <td><a class="text-green">{{ $action->description }}
@@ -148,6 +148,7 @@
                                         <option value="5">Suspenso</option>
                                         <option value="6">Pendente</option>
                                         @can('onlyManagersView', App\User::class)
+                                            <option value="1">Atribuir novo técnico</option>
                                             <option value="2">Devolver ao Técnico</option>
                                             <option value="7">Concluido</option>
                                         @endcan

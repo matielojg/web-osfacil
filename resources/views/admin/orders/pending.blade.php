@@ -48,8 +48,9 @@
                             <td><a href="" class="text-green">{{ ucfirst($order->priority) }}</a></td>
                             <td><a href="" class="text-green">{{ ucfirst($order->status) }}</a></td>
                             <td><a href=""
-                                   class="text-green">{{ $order->userResponsible->first_name}}{{ $order->userResponsible->last_name }}</a>
+                                   class="text-green"> {{ $order->userResponsible->first_name}}{{ $order->userResponsible->last_name }}</a>
                             </td>
+
                             <td><a href="" class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a>
                             </td>
 
