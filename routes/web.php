@@ -36,15 +36,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::delete('/orders/image-remove', 'OrderController@imageRemove')->name('orders.image.remove');
         Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
         Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
+        Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
+        Route::patch('/orders/assign/update/technical/{id}',
+            'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
         Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
         Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
-        Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
-        Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
+                Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
         Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
         Route::get('/orders/all', 'OrderController@allOrders')->name('orders.allOrders');
         Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
-        Route::patch('/orders/assign/update/technical/{id}',
-            'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
+        Route::get('/orders/progress', 'OrderController@ordersInProgress')->name('orders.ordersInProgress');
         Route::post('/orders/rate/{id}', 'OrderController@rate')->name('orders.rate');
         Route::resource('orders', 'OrderController');
 
