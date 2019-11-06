@@ -41,16 +41,30 @@ class OrderController extends Controller
      */
     public function allOrders()
     {
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
+
+        if ($function == 'gerente') {
+            $orders = Order::all();
+        } else {
+            $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                ->pluck('id');
+            if (empty($sectorProviders)) {
+                return redirect()->action('Admin\OrderController@index');
+                die;
+            }
+            $orders = Order::whereIn('sector_provider', $sectorProviders)
+                ->get();
+        }
+
+        return view('admin.orders.index')->with('orders', $orders);
 
     }
 
 
     /**
-     * <<<<<<< HEAD
+     *
      * View orders with services to perform
-     * =======
-     * List my orders
-     * >>>>>>> 6a2b08a6940f41c52a135fabfa8338f093eefb43
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -209,16 +223,15 @@ class OrderController extends Controller
             ->get()
             ->pluck('id');
 
-        if($function == "gerente") {
+        if ($function == "gerente") {
             $orders = Order::where('status', 'pendente')->get();
-        }
-        else {
+        } else {
             $orders = Order::whereIn('sector_provider', $sectorProvider)
                 ->where('status', 'pendente')
                 ->get();
         }
 
-        return view('admin.orders.index')->with('orders', $orders);
+        return view('admin.orders.pending')->with('orders', $orders);
 
     }
 
@@ -239,17 +252,16 @@ class OrderController extends Controller
             die;
         }
 
-        if($function == "gerente"){
+        if ($function == "gerente") {
             $orders = Order::where('status', 'executado')
                 ->get();
-        }
-        else {
+        } else {
             $orders = Order::whereIn('sector_provider', $sectorProvider)
                 ->where('status', 'executado')
                 ->get();
         }
 
-        return view('admin.orders.pending')->with('orders', $orders);
+        return view('admin.orders.pending2')->with('orders', $orders);
     }
 
     /**
@@ -269,10 +281,9 @@ class OrderController extends Controller
             die;
         }
 
-        if($function == "gerente") {
+        if ($function == "gerente") {
             $orders = Order::where('status', 'aberto')->get();
-        }
-        else {
+        } else {
             $orders = Order::whereIn('sector_provider', $sectorProvider)
                 ->where('status', 'aberto')
                 ->get();
@@ -373,7 +384,6 @@ class OrderController extends Controller
     }
 
 
-
     /**
      * Inserir histórico de alterações
      * Tecnico executa ordem, atualiza status e preenche o closed_at
@@ -458,7 +468,6 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-
 
 
     public function completed()

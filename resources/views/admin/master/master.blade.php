@@ -134,8 +134,8 @@
                                     @endif
                             >Ordens Finalizadas</a></li>
 
-                        <li class="{{ isActive('admin.orders.avaliate') }}"><a
-                                    href="{{ route('admin.orders.avaliate') }}"
+                        <li class="{{ isActive('admin.orders.allOrders') }}"><a
+                                    href="{{ route('admin.orders.allOrders') }}"
                                     @if(auth()->user()->function == "gerente")
                                     title="Exibir todas as ordens de serviço do sistema"
                                     @else
