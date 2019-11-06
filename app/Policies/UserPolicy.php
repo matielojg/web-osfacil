@@ -19,8 +19,22 @@ class UserPolicy
     public function onlyManagersView(User $user)
     {
         return in_array($user->function, [
-            'supervisor',
+            'gerente',
+            'supervisor'
+        ]);
+    }
+
+    public function onlyManagerView(User $user)
+    {
+        return in_array($user->function, [
             'gerente'
+        ]);
+    }
+
+    public function onlySupervisorView(User $user)
+    {
+        return in_array($user->function, [
+            'supervisor'
         ]);
     }
 

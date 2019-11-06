@@ -44,35 +44,27 @@ class OrderController extends Controller
         $idUser = auth()->user()->id;
         $function = auth()->user()->function;
 
-        switch ($function) {
-            case ('gerente');
-                $orders = Order::where('status', '!=', 'aberto')
-                    ->whereNull('closed_at')
-                    ->get();
-                break;
-            case ('supervisor');
-                $sectorProviders = SectorProvider::where('supervisor', $idUser)
-                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
-                if (empty($sectorProviders)) {
-                    return view('admin.orders.index');
-                    die;
-                }
-                $orders = Order::whereIn('sector_provider', $sectorProviders)
-                    ->where('status', '!=', 'aberto')
-                    ->get();
-                break;
+        if ($function == 'gerente') {
+            $orders = Order::all();
+        } else {
+            $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                ->pluck('id');
+            if (empty($sectorProviders)) {
+                return redirect()->action('Admin\OrderController@index');
+                die;
+            }
+            $orders = Order::whereIn('sector_provider', $sectorProviders)
+                ->get();
         }
 
         return view('admin.orders.index')->with('orders', $orders);
+
     }
 
 
     /**
-     * <<<<<<< HEAD
+     *
      * View orders with services to perform
-     * =======
-     * List my orders
-     * >>>>>>> 6a2b08a6940f41c52a135fabfa8338f093eefb43
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -226,40 +218,50 @@ class OrderController extends Controller
      */
     public function pending()
     {
+        $function = auth()->user()->function;
         $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
             ->get()
             ->pluck('id');
 
-        $orders = Order::whereIn('sector_provider', $sectorProvider)
-            ->where('status', '=', 'pendente')
-            ->get();
-
-        return view('admin.orders.index')->with('orders', $orders);
-
-    }
-
-    public function avaliate()
-    {
-
-        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
-            ->get()
-            ->pluck('id');
-
-//        dd($sectorProvider);
-
-        if (empty($sectorProvider)) {
-            return view('admin.orders.index');
-            die;
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'pendente')->get();
+        } else {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'pendente')
+                ->get();
         }
-
-        $orders = Order::whereIn('sector_provider', $sectorProvider)
-            ->where('status', 'executado')
-            ->get();
-
-//        dd($orders);
 
         return view('admin.orders.pending')->with('orders', $orders);
 
+    }
+
+    /**
+     * View all orders where status executado
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function avaliate()
+    {
+        $function = auth()->user()->function;
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');
+
+        if (empty($sectorProvider)) {
+            return redirect()->action('Admin\OrderController@index');
+            die;
+        }
+
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'executado')
+                ->get();
+        } else {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'executado')
+                ->get();
+        }
+
+        return view('admin.orders.pending2')->with('orders', $orders);
     }
 
     /**
@@ -269,19 +271,26 @@ class OrderController extends Controller
      */
     public function assign()
     {
-        $idUser = auth()->user()->id;
-        $sectorProvider = SectorProvider::where('supervisor', $idUser)->first();
+        $function = auth()->user()->function;
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');
 
         if (empty($sectorProvider)) {
             return view('admin.orders.index');
             die;
         }
 
-        $orders = Order::where('sector_provider', '=', $sectorProvider->id)
-            ->where('status', '=', 'aberto')
-            ->get();
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'aberto')->get();
+        } else {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'aberto')
+                ->get();
+        }
 
         return view('admin.orders.assign')->with('orders', $orders);
+
     }
 
     /**
@@ -294,7 +303,9 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $id)->first();
         $actions = Action::where('order', $id)->get();
-        $technicals = User::where('function', '=', 'tecnico')->get();
+
+        //ENVIAR PARA VIEW SOMENTE SUPERVISORES DO SETOR PROVIDER DA ORDEM
+        $technicals = User::where('function', 'tecnico')->get();
 
         return view('admin.orders.assignTechnical', [
             'order' => $order,
@@ -302,6 +313,76 @@ class OrderController extends Controller
             'technicals' => $technicals
         ]);
     }
+
+    /**
+     * Save technical responsible
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateTechnical(Request $request, $id)
+    {
+        if ($request->ancillary == 0) {
+            $ancillary = null;
+        } else {
+            $ancillary = $request->ancillary;
+        }
+        $Order = Order::find($id);
+        $Order->responsible = $request->responsible;
+        $Order->ancillary = $ancillary;
+        $Order->status = 2;
+        $Order->save();
+
+        //REVER QUESTÃO DE ADICIONAR O NOME DO AUXILIAR NA ACTION, CASO SEJA ATRIBUÍDO
+        $action = [
+            'description' => 'Atribuido pelo gestor ' . auth()->user()->first_name . auth()->user()->last_name . ' ao técnico: '
+                . $Order->userResponsible->first_name . $Order->userResponsible->last_name,
+            'user' => auth()->user()->id,
+            'order' => $Order->id,
+            'status' => 2,
+        ];
+
+        Action::create($action);
+
+        return redirect(route('admin.orders.assign'));
+    }
+
+    /**
+     * View all orders in progress
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function ordersInProgress()
+    {
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
+        $status = [
+            'atribuido',
+            'em execucao'
+        ];
+
+        switch ($function) {
+            case ('gerente');
+                $orders = Order::whereIn('status', $status)
+                    ->whereNull('closed_at')
+                    ->get();
+                break;
+            case ('supervisor');
+                $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
+                if (empty($sectorProviders)) {
+                    return redirect()->action('Admin\OrderController@index');
+                    die;
+                }
+                $orders = Order::whereIn('sector_provider', $sectorProviders)
+                    ->whereIn('status', $status)
+                    ->get();
+                break;
+        }
+
+        return view('admin.orders.inProgress')->with('orders', $orders);
+    }
+
 
     /**
      * Inserir histórico de alterações
@@ -400,25 +481,6 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function updateTechnical(Request $request, $id)
-    {
-        $technical = Order::find($id);
-        $technical->responsible = $request->responsible;
-        $technical->ancillary = $request->ancillary;
-        $technical->status = 2;
-        $technical->save();
-
-        $action = [
-            'description' => 'Atribuido pelo gestor ' . auth()->user()->first_name . 'ao técnico: ' . $technical->userResponsible->first_name . ' e auxiliar: ' . $technical->technicianAncillary->first_name,
-            'user' => auth()->user()->id,
-            'order' => $technical->id,
-            'status' => 2,
-        ];
-
-        Action::create($action);
-
-        return redirect(route('admin.orders.assign'));
-    }
 
     public function completed()
     {

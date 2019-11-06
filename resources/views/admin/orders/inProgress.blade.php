@@ -31,7 +31,7 @@
                         <th>Solicitante</th>
                         <th>Setor Solicitante</th>
                         <th>Prioridade</th>
-                        <th>Técnico</th>
+                        <th>Status</th>
                         <th>Data de Abertura</th>
                         <th>Ação</th>
                     </tr>
@@ -48,10 +48,10 @@
                             <td><a class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                             </td>
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
-                            <td><a class="text-green">{{ $order->userResponsible->first_name }} {{ $order->userResponsible->last_name }}</a></td>
+                            <td><a class="text-green">{{ ucfirst($order->status) }}</a></td>
                             <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
                             <td><a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
-                                       class="btn btn-green ml-1 icon-eye">Ver</a>
+                                   class="btn btn-green ml-1 icon-eye">Ver</a>
                             </td>
                         </tr>
                     @endforeach
