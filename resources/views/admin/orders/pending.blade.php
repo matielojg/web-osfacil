@@ -5,14 +5,14 @@
     <section class="dash_content_app">
         {{--        {{dd(Auth::user(), Auth::user()->original) }} --}}
         <header class="dash_content_app_header">
-            <h2 class="icon-file-text">Ordens de Serviço:</h2>
+            <h2 class="icon-file-text">Ordens de Serviço Pendentes:</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a class="text-green">Ordens de Serviço</a></li>
+                        <li><a class="text-green">Ordens de Serviço Pendentes</a></li>
                     </ul>
                 </nav>
 
@@ -50,8 +50,8 @@
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
                             <td><a class="text-green">{{ $order->userResponsible->first_name }} {{ $order->userResponsible->last_name }}</a></td>
                             <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
-                            <td><a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
-                                       class="btn btn-green ml-1 icon-eye">Ver</a>
+                            <td><a href="{{ route('admin.orders.edit.pending', ['id'=>$order->id]) }}"
+                                       class="btn btn-green ml-1 icon-pencil">Resolver Pendência</a>
                             </td>
                         </tr>
                     @endforeach
