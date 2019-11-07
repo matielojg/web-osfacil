@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
                 Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
         Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
+        Route::get('/orders/{order}/editpending', 'OrderController@editPending')->name('orders.edit.pending');
         Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
 
         Route::get('/orders/progress', 'OrderController@ordersInProgress')->name('orders.ordersInProgress');

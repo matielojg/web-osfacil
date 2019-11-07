@@ -86,6 +86,10 @@
                                     href="{{ route('admin.orders.servicesToDo') }}"
                                     title="Exibir todas os serviços que o usuário logado (técnico) precisa realizar">Serviços
                                 a Realizar</a></li>
+                        <li class="{{ isActive('admin.orders.completed') }}"><a
+                                href="{{ route('admin.orders.completed') }}"
+                                title="Exibir todas os serviços que o usuario logado (técnico) executou">Ordens Finalizadas
+                                </a></li>
                     @endcan
 
                     <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}"

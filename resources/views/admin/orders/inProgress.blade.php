@@ -5,7 +5,7 @@
     <section class="dash_content_app">
         {{--        {{dd(Auth::user(), Auth::user()->original) }} --}}
         <header class="dash_content_app_header">
-            <h2 class="icon-file-text">Ordens de Serviço:</h2>
+            <h2 class="icon-file-text">Ordens em Andamento:</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">

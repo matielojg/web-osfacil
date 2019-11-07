@@ -29,6 +29,9 @@
                         <a href="#data" class="nav_tabs_item_link active">Informações</a>
                     </li>
                     <li class="nav_tabs_item">
+                        <a href="#history" class="nav_tabs_item_link">Histórico</a>
+                    </li>
+                    <li class="nav_tabs_item">
                         <a href="#assign" class="nav_tabs_item_link">Atribuir Técnico</a>
                     </li>
                 </ul>
@@ -91,7 +94,39 @@
                             </div>
 
                         </div>
+                        <div id="history" class="d-none">
+                            <div class="label">
+                                <table id="dataTable" class="" width="100"
+                                       style="width: 100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Usuário</th>
+                                        <th>Status</th>
+                                        <th>Comentário</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
+                                    @foreach($order->action()->get() as $action)
+
+                                        <tr>
+                                            <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
+                                            <td>
+                                                <a class="text-green">{{ $action->user2->first_name }} {{ $action->user2->last_name }} </a>
+                                            </td>
+                                            <td><a class="text-green">Alterou o status para:
+                                                    <b>{{ $action->status }}</b></a>
+                                            </td>
+                                            <td><a class="text-green">{{ $action->description }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <div id="assign">
 

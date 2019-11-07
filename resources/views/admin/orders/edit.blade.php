@@ -43,58 +43,89 @@
 
                         <div id="data">
                             <div class="label_g2">
-                                <div class="label">
-                                    <h3>Data de Abertura:</h3>
-                                    <p> {{ date('d/m/Y H:i', strtotime($order->created_at)) }}</p>
-                                </div>
-                                <div class="label">
-                                    <h3>Usuário solicitante:</h3>
-                                    <p>{{ $order->userRequester->first_name }} {{ $order->userRequester->last_name }}</p>
-                                </div>
+                                <label class="label">
+                                    <span class="legend">Data de Abertura:</span>
+                                    <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
+                                </label>
+
+                                @if($order->status == 'concluido')
+                                    <label class="label">
+                                        <span class="legend">Data de Encerramento:</span>
+                                        <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
+                                    </label>
+                                @endif
                             </div>
+
                             <div class="label_g2">
-                                <div class="label">
-                                    <h3>Setor solicitante:</h3>
+                                <label class="label">
+                                    <span class="legend">Solicitante:</span>
+                                    <p>{{ $order->userRequester->first_name}} {{ $order->userRequester->last_name }}</p>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Setor do Problema:</span>
                                     <p>{{ $order->sectorRequester->name_sector }}</p>
-                                </div>
-                                <div class="label">
-                                    <h3>Setor Responsável:</h3>
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Setor Responsável:</span>
                                     <p>{{ $order->sectorProvider->name_sector }}</p>
-                                </div>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Prioridade:</span>
+                                    <p>{{ ucfirst($order->priority)}}</p>
+                                </label>
                             </div>
 
                             <div class="label_g2">
-                                <div class="label">
-                                    <h3>Serviço:</h3>
+                                <label class="label">
+                                    <span class="legend">Serviço:</span>
                                     <p>{{ ucfirst($order->serviceProvider->name_service) }}</p>
-                                </div>
-                                <div class="label">
-                                    <h3>Prioridade:</h3>
-                                    <p>{{ ucfirst($order->priority) }}</p>
-                                </div>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Tipo de Serviço:</span>
+                                    <p>Manutenção {{ucfirst($order->type_service)}}</p>
+                                </label>
                             </div>
+
                             <div class="label_g2">
-                                <div class="label">
-                                    <h3>Descreva o Problema:</h3>
-                                    <p>
-                                        {{ $order->description }}
-                                    </p>
-                                </div>
+                                <label class="label">
+                                    <span class="legend">Técnico Responsável:</span>
+                                    <p>{{ $order->userResponsible->first_name ?? "-"}} {{ $order->userResponsibleg->last_name ?? "" }}</p>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Auxiliar:</span>
+                                    <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
+                                </label>
                             </div>
 
+                            <div class="label">
+                                <label class="label">
+                                    <span class="legend">Descrição do Problema:</span>
+                                    <p>{{ $order->description }}</p>
+                                </label>
+                            </div>
 
-                            <div class="order_image">
-                                @foreach($order->images()->get() as $image)
-                                    <div class="order_image_item">
-                                        <img src="{{ $image->url_cropped }}" alt="">
-                                        <div class="order_image_actions">
-                                            <a href="javascript:void(0)"
-                                               class=""
-                                               data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
+                            <label class="label">
+                                <span class="legend">Imagens</span>
+                                <div class="order_image">
+                                    @foreach($order->images()->get() as $image)
+                                        <div class="order_image_item">
+                                            <img src="{{ $image->url_cropped }}" alt="">
+                                            <div class="order_image_actions">
+                                                <a href="javascript:void(0)"
+                                                   class=""
+                                                   data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
+                            </label>
                         </div>
 
 
