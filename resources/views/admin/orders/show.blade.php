@@ -329,7 +329,7 @@
                     });
 
                     function setStars(max) {
-                        for (var i = 0; i < max; i++)
+                        for (var i = 0; i <  max; i++)
                             $('.fa-star:eq(' + i + ')').css('color', '#F5B946');
                     }
 
