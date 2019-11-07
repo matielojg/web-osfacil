@@ -189,6 +189,21 @@ class OrderController extends Controller
     }
 
     /**
+     * Show de form for editing the orders pending
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editPending($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editPending', [
+            'order' => $order
+        ]);
+
+    }
+
+    /**
      * Edit order with open status
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
