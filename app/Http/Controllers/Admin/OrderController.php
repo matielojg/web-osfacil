@@ -155,15 +155,11 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $sectorProviders = SectorProvider::all();
-        $services = Service::all();
         $order = Order::where('id', $id)->first();
-        $rate = Evaluation::where('order', $id)->exists();
+        $rate = Evaluation::where('order', $id)->first();
 
         if (!empty($order)) {
             return view('admin.orders.show', [
-                'sectorProviders' => $sectorProviders,
-                'services' => $services,
                 'order' => $order,
                 'rate' => $rate
             ]);
@@ -322,14 +318,14 @@ class OrderController extends Controller
      */
     public function updateTechnical(Request $request, $id)
     {
+
         if ($request->ancillary == 0) {
-            $ancillary = null;
-        } else {
-            $ancillary = $request->ancillary;
+            $request->ancillary = null;
         }
+
         $Order = Order::find($id);
         $Order->responsible = $request->responsible;
-        $Order->ancillary = $ancillary;
+        $Order->ancillary = $request->ancillary;
         $Order->status = 2;
         $Order->save();
 
@@ -401,7 +397,7 @@ class OrderController extends Controller
         $action->save();
 
 
-        Order::where('id', $id)
+       $order= Order::where('id', $id)
             ->update(['status' => $request->status]);
 
 
@@ -409,7 +405,9 @@ class OrderController extends Controller
         if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
-        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
+        }
+
+        elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
             Order::where('id', $id)
                 ->update([
                     'responsible' => null,
@@ -417,6 +415,16 @@ class OrderController extends Controller
                 ]);
         }
 
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $id;
+                $orderImage->image = $image->store('orders/' . $id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+        }
         return redirect()->route('admin.orders.index');
     }
 

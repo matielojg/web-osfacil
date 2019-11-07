@@ -85,9 +85,9 @@
                                 @method('PATCH')
                                 @csrf
                                 <label class="label">
-                                    <span class="legend">Escolha o técnico:</span>
-                                    <select name="responsible" class="form-control">
-                                        <option value="0">-- Selecione o Técnico --</option>
+                                    <span class="legend">Escolha o técnico*:</span>
+                                    <select name="responsible" class="form-control" required>
+                                        <option value="">-- Selecione o Técnico --</option>
                                         @foreach($technicals as $technical)
                                             <option
                                                     value="{{ $technical->id }}" {{ ( $technical->id == $order->responsible) ? 'selected' : "" }}> {{ $technical->first_name}} {{ $technical->last_name}}
@@ -97,7 +97,7 @@
                                 </label>
                                 <label class="label">
                                     <span class="legend">Escolha o Auxiliar:</span>
-                                    <select name="ancillary" class="form-control">
+                                    <select name="ancillary" class="form-control" >
                                         <option value="0">-- Selecione o Auxiliar --</option>
                                         @foreach($technicals as $technical)
                                             <option
