@@ -322,14 +322,14 @@ class OrderController extends Controller
      */
     public function updateTechnical(Request $request, $id)
     {
+
         if ($request->ancillary == 0) {
-            $ancillary = null;
-        } else {
-            $ancillary = $request->ancillary;
+            $request->ancillary = null;
         }
+
         $Order = Order::find($id);
         $Order->responsible = $request->responsible;
-        $Order->ancillary = $ancillary;
+        $Order->ancillary = $request->ancillary;
         $Order->status = 2;
         $Order->save();
 
