@@ -480,7 +480,7 @@ class OrderController extends Controller
 
     public function completed()
     {
-        $idUser = auth()->user()->id;
+        $user = auth()->user();
         $function = auth()->user()->function;
 
         switch ($function) {
@@ -493,7 +493,7 @@ class OrderController extends Controller
             case ('supervisor');
 
                 $sectorProviders = DB::table('sector_providers')
-                    ->where('supervisor', $idUser)
+                    ->where('supervisor', $user->id)
                     ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
 
                 if (empty($sectorProviders)) {
@@ -508,16 +508,15 @@ class OrderController extends Controller
 
                 break;
             case ('tecnico');
-                $orders = Order::where('responsible', $idUser)
+                $orders = Order::where('responsible', $user->id)
                     ->whereNotNull('closed_at')
-                    ->where('status', 4)
+                    ->where('status', 7)
                     ->get();
-//                dd($orders);
                 break;
 
             default;
 
-                $orders = Order::where('requester', $idUser)
+                $orders = Order::where('requester', $user->id)
                     ->whereNotNull('closed_at')
                     ->where('status', 'concluido')
                     ->get();
@@ -560,6 +559,15 @@ class OrderController extends Controller
         $rate->rating = $request->rating;
         $rate->comment = $request->comment;
         $rate->save();
+
+        $user = auth()->user();
+        $action = [
+            'description' => 'Ordem avaliada com nota '.$rate->rating.' pelo usuário '.  $user->first_name .' '. $user->last_name .' com comentário: '.$rate->comment,
+            'user' => $user->id,
+            'order' => $id,
+            'status'=> 7
+        ];
+        Action::create($action);
         return redirect()->action('Admin\OrderController@completed');
     }
 

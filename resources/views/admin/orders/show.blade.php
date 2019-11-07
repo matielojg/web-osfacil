@@ -20,131 +20,149 @@
 
         <div class="dash_content_app_box">
             <div class="nav">
+
+                <ul class="nav_tabs">
+                    <li class="nav_tabs_item">
+                        <a href="#data" class="nav_tabs_item_link active">Informações</a>
+                    </li>
+                    <li class="nav_tabs_item">
+                        <a href="#history" class="nav_tabs_item_link">Histórico</a>
+                    </li>
+                </ul>
+
                 <div class="app_form">
                     <div class="nav_tabs_content">
-@if($rate)
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">Nota :</span>
-                                <p>
-                                <div class="placeholder" style="color: lightgray;">
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span class="small">({{ $rate->rating ?? ""}})</span>
-                                </div>
-                                    @php $rating = $rate->rating ?? ""  @endphp
-                                <div class="overlay" style="position: relative;top: -22px;">
-                                    @while($rating>0)
-                                        @if($rating >0.5)
-                                            <i class="fas fa-star"></i>
-                                        @endif
-                                        @php $rating--; @endphp
-                                    @endwhile
-                                </div>
-                                </p>
-                            </label>
-                            <label class="label">
-                                <span class="legend">Descrição:</span>
-                                <p>{{ $rate->comment ?? "-"}}</p>
-                            </label>
-                        </div>
-@endif
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">Data de Abertura:</span>
-                                <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
-                            </label>
 
-                            @if($order->status == 'concluido')
+                        <div id="data">
+                            <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">Data de Encerramento:</span>
-                                    <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
+                                    <span class="legend">Data de Abertura:</span>
+                                    <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                                 </label>
-                            @endif
-                        </div>
 
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">Solicitante:</span>
-                                <p>{{ $order->userRequester->first_name}} {{ $order->userRequester->last_name }}</p>
-                            </label>
-
-                            <label class="label">
-                                <span class="legend">Setor do Problema:</span>
-                                <p>{{ $order->sectorRequester->name_sector }}</p>
-                            </label>
-                        </div>
-
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">Setor Responsável:</span>
-                                <p>{{ $order->sectorProvider->name_sector }}</p>
-                            </label>
-
-                            <label class="label">
-                                <span class="legend">Prioridade:</span>
-                                <p>{{ ucfirst($order->priority)}}</p>
-                            </label>
-                        </div>
-
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">Serviço:</span>
-                                <p>{{ ucfirst($order->serviceProvider->name_service) }}</p>
-                            </label>
-
-                            <label class="label">
-                                <span class="legend">Tipo de Serviço:</span>
-                                <p>Manutenção {{ucfirst($order->type_service)}}</p>
-                            </label>
-                        </div>
-
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">Técnico Responsável:</span>
-                                <p>{{ $order->userResponsible->first_name ?? "-"}} {{ $order->userResponsibleg->last_name ?? "" }}</p>
-                            </label>
-
-                            <label class="label">
-                                <span class="legend">Auxiliar:</span>
-                                <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
-                            </label>
-                        </div>
-
-                        <div class="label">
-                            <label class="label">
-                                <span class="legend">Descrição do Problema:</span>
-                                <p>{{ $order->description }}</p>
-                            </label>
-                        </div>
-
-                        <label class="label">
-                            <span class="legend">Imagens</span>
-                            <div class="order_image">
-                                @foreach($order->images()->get() as $image)
-                                    <div class="order_image_item">
-                                        <img src="{{ $image->url_cropped }}" alt="">
-                                        <div class="order_image_actions">
-                                            <a href="javascript:void(0)"
-                                               class=""
-                                               data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                @if($order->status == 'concluido')
+                                    <label class="label">
+                                        <span class="legend">Data de Encerramento:</span>
+                                        <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
+                                    </label>
+                                @endif
                             </div>
-                        </label>
 
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Solicitante:</span>
+                                    <p>{{ $order->userRequester->first_name}} {{ $order->userRequester->last_name }}</p>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Setor do Problema:</span>
+                                    <p>{{ $order->sectorRequester->name_sector }}</p>
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Setor Responsável:</span>
+                                    <p>{{ $order->sectorProvider->name_sector }}</p>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Prioridade:</span>
+                                    <p>{{ ucfirst($order->priority)}}</p>
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Serviço:</span>
+                                    <p>{{ ucfirst($order->serviceProvider->name_service) }}</p>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Tipo de Serviço:</span>
+                                    <p>Manutenção {{ucfirst($order->type_service)}}</p>
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">Técnico Responsável:</span>
+                                    <p>{{ $order->userResponsible->first_name ?? "-"}} {{ $order->userResponsibleg->last_name ?? "" }}</p>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">Auxiliar:</span>
+                                    <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
+                                </label>
+                            </div>
+
+                            <div class="label">
+                                <label class="label">
+                                    <span class="legend">Descrição do Problema:</span>
+                                    <p>{{ $order->description }}</p>
+                                </label>
+                            </div>
+
+                            <label class="label">
+                                <span class="legend">Imagens</span>
+                                <div class="order_image">
+                                    @foreach($order->images()->get() as $image)
+                                        <div class="order_image_item">
+                                            <img src="{{ $image->url_cropped }}" alt="">
+                                            <div class="order_image_actions">
+                                                <a href="javascript:void(0)"
+                                                   class=""
+                                                   data-action="{{ route('admin.orders.image.remove', ['id' =>$image->id]) }}"></a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </label>
+                        </div>
+
+                        <div id="history" class="d-none">
+                            <div class="label">
+                                <table id="dataTable" class="" width="100"
+                                       style="width: 100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Usuário</th>
+                                        <th>Status</th>
+                                        <th>Comentário</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($order->action()->get() as $action)
+
+                                        <tr>
+                                            <td>{{ date('d/m/Y H:i', strtotime($action->created_at)) }}</td>
+                                            <td>
+                                                <a class="text-green">{{ $action->user2->first_name }} {{ $action->user2->last_name }} </a>
+                                            </td>
+                                            <td><a class="text-green">Alterou o status para:
+                                                    <b>{{ $action->status }}</b></a>
+                                            </td>
+                                            <td><a class="text-green">{{ $action->description }}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <input type="hidden" name="sector_requester" id="" value="{{ auth()->user()->sector }}">
+            <input type="hidden" name="requester" id="" value="{{ auth()->user()->id }}">
             <div class="text-right mt-2">
                 <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
                 <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
-                @if($order->status =='concluido' && empty($rate))
+                @if($order->status =='concluido' && !$rate)
                     <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
                     @endif
                     </button>
@@ -155,6 +173,7 @@
 
 
     </section>
+
 @endsection
 
 @section('js')
@@ -219,11 +238,11 @@
                     popupDelete += '<p>Qual nota você dá pelo serviço executado?</p>';
                     popupDelete += '</header>';
                     popupDelete += '<div align="center" style="background: #FFFFFF ; padding: 10px; color:white; margin: 10px;">';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="0"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="1"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="2"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="3"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="4"></i>';
-                    popupDelete += '<i class="fa fa-star fa-2x" data-index="5"></i>';
                     popupDelete += '</div>';
                     popupDelete += '<form action="{{route('admin.orders.rate', ['id'=>$order->id])}}" method="POST">';
                     popupDelete += '@csrf';
@@ -281,7 +300,7 @@
                     });
 
                     function setStars(max) {
-                        for (var i = 0; i < max; i++)
+                        for (var i = 0; i <= max; i++)
                             $('.fa-star:eq(' + i + ')').css('color', '#F5B946');
                     }
 
