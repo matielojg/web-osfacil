@@ -22,7 +22,36 @@
             <div class="nav">
                 <div class="app_form">
                     <div class="nav_tabs_content">
-
+@if($rate)
+                        <div class="label_g2">
+                            <label class="label">
+                                <span class="legend">Nota :</span>
+                                <p>
+                                <div class="placeholder" style="color: lightgray;">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span class="small">({{ $rate->rating ?? ""}})</span>
+                                </div>
+                                    @php $rating = $rate->rating ?? ""  @endphp
+                                <div class="overlay" style="position: relative;top: -22px;">
+                                    @while($rating>0)
+                                        @if($rating >0.5)
+                                            <i class="fas fa-star"></i>
+                                        @endif
+                                        @php $rating--; @endphp
+                                    @endwhile
+                                </div>
+                                </p>
+                            </label>
+                            <label class="label">
+                                <span class="legend">Descrição:</span>
+                                <p>{{ $rate->comment ?? "-"}}</p>
+                            </label>
+                        </div>
+@endif
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">Data de Abertura:</span>
@@ -112,12 +141,10 @@
                 </div>
             </div>
 
-            <input type="hidden" name="sector_requester" id="" value="{{ auth()->user()->sector }}">
-            <input type="hidden" name="requester" id="" value="{{ auth()->user()->id }}">
             <div class="text-right mt-2">
                 <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
                 <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
-                @if($order->status =='concluido' && !$rate)
+                @if($order->status =='concluido' && empty($rate))
                     <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
                     @endif
                     </button>
@@ -128,7 +155,6 @@
 
 
     </section>
-
 @endsection
 
 @section('js')
@@ -193,11 +219,11 @@
                     popupDelete += '<p>Qual nota você dá pelo serviço executado?</p>';
                     popupDelete += '</header>';
                     popupDelete += '<div align="center" style="background: #FFFFFF ; padding: 10px; color:white; margin: 10px;">';
-                    popupDelete += '<i class="fa fa-star fa-2x" data-index="0"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="1"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="2"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="3"></i>';
                     popupDelete += '<i class="fa fa-star fa-2x" data-index="4"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="5"></i>';
                     popupDelete += '</div>';
                     popupDelete += '<form action="{{route('admin.orders.rate', ['id'=>$order->id])}}" method="POST">';
                     popupDelete += '@csrf';
@@ -255,7 +281,7 @@
                     });
 
                     function setStars(max) {
-                        for (var i = 0; i <= max; i++)
+                        for (var i = 0; i < max; i++)
                             $('.fa-star:eq(' + i + ')').css('color', '#F5B946');
                     }
 

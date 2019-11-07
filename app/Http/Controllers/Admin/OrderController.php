@@ -155,15 +155,11 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $sectorProviders = SectorProvider::all();
-        $services = Service::all();
         $order = Order::where('id', $id)->first();
-        $rate = Evaluation::where('order', $id)->exists();
+        $rate = Evaluation::where('order', $id)->first();
 
         if (!empty($order)) {
             return view('admin.orders.show', [
-                'sectorProviders' => $sectorProviders,
-                'services' => $services,
                 'order' => $order,
                 'rate' => $rate
             ]);
