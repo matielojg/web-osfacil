@@ -4,7 +4,7 @@
   "scope" : "/admin",
   "display" : "standalone",
   "start_url" : "https://osfacil.andrewwalmir.site/admin",
-  "short_name" : "OS F",
+  "short_name" : "OS Fácil",
   "theme_color" : "transparent",
   "description" : "",
   "orientation" : "any",
@@ -14,7 +14,7 @@
   "generated" : "true",
   "icons" : [
     {
-      "src": "https://osfacil.andrewwalmir.site/backend/assets/images/favicon.png",
+      "src": "https://osfacil.andrewwalmir.site/backend/assets/images/icon.svg",
       "sizes": "128x128"
     }
   ]}
