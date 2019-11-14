@@ -256,7 +256,7 @@ class OrderController extends Controller
         $function = auth()->user()->function;
         $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
             ->get()
-            ->pluck('id');
+            ->pluck('id');  //na situação em que um supervisor for responsável por mais de um setor
 
         if (empty($sectorProvider)) {
             return redirect()->action('Admin\OrderController@index');
@@ -412,7 +412,7 @@ class OrderController extends Controller
         $action->save();
 
 
-       $order= Order::where('id', $id)
+        $order = Order::where('id', $id)
             ->update(['status' => $request->status]);
 
 
@@ -420,9 +420,7 @@ class OrderController extends Controller
         if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
-        }
-
-        elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
+        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
             Order::where('id', $id)
                 ->update([
                     'responsible' => null,
@@ -477,7 +475,7 @@ class OrderController extends Controller
         $action = [
             'description' => 'Ordem Editada pelo usuário ' . $user->first_name . $user->last_name,
             'user' => $user->id,
-            'order' => $id,
+            'order' => $id
         ];
         Action::create($action);
 
@@ -525,7 +523,7 @@ class OrderController extends Controller
             case ('tecnico');
                 $orders = Order::where('responsible', $user->id)
                     ->whereNotNull('closed_at')
-                    ->where('status', 7)
+                    ->where('status', 7)//status = concluido
                     ->get();
                 break;
 
@@ -577,10 +575,10 @@ class OrderController extends Controller
 
         $user = auth()->user();
         $action = [
-            'description' => 'Ordem avaliada com nota '.$rate->rating.' pelo usuário '.  $user->first_name .' '. $user->last_name .' com comentário: '.$rate->comment,
+            'description' => 'Avaliado com nota ' . $rate->rating . ' pelo usuário ' . $user->first_name . ' ' . $user->last_name . ', com comentário: ' . $rate->comment,
             'user' => $user->id,
             'order' => $id,
-            'status'=> 7
+            'status' => 7
         ];
         Action::create($action);
         return redirect()->action('Admin\OrderController@completed');
