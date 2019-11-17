@@ -31,10 +31,10 @@
                 <div class="app_form">
                     <div class="nav_tabs_content">
                         <div id="data">
+                            @if($rate)
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Nota :</span>
-                                    @if($rate)
                                         @php $rating = $rate->rating ?? ""  @endphp
                                         <div class="placeholder" style="color: lightgray;">
                                             <i class="far fa-star"></i>
@@ -120,12 +120,16 @@
                                 </label>
                             </div>
 
-                            <div class="label">
-                                <label class="label">
-                                    <span class="legend">Descrição do Problema:</span>
-                                    <p>{{ $order->description }}</p>
-                                </label>
-                            </div>
+                                <div class="label_g2">
+                                    <label class="label">
+                                        <span class="legend">Descrição do Problema:</span>
+                                        <p>{{ $order->description }}</p>
+                                    </label>
+                                    <label class="label">
+                                        <span class="legend">Status Ordem:</span>
+                                        <p>{{ ucfirst($order->status) ?? "-"}} </p>
+                                    </label>
+                                </div>
 
                             <label class="label">
                                 <span class="legend">Imagens</span>
@@ -199,7 +203,6 @@
 @section('js')
     <script>
         $(function () {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

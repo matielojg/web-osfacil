@@ -77,24 +77,25 @@
                 <a class="icon-file-text" href="{{ route('admin.orders.index') }}">Ordens
                     de Serviço</a>
                 <ul class="dash_sidebar_nav_submenu">
+                    <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}"
+                                                                         title="Criar uma nova ordem de serviço">Nova
+                            Ordem de Serviço</a></li>
                     <li class="{{ isActive('admin.orders.index') }}"><a href="{{ route('admin.orders.index') }}"
                                                                         title="Exibir todas as ordens de serviço criadas pelo usuário logado">Minhas
                             Ordens</a></li>
 
                     @can('onlyTechnicalView', App\User::class)
                         <li class="{{ isActive('admin.orders.servicesToDo') }}"><a
-                                    href="{{ route('admin.orders.servicesToDo') }}"
-                                    title="Exibir todas os serviços que o usuário logado (técnico) precisa realizar">Serviços
+                                href="{{ route('admin.orders.servicesToDo') }}"
+                                title="Exibir todas os serviços que o usuário logado (técnico) precisa realizar">Serviços
                                 a Realizar</a></li>
                         <li class="{{ isActive('admin.orders.completed') }}"><a
                                 href="{{ route('admin.orders.completed') }}"
-                                title="Exibir todas os serviços que o usuario logado (técnico) executou">Ordens Finalizadas
-                                </a></li>
+                                title="Exibir todos os serviços por mim">Ordens Concluídas
+                            </a></li>
                     @endcan
 
-                    <li class="{{ isActive('admin.orders.create') }}"><a href="{{ route('admin.orders.create') }}"
-                                                                         title="Criar uma nova ordem de serviço">Nova
-                            Ordem de Serviço</a></li>
+
 
 
                     @can('onlyManagersView', App\User::class)
@@ -103,55 +104,55 @@
                                 Atribuir Técnico</a></li>
 
                         <li class="{{ isActive('admin.orders.ordersInProgress') }}"><a
-                                    href="{{ route('admin.orders.ordersInProgress') }}"
-                                    @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço do sistema que estejam sendo realizadas"
-                                    @else
-                                    title="Exibir todas as ordens de serviço que estejam sendo realizadas, dos setores em que o usuário logado é supervisor"
-                                    @endif
+                                href="{{ route('admin.orders.ordersInProgress') }}"
+                                @if(auth()->user()->function == "gerente")
+                                title="Exibir todas as ordens de serviço do sistema que estejam sendo realizadas"
+                                @else
+                                title="Exibir todas as ordens de serviço que estejam sendo realizadas, dos setores em que o usuário logado é supervisor"
+                                @endif
                             >Ordens em Andamento</a></li>
 
                         <li class="{{ isActive('admin.orders.pending') }}"><a
-                                    href="{{ route('admin.orders.pending') }}"
-                                    @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço pendentes do sistema"
-                                    @else
-                                    title="Exibir todas as ordens de serviço pendentes, dos setores em que o usuário logado é supervisor"
-                                    @endif
+                                href="{{ route('admin.orders.pending') }}"
+                                @if(auth()->user()->function == "gerente")
+                                title="Exibir todas as ordens de serviço pendentes do sistema"
+                                @else
+                                title="Exibir todas as ordens de serviço pendentes, dos setores em que o usuário logado é supervisor"
+                                @endif
                             >Ordens Pendentes</a></li>
 
                         <li class="{{ isActive('admin.orders.avaliate') }}"><a
-                                    href="{{ route('admin.orders.avaliate') }}"
-                                    @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço executadas do sistema"
-                                    @else
-                                    title="Exibir todas as ordens de serviço executadas, dos setores em que o usuário logado é supervisor"
-                                    @endif
+                                href="{{ route('admin.orders.avaliate') }}"
+                                @if(auth()->user()->function == "gerente")
+                                title="Exibir todas as ordens de serviço executadas do sistema"
+                                @else
+                                title="Exibir todas as ordens de serviço executadas, dos setores em que o usuário logado é supervisor"
+                                @endif
                             >Ordens Executadas</a></li>
 
                         <li class="{{ isActive('admin.orders.completed') }}"><a
-                                    href="{{ route('admin.orders.completed') }}"
-                                    @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço finalizadas do sistema"
-                                    @else
-                                    title="Exibir todas as ordens de serviço finalizadas, dos setores em que o usuário logado é supervisor"
-                                    @endif
+                                href="{{ route('admin.orders.completed') }}"
+                                @if(auth()->user()->function == "gerente")
+                                title="Exibir todas as ordens de serviço finalizadas do sistema"
+                                @else
+                                title="Exibir todas as ordens de serviço finalizadas, dos setores em que o usuário logado é supervisor"
+                                @endif
                             >Ordens Finalizadas</a></li>
 
                         <li class="{{ isActive('admin.orders.allOrders') }}"><a
-                                    href="{{ route('admin.orders.allOrders') }}"
-                                    @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço do sistema"
-                                    @else
-                                    title="Exibir todas as ordens de serviço, dos setores em que o usuário logado é supervisor"
-                                    @endif
+                                href="{{ route('admin.orders.allOrders') }}"
+                                @if(auth()->user()->function == "gerente")
+                                title="Exibir todas as ordens de serviço do sistema"
+                                @else
+                                title="Exibir todas as ordens de serviço, dos setores em que o usuário logado é supervisor"
+                                @endif
                             >Ver Todas</a></li>
                     @endcan
 
-                    @can('onlyEmployeeView', App\User::class)
+                    @can('onlyEmployersView', App\User::class)
                         <li class="{{ isActive('admin.orders.completed') }}"><a
-                                    href="{{ route('admin.orders.completed') }}"
-                                   title="Exibir todas as ordens de serviço abertas pelo usuário logado e que estão finalizadas"
+                                href="{{ route('admin.orders.completed') }}"
+                                title="Exibir todas as ordens de serviço abertas pelo usuário logado e que estão finalizadas"
                             >Ordens Finalizadas</a></li>
                     @endcan
 
@@ -168,7 +169,7 @@
                         <li class="{{ isActive('admin.sector.create') }}"><a href="{{ route('admin.sector.create') }}">Criar
                                 Novo</a></li>
                         <li class="{{ isActive('admin.sectorsProvider.index') }}"><a
-                                    href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
+                                href="{{ route('admin.sectorsProvider.index') }}">Supervisores</a></li>
                     </ul>
                 </li>
 
@@ -177,10 +178,10 @@
                                                                                       href="{{ route('admin.services.index') }}">Serviços</a>
                     <ul class="dash_sidebar_nav_submenu">
                         <li class="{{ isActive('admin.services.index') }}"><a
-                                    href="{{ route('admin.services.index') }}">Ver
+                                href="{{ route('admin.services.index') }}">Ver
                                 Todos</a></li>
                         <li class="{{ isActive('admin.services.create') }}"><a
-                                    href="{{ route('admin.services.create') }}">Criar
+                                href="{{ route('admin.services.create') }}">Criar
                                 Novo</a></li>
                     </ul>
                 </li>

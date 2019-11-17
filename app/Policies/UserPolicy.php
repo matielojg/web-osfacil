@@ -23,6 +23,13 @@ class UserPolicy
             'supervisor'
         ]);
     }
+    public function onlyEmployersView(User $user)
+    {
+        return in_array($user->function, [
+            'funcionario',
+            'tecnico'
+        ]);
+    }
 
     public function onlyManagerView(User $user)
     {

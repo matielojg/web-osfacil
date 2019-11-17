@@ -41,34 +41,39 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">* Nome:</span>
-                                    <input type="text" name="first_name" placeholder="Nome" autocomplete="off" value="{{ old('first_name') }}"/>
+                                    <input type="text" name="first_name" placeholder="Nome" autocomplete="off"
+                                           value="{{ old('first_name') }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">* Sobrenome:</span>
-                                    <input type="text" name="last_name" placeholder="Sobrenome" autocomplete="off" value="{{ old('last_name') }}"/>
+                                    <input type="text" name="last_name" placeholder="Sobrenome" autocomplete="off"
+                                           value="{{ old('last_name') }}"/>
                                 </label>
                             </div>
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">* E-mail:</span>
-                                    <input type="email" name="email" placeholder="E-mail" autocomplete="off" value="{{ old('email') }}"/>
+                                    <input type="email" name="email" placeholder="E-mail" autocomplete="off"
+                                           value="{{ old('email') }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">* CPF:</span>
-                                    <input type="tel" class="mask-doc" name="document" placeholder="Número do CPF" autocomplete="off" value="{{ old('document') }}"/>
+                                    <input type="tel" class="mask-doc" name="document" placeholder="Número do CPF"
+                                           autocomplete="off" value="{{ old('document') }}"/>
                                 </label>
                             </div>
 
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">* Setor:</span>
-                                    <select name="sector" >
+                                    <select name="sector">
                                         <option
-                                            value=""> -- Selecione o setor --</option>
+                                            value=""> -- Selecione o setor --
+                                        </option>
                                         @foreach ($sectors as $sector)
                                             <option
-                                                    value="{{ $sector->id }}"
-                                                    {{ old('sector') == $sector->id ? 'selected' : '' }}> {{ $sector->name_sector }}
+                                                value="{{ $sector->id }}"
+                                                {{ old('sector') == $sector->id ? 'selected' : '' }}> {{ $sector->name_sector }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -77,10 +82,23 @@
                                     <span class="legend">* Função:</span>
                                     <select name="function">
                                         <option value=""> -- Selecione a função --</option>
-                                        <option value="funcionario" {{ old('function') == 'funcionario' ? 'selected' : '' }}> Funcionário</option>
-                                        <option value="tecnico" {{ old('function') == 'tecnico' ? 'selected' : '' }}>Técnico</option>
-                                        <option value="supervisor" {{ old('function') == 'supervisor' ? 'selected' : '' }}>Supervisor</option>
-                                        <option value="gerente" {{ old('function') == 'gerente' ? 'selected' : '' }}>Gerente</option>
+                                        <option
+                                            value="funcionario" {{ old('function') == 'funcionario' ? 'selected' : '' }}>
+                                            Funcionário
+                                        </option>
+                                        <option value="tecnico" {{ old('function') == 'tecnico' ? 'selected' : '' }}>
+                                            Técnico
+                                        </option>
+                                        @can('onlyManagerView', App\User::class)
+                                            <option
+                                                value="supervisor" {{ old('function') == 'supervisor' ? 'selected' : '' }}>
+                                                Supervisor
+                                            </option>
+                                            <option
+                                                value="gerente" {{ old('function') == 'gerente' ? 'selected' : '' }}>
+                                                Gerente
+                                            </option>
+                                        @endcan
                                     </select>
                                 </label>
                             </div>
@@ -103,12 +121,14 @@
                                         <label class="label">
                                             <span class="legend">* Celular:</span>
                                             <input type="tel" name="primary_contact" class="mask-cell"
-                                                   placeholder="Número do Telefonce com DDD" value="{{ old('primary_contact') }}"/>
+                                                   placeholder="Número do Telefonce com DDD"
+                                                   value="{{ old('primary_contact') }}"/>
                                         </label>
                                         <label class="label">
                                             <span class="legend">Residencial:</span>
                                             <input type="tel" name="secondary_contact" class="mask-phone"
-                                                   placeholder="Número do Telefonce com DDD" value="{{ old('secondary_contact') }}"/>
+                                                   placeholder="Número do Telefonce com DDD"
+                                                   value="{{ old('secondary_contact') }}"/>
                                         </label>
                                     </div>
                                 </div>
@@ -131,7 +151,7 @@
                                         <label class="label">
                                             <span class="legend">* Senha:</span>
                                             <input type="password" name="password" placeholder="Senha de acesso"
-                                                   value="{{ old('password') }}" />
+                                                   value="{{ old('password') }}"/>
                                         </label>
                                     </div>
                                 </div>
