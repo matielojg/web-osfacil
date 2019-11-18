@@ -16,8 +16,6 @@
                     </ul>
                 </nav>
 
-                <a href="{{ route('admin.orders.create') }}" class="btn btn-green ml-1">Nova Ordem</a>
-
             </div>
         </header>
 

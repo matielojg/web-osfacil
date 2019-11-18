@@ -64,7 +64,7 @@
                                     <span class="legend">Data de Abertura:</span>
                                     <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                                 </label>
-                                @if($order->status == 'concluido')
+                                @if($order->status == 'avaliado')
                                     <label class="label">
                                         <span class="legend">Data de Encerramento:</span>
                                         <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
@@ -185,12 +185,9 @@
                 </div>
             </div>
             <div class="text-right mt-2">
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
+                <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                 <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
-                @if($order->status =='concluido' && empty($rate))
-                    <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
-                    @endif
-                    </button>
+
             </div>
             </form>
         </div>

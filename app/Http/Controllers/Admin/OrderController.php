@@ -564,8 +564,6 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-
-
     public function completed()
     {
         $user = auth()->user();

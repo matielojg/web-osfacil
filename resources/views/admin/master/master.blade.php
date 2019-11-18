@@ -89,10 +89,10 @@
                                     href="{{ route('admin.orders.servicesToDo') }}"
                                     title="Exibir todas os serviços que o usuário logado (técnico) precisa realizar">Serviços
                                 a Realizar</a></li>
-                        <li class="{{ isActive('admin.orders.completed') }}"><a
-                                    href="{{ route('admin.orders.completed') }}"
-                                    title="Exibir todos os serviços por mim">Ordens Concluídas
-                            </a></li>
+                        <li class="{{ isActive('admin.orders.executed') }}"><a
+                                    href="{{ route('admin.orders.executed') }}"
+                                    title="Exibir todas as ordens de serviço executadas do sistema"
+                            >Ordens Executadas</a></li>
                     @endcan
 
 
@@ -133,11 +133,11 @@
                         <li class="{{ isActive('admin.orders.completed') }}"><a
                                     href="{{ route('admin.orders.completed') }}"
                                     @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço finalizadas do sistema"
+                                    title="Exibir todas as ordens de serviço avaliadas do sistema"
                                     @else
-                                    title="Exibir todas as ordens de serviço finalizadas, dos setores em que o usuário logado é supervisor"
+                                    title="Exibir todas as ordens de serviço avaliadas, dos setores em que o usuário logado é supervisor"
                                     @endif
-                            >Ordens Finalizadas</a></li>
+                            >Ordens Avaliadas</a></li>
 
                         <li class="{{ isActive('admin.orders.allOrders') }}"><a
                                     href="{{ route('admin.orders.allOrders') }}"
@@ -157,7 +157,7 @@
                         <li class="{{ isActive('admin.orders.completed') }}"><a
                                     href="{{ route('admin.orders.completed') }}"
                                     title="Exibir todas as ordens de serviço abertas pelo usuário logado e que estão finalizadas"
-                            >Ordens Finalizadas</a></li>
+                            >Ordens Avaliadas</a></li>
                     @endcan
 
                 </ul>
