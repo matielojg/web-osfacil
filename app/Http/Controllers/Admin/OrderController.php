@@ -260,7 +260,6 @@ class OrderController extends Controller
 
         if (empty($sectorProvider)) {
             return redirect()->action('Admin\OrderController@index');
-            die;
         }
 
         if ($function == "gerente") {
@@ -383,7 +382,6 @@ class OrderController extends Controller
                     ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
                 if (empty($sectorProviders)) {
                     return redirect()->action('Admin\OrderController@index');
-                    die;
                 }
                 $orders = Order::whereIn('sector_provider', $sectorProviders)
                     ->whereIn('status', $status)
