@@ -488,7 +488,7 @@ class OrderController extends Controller
 
 
         $idUser = auth()->user();
-        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
+        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == ['5', '7']) {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
         } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
