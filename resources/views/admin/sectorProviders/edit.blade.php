@@ -46,6 +46,8 @@
                         </div>
                     </div>
                     <div class="text-right mt-2">
+                        <a href="{{ route('admin.sectorsProvider.index')  }}" class="btn btn-large btn-yellow icon-arrow-left" type="submit">Cancelar
+                        </a>
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                     </div>

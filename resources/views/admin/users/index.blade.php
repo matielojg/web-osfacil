@@ -51,7 +51,7 @@
                                    class="text-green">{{ date('d/m/Y - H:i', strtotime($user->last_login_at))}}</a></td>
                             <td>
                                 <a href="{{ route('admin.users.edit', ['id'=>$user->id]) }}"
-                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a>
+                                   class="btn btn-green ml-1 icon-pencil-square-o">Editar</a>
                             </td>
                         </tr>
                     @endforeach

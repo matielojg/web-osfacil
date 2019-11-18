@@ -48,7 +48,7 @@
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($service->created_at))}}</a></td>
                             <td><a href="{{ route('admin.services.edit', ['id'=>$service->id]) }}"
-                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a>
+                                   class="btn btn-green ml-1 icon-pencil-square-o">Editar</a>
                             </td>
                         </tr>
                     @endforeach

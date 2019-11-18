@@ -45,6 +45,7 @@
                                 <span class="legend">*Serviço:</span>
                                 <select id="service" name="filter_service" data-index="2">
                                     <option value=" ">-- Selecione --</option>
+                                    <option value=" ">Outro</option>
                                 </select>
                             </label>
                         </div>
@@ -92,6 +93,7 @@
         <input type="hidden" name="sector_requester" id="" value="{{ auth()->user()->sector }}">
         <input type="hidden" name="requester" id="" value="{{ auth()->user()->id }}">
         <div class="text-right mt-2">
+            <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
             <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                 Alterações
             </button>

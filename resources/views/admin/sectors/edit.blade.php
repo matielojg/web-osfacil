@@ -36,6 +36,8 @@
                         </div>
                     </div>
                     <div class="text-right mt-2">
+                        <a href="{{ route('admin.sector.index')  }}" class="btn btn-large btn-yellow icon-arrow-left" type="submit">Cancelar
+                        </a>
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                         <a href="" class="btn btn-large btn-red icon-trash jpop_up_delete">Excluir Setor</a>

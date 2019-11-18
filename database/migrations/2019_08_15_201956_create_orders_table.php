@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->mediumText('description');
-            $table->enum('status', ['aberto', 'atribuido', 'em execucao', 'executado', 'suspenso', 'pendente', 'concluido']);
+            $table->enum('status', ['aberto', 'atribuido', 'em execucao', 'executado', 'suspenso', 'pendente', 'concluido', 'avaliado']);
             $table->enum('priority', ['baixa', 'media', 'alta', 'critica']);
             $table->enum('type_service', ['corretiva', 'preventiva']);
             $table->dateTimeTz('closed_at')->nullable();
