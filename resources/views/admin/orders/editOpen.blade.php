@@ -45,10 +45,10 @@
                                 <span class="legend">*Prioridade:</span>
                                 <select name="priority">
                                     <option value="{{ $order->priority}}">{{ ucfirst($order->priority)}}</option>
-                                    <option value="1">Baixa</option>
-                                    <option value="2">Media</option>
-                                    <option value="3">Alta</option>
-                                    <option value="4">Emergencial</option>
+                                        <option value="1">Baixa</option>
+                                        <option value="2">Media</option>
+                                        <option value="3">Alta</option>
+                                        <option value="4">Emergencial</option>
                                 </select>
                             </label>
                         </div>
@@ -57,7 +57,8 @@
                             <label class="label">
                                 <span class="legend">*Serviço:</span>
                                 <select name="service">
-                                    <option value="{{ $order->serviceProvider->id }}">{{ ucfirst($order->serviceProvider->name_service) }}</option>
+                                    <option
+                                        value="{{ $order->serviceProvider->id }}">{{ ucfirst($order->serviceProvider->name_service) }}</option>
                                     @foreach ($services as $service)
                                         <option
                                             value="{{ $service->id }}" }}> {{ $service->name_service }}
@@ -69,7 +70,8 @@
                             <label class="label">
                                 <span class="legend">*Tipo de Serviço:</span>
                                 <select name="type_service">
-                                    <option value="{{ $order->type_service }}">Manutenção {{ucfirst($order->type_service)}}</option>
+                                    <option value="{{ $order->type_service }}">
+                                        Manutenção {{ucfirst($order->type_service)}}</option>
                                     <option value="1">Manutenção Corretiva</option>
                                     <option value="2">Manutenção Preventiva</option>
                                 </select>
@@ -110,10 +112,8 @@
                     </div>
             </div>
         </div>
-
-        <input type="hidden" name="sector_requester" id="" value="{{ auth()->user()->sector }}">
-        <input type="hidden" name="requester" id="" value="{{ auth()->user()->id }}">
         <div class="text-right mt-2">
+            <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
             <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                 Alterações
             </button>

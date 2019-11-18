@@ -438,7 +438,9 @@ class OrderController extends Controller
 
             }
         }
-        return redirect()->route('admin.orders.index');
+
+//        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.servicesToDo');
     }
 
     /**

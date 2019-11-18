@@ -103,11 +103,14 @@
                                     <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
                                 </label>
                             </div>
-
-                            <div class="label">
+                            <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Descrição do Problema:</span>
                                     <p>{{ $order->description }}</p>
+                                </label>
+                                <label class="label">
+                                    <span class="legend">Status Ordem:</span>
+                                    <p>{{ ucfirst($order->status) ?? "-"}} </p>
                                 </label>
                             </div>
 
@@ -174,11 +177,12 @@
                                     <select name="status">
                                         <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--
                                         </option>
+                                        <option value="2">Atribuído</option>
                                         <option value="3">Em Execução</option>
                                         <option value="4">Executado</option>
-                                        <option value="5">Suspenso</option>
                                         <option value="6">Pendente</option>
                                         @can('onlyManagersView', App\User::class)
+                                            <option value="5">Suspenso</option>
                                             <option value="1">Atribuir novo técnico</option>
                                             <option value="2">Devolver ao Técnico</option>
                                             <option value="7">Concluido</option>
@@ -193,14 +197,17 @@
                                                   value="" required></textarea>
                                     </label>
                                 </div>
-                                <label class="label">
-                                    <h3>Imagens</h3>
-                                    <input type="file" name="files[]" multiple>
-                                </label>
+                                {{--Função retirada provisoriamente --}}
+                                {{--                                <label class="label">--}}
+                                {{--                                    <h3>Imagens</h3>--}}
+                                {{--                                    <input type="file" name="files[]" multiple>--}}
+                                {{--                                </label>--}}
 
                                 <div class="content_image"></div>
 
                                 <div class="text-right mt-2">
+                                    <a href="{{ route('admin.orders.index') }}"
+                                       class="btn btn-large btn-green icon-arrow-left">Voltar</a>
                                     <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                                         Alterações
                                     </button>

@@ -100,14 +100,16 @@
                                             value="2" {{ (old('function') == '2' ? 'selected' : ( $user->function == '2' ? 'selected' : '')) }}>
                                             Técnico
                                         </option>
-                                        <option
-                                            value="3" {{ (old('function') == '3' ? 'selected' : ( $user->function == '3' ? 'selected' : '')) }}>
-                                            Supervisor
-                                        </option>
-                                        <option
-                                            value="4" {{ (old('function') == '4' ? 'selected' : ( $user->function == '4' ? 'selected' : '')) }}>
-                                            Gerente
-                                        </option>
+                                        @can('onlyManagerView', App\User::class)
+                                            <option
+                                                value="3" {{ (old('function') == '3' ? 'selected' : ( $user->function == '3' ? 'selected' : '')) }}>
+                                                Supervisor
+                                            </option>
+                                            <option
+                                                value="4" {{ (old('function') == '4' ? 'selected' : ( $user->function == '4' ? 'selected' : '')) }}>
+                                                Gerente
+                                            </option>
+                                        @endcan
                                     </select>
                                 </label>
                             </div>
