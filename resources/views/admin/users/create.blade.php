@@ -14,7 +14,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('admin.users.index') }}">Usuários</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.users.create') }}" class="text-green">Criar Usuário</a></li>
+                        <li><a  class="text-green">Criar Usuário</a></li>
                     </ul>
                 </nav>
             </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">* E-mail:</span>
+                                    <span class="legend"> E-mail:</span>
                                     <input type="email" name="email" placeholder="E-mail" autocomplete="off"
                                            value="{{ old('email') }}"/>
                                 </label>
@@ -158,8 +158,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="text-right mt-2">
+                        <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                     </div>

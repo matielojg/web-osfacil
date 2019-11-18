@@ -18,7 +18,6 @@
                     </ul>
                 </nav>
             </div>
-
         </header>
 
         <div class="dash_content_app_box">
@@ -30,9 +29,14 @@
                     <li class="nav_tabs_item">
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
+                    <li class="nav_tabs_item">
+                        <a href="#technician" class="nav_tabs_item_link">Atribuir Técnico</a>
+                    </li>
                 </ul>
+
                 <div class="app_form">
                     <div class="nav_tabs_content">
+
                         <div id="data">
                             <div class="label_g2">
                                 <label class="label">
@@ -85,6 +89,8 @@
                                     @endforeach
                                 </div>
                             </div>
+
+
                         </div>
 
                         <div id="history" class="d-none">
@@ -121,47 +127,48 @@
                             </div>
                         </div>
 
-                        <form class="app_form" method="post"
-                              action="{{ route('admin.orders.assign.updateTechnical', ['id' => $order->id ]) }}"
-                              enctype="multipart/form-data">
-                            @method('PATCH')
-                            @csrf
-                            <label class="label">
-                                <span class="legend">Escolha o técnico*:</span>
-                                <select name="responsible" class="form-control" required>
-                                    <option value="">-- Selecione o Técnico --</option>
-                                    @foreach($technicals as $technical)
-                                        <option
-                                            value="{{ $technical->id }}" {{ ( $technical->id == $order->responsible) ? 'selected' : "" }}> {{ $technical->first_name}} {{ $technical->last_name}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </label>
-                            <label class="label">
-                                <span class="legend">Escolha o Auxiliar:</span>
-                                <select name="ancillary" class="form-control">
-                                    <option value="0">-- Selecione o Auxiliar --</option>
-                                    @foreach($technicals as $technical)
-                                        <option
-                                            value="{{ $technical->id }}" {{ ( $technical->id == $order->responsible) ? 'selected' : "" }}> {{ $technical->first_name}} {{ $technical->last_name}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </label>
-                        {{--                                    <input type="hidden" name="status" value="2">--}}
 
+                        <div id="technician" class="d-none">
+                            <form class="app_form" method="post"
+                                  action="{{ route('admin.orders.assign.updateTechnical', ['id' => $order->id ]) }}"
+                                  enctype="multipart/form-data">
+                                @method('PATCH')
+                                @csrf
+                                <label class="label">
+                                    <span class="legend">Escolha o técnico*:</span>
+                                    <select name="responsible" class="form-control" required>
+                                        <option value="">-- Selecione o Técnico --</option>
+                                        @foreach($technicals as $technical)
+                                            <option
+                                                    value="{{ $technical->id }}" {{ ( $technical->id == $order->responsible) ? 'selected' : "" }}> {{ $technical->first_name}} {{ $technical->last_name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                                <label class="label">
+                                    <span class="legend">Escolha o Auxiliar:</span>
+                                    <select name="ancillary" class="form-control">
+                                        <option value="0">-- Selecione o Auxiliar --</option>
+                                        @foreach($technicals as $technical)
+                                            <option
+                                                    value="{{ $technical->id }}" {{ ( $technical->id == $order->responsible) ? 'selected' : "" }}> {{ $technical->first_name}} {{ $technical->last_name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                                <div class="text-right mt-2">
+                                    <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
+                                        Alterações
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="text-right mt-2">
-                    <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                        Alterações
-                    </button>
-                    </form>
                 </div>
             </div>
-        </div>
     </section>
 
 @endsection

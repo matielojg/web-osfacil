@@ -11,11 +11,10 @@ Route::resourceVerbs([
 ]);
 
 
-
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
     /**Requisições Ajax */
-    Route::post('main-filter/search','FilterController@search')->name('main-filter.search');
+    Route::post('main-filter/search', 'FilterController@search')->name('main-filter.search');
 
     /** Formulário de Login */
     Route::get('/', 'AuthController@showLoginForm')->name('login');
@@ -43,9 +42,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
 
         Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
+        Route::get('/orders/edit/technician/{id}', 'OrderController@editTechnician')->name('orders.editTechnician');
 
         Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
-                Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
+
+        Route::get('/orders/toevaluate', 'OrderController@toEvaluate')->name('orders.toEvaluate');
+        Route::get('/orders/evaluate/{id}', 'OrderController@editToEvaluate')->name('orders.edit.evaluate');
+
+        Route::get('/orders/executed', 'OrderController@ordersExecuted')->name('orders.executed');
+        Route::get('/orders/edit/executed/{id}', 'OrderController@editExecuted')->name('orders.editExecuted');
+
+        Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
         Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
         Route::get('/orders/{order}/editpending', 'OrderController@editPending')->name('orders.edit.pending');
         Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
@@ -58,10 +65,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::resource('orders', 'OrderController');
 
         /** Setores */
-//        Route::put('/post/{post}', function (Post $post) {
-//        The current user may update the post...
-//        })->middleware('can:update,post');
-
         Route::get('/setor', 'SectorController@index')->name('sector.index');
         Route::get('/setor/novo', 'SectorController@create')->name('sector.create');
         Route::post('/setor/store', 'SectorController@store')->name('sector.store');
@@ -69,11 +72,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::put('/setor/update/{id}', 'SectorController@update')->name('sector.update');
         Route::delete('/setor/destroy/{id}', 'SectorController@destroy')->name('sector.destroy');
         Route::get('/setor/desativar/{id}', 'SectorController@disable')->name('sector.disable');
-
-      // Route::resource('setor', 'SectorController');
-
-
-
 
         /** Setores Manutenção */
         Route::get('/providers', 'SectorProviderController@index')->name('sectorsProvider.index');

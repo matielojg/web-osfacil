@@ -44,7 +44,7 @@
                                 </a></td>
 
                             <td><a href="{{ route('admin.sectorsProvider.edit', ['id'=>$sector->id]) }}"
-                                   class="btn btn-green ml-1 icon-check-square-o">Editar</a></td>
+                                   class="btn btn-green ml-1 icon-pencil-square-o">Editar</a></td>
                         </tr>
                     @endforeach
                     </tbody>
