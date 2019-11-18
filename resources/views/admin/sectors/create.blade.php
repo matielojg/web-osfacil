@@ -38,6 +38,7 @@
                         </div>
                     </div>
                     <div class="text-right mt-2">
+                        <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
                     </div>

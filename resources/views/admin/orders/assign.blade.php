@@ -49,9 +49,8 @@
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
                                    class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
                             <td><a href="{{ route('admin.orders.assign.technical', ['id'=>$order->id]) }}"
-                                   class="btn btn-green ml-1 icon-check-square-o">Atribuir Técnico</a></td>
-                            {{--                            <td><a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}" class="text-green"> {{ ( $sector->id == $order->sector_provider_id) ? 'selected' : '' }} > {{ $sector->name_sector }}</a></td>--}}
-                        </tr>
+                                   class="btn btn-green ml-1 icon-pencil-square-o">Atribuir Técnico</a></td>
+                            </tr>
                     @endforeach
                     </tbody>
                 </table>

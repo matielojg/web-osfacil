@@ -79,7 +79,7 @@ class OrderController extends Controller
             ->orderBy('priority', 'desc')//CONFIRMAR ESSA REGRA DE NEGÓCIO
             ->get();
 
-        return view('admin.orders.index')->with('orders', $orders);
+        return view('admin.orders.serviceToDo')->with('orders', $orders);
     }
 
     /**
@@ -184,6 +184,36 @@ class OrderController extends Controller
 
     }
 
+    public function editTechnician($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editTechnician', [
+            'order' => $order
+        ]);
+
+    }
+
+    public function editExecuted($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editExecuted', [
+            'order' => $order
+        ]);
+
+    }
+
+    public function editToEvaluate($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editToEvaluate', [
+            'order' => $order
+        ]);
+
+    }
+
     /**
      * Show de form for editing the orders pending
      * @param $id
@@ -244,6 +274,49 @@ class OrderController extends Controller
 
         return view('admin.orders.pending')->with('orders', $orders);
 
+    }
+
+    /**
+     * View all orders where status executado
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function ordersExecuted()
+    {
+        $function = auth()->user()->function;
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');  //na situação em que um supervisor for responsável por mais de um setor
+
+        if (empty($sectorProvider)) {
+            return redirect()->action('Admin\OrderController@index');
+            die;
+        }
+
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'executado')
+                ->get();
+        } else {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'executado')
+                ->get();
+        }
+
+        return view('admin.orders.executed')->with('orders', $orders);
+    }
+
+    /**
+     * View all orders where status executado
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function toEvaluate()
+    {
+        $orders = Order::where('status', 'concluido')
+            ->where('requester', auth()->user()->id)
+            ->get();
+
+        return view('admin.orders.toEvaluate')->with('orders', $orders);
     }
 
     /**
@@ -438,7 +511,9 @@ class OrderController extends Controller
 
             }
         }
-        return redirect()->route('admin.orders.index');
+
+//        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.servicesToDo');
     }
 
     /**
@@ -489,8 +564,6 @@ class OrderController extends Controller
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-
-
     public function completed()
     {
         $user = auth()->user();
@@ -499,7 +572,7 @@ class OrderController extends Controller
         switch ($function) {
             case 'gerente':
                 $orders = Order::whereNotNull('closed_at')
-                    ->where('status', 'concluido')
+                    ->where('status', 'avaliado')
                     ->get();
                 break;
 
@@ -516,7 +589,7 @@ class OrderController extends Controller
 
                 $orders = Order::whereIn('sector_provider', $sectorProviders)
                     ->whereNotNull('closed_at')
-                    ->where('status', 'concluido')
+                    ->where('status', 'avaliado')
                     ->get();
 
                 break;
@@ -531,7 +604,7 @@ class OrderController extends Controller
 
                 $orders = Order::where('requester', $user->id)
                     ->whereNotNull('closed_at')
-                    ->where('status', 'concluido')
+                    ->where('status', 'avaliado')
                     ->get();
                 break;
         }
@@ -566,7 +639,6 @@ class OrderController extends Controller
 
     public function rate(Request $request, $id)
     {
-        //      return DB::table('orders')->where('finalized', $id)->exists();
         $rate = new Evaluation();
         $rate->order = $id;
         $rate->rating = $request->rating;
@@ -578,9 +650,13 @@ class OrderController extends Controller
             'description' => 'Avaliado com nota ' . $rate->rating . ' pelo usuário ' . $user->first_name . ' ' . $user->last_name . ', com comentário: ' . $rate->comment,
             'user' => $user->id,
             'order' => $id,
-            'status' => 7
+            'status' => 8
         ];
         Action::create($action);
+
+        Order::where('id', $id)
+            ->update(['status' => 8]);
+
         return redirect()->action('Admin\OrderController@completed');
     }
 

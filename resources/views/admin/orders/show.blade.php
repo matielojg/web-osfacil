@@ -31,10 +31,10 @@
                 <div class="app_form">
                     <div class="nav_tabs_content">
                         <div id="data">
+                            @if($rate)
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Nota :</span>
-                                    @if($rate)
                                         @php $rating = $rate->rating ?? ""  @endphp
                                         <div class="placeholder" style="color: lightgray;">
                                             <i class="far fa-star"></i>
@@ -64,7 +64,7 @@
                                     <span class="legend">Data de Abertura:</span>
                                     <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                                 </label>
-                                @if($order->status == 'concluido')
+                                @if($order->status == 'avaliado')
                                     <label class="label">
                                         <span class="legend">Data de Encerramento:</span>
                                         <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
@@ -120,12 +120,16 @@
                                 </label>
                             </div>
 
-                            <div class="label">
-                                <label class="label">
-                                    <span class="legend">Descrição do Problema:</span>
-                                    <p>{{ $order->description }}</p>
-                                </label>
-                            </div>
+                                <div class="label_g2">
+                                    <label class="label">
+                                        <span class="legend">Descrição do Problema:</span>
+                                        <p>{{ $order->description }}</p>
+                                    </label>
+                                    <label class="label">
+                                        <span class="legend">Status Ordem:</span>
+                                        <p>{{ ucfirst($order->status) ?? "-"}} </p>
+                                    </label>
+                                </div>
 
                             <label class="label">
                                 <span class="legend">Imagens</span>
@@ -181,12 +185,9 @@
                 </div>
             </div>
             <div class="text-right mt-2">
-                <a href="{{ route('admin.orders.index') }}" class="btn btn-large btn-green icon-arrow-left">Voltar</a>
+                <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                 <a class="btn btn-large btn-blue icon-print" onClick="self.print();">Imprimir</a>
-                @if($order->status =='concluido' && empty($rate))
-                    <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
-                    @endif
-                    </button>
+
             </div>
             </form>
         </div>
@@ -199,7 +200,6 @@
 @section('js')
     <script>
         $(function () {
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -14,7 +14,7 @@ class AlterTableActionStatus extends Migration
     public function up()
     {
         Schema::table('actions', function (Blueprint $table) {
-            $table->enum('status', ['aberto', 'atribuido', 'em execucao', 'executado', 'suspenso', 'pendente','concluido']);
+            $table->enum('status', ['aberto', 'atribuido', 'em execucao', 'executado', 'suspenso', 'pendente','concluido', 'avaliado']);
         });
     }
 

@@ -47,7 +47,7 @@
                             <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->closed_at))}}</a></td>
                             <td>
                                     <a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
-                                       class="btn btn-green ml-1 icon-check-square-o">Ver</a>
+                                       class="btn btn-green ml-1 icon-eye">Ver</a>
 
                             </td>
                         </tr>

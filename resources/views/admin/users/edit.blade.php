@@ -100,14 +100,16 @@
                                             value="2" {{ (old('function') == '2' ? 'selected' : ( $user->function == '2' ? 'selected' : '')) }}>
                                             Técnico
                                         </option>
-                                        <option
-                                            value="3" {{ (old('function') == '3' ? 'selected' : ( $user->function == '3' ? 'selected' : '')) }}>
-                                            Supervisor
-                                        </option>
-                                        <option
-                                            value="4" {{ (old('function') == '4' ? 'selected' : ( $user->function == '4' ? 'selected' : '')) }}>
-                                            Gerente
-                                        </option>
+                                        @can('onlyManagerView', App\User::class)
+                                            <option
+                                                value="3" {{ (old('function') == '3' ? 'selected' : ( $user->function == '3' ? 'selected' : '')) }}>
+                                                Supervisor
+                                            </option>
+                                            <option
+                                                value="4" {{ (old('function') == '4' ? 'selected' : ( $user->function == '4' ? 'selected' : '')) }}>
+                                                Gerente
+                                            </option>
+                                        @endcan
                                     </select>
                                 </label>
                             </div>
@@ -163,6 +165,7 @@
                             </div>
                         </div>
                         <div class="text-right mt-2">
+                            <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                             <button
                                 class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                             </button>
