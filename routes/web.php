@@ -51,21 +51,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::get('/orders/edit/executed/{id}', 'OrderController@editExecuted')->name('orders.editExecuted');
         Route::post('/orders/executed/{id}', 'OrderController@executedUpdate')->name('orders.executed.update');
 
-
-        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
-
-
-        Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
-
         Route::get('/orders/toevaluate', 'OrderController@toEvaluate')->name('orders.toEvaluate');
         Route::get('/orders/evaluate/{id}', 'OrderController@editToEvaluate')->name('orders.edit.evaluate');
         Route::post('/orders/rate/{id}', 'OrderController@rate')->name('orders.rate');
 
+        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
 
+        Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
 
         Route::get('/orders/rated', 'OrderController@rated')->name('orders.rated');
 
         Route::get('/orders/all', 'OrderController@allOrders')->name('orders.allOrders');
+
+        Route::get('/orders/finished', 'OrderController@finished')->name('orders.finished');
 
         Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
 

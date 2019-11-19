@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+    /**********************************
+     ********* REVISADO ***************
+     *********************************/
 
     /**
      * Show the form for creating a new order
@@ -35,6 +38,53 @@ class OrderController extends Controller
         } else {
             return redirect()->action('Admin\OrderController@index');
         }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $order = new Order();
+        $order->sector_requester = $request->sector_requester;
+        $order->requester = $request->requester;
+        $order->sector_requester = auth()->user()->sector;
+        $order->sector_provider = $request->filter_sector_provider;   //contem requisição Ajax
+        $order->service = $request->filter_service;
+        $order->description = $request->description;
+        $order->priority = $request->priority;
+        $order->status = 1;
+        $order->type_service = $request->type_service;
+
+        $order->save();
+
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $order->id;
+                $orderImage->image = $image->store('orders/' . $order->id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+        }
+
+        $user = auth()->user();
+        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
+
+        $action = [
+            'description' => 'Ordem aberta pelo usuário ' . $user->first_name,
+            'user' => $user->id,
+            'order' => $orderId->id,
+            'status' => 1,
+        ];
+
+        Action::create($action);
+
+        return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -177,72 +227,6 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.servicesToDo');
     }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $order = new Order();
-        $order->sector_requester = $request->sector_requester;
-        $order->requester = $request->requester;
-        $order->sector_requester = auth()->user()->sector;
-        $order->sector_provider = $request->filter_sector_provider;   //contem requisição Ajax
-        $order->service = $request->filter_service;
-        $order->description = $request->description;
-        $order->priority = $request->priority;
-        $order->status = 1;
-        $order->type_service = $request->type_service;
-
-        $order->save();
-
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $orderImage = new Image();
-                $orderImage->order = $order->id;
-                $orderImage->image = $image->store('orders/' . $order->id);
-                $orderImage->save();
-                unset($orderImage);
-
-            }
-        }
-
-        $user = auth()->user();
-        $orderId = Order::where('orders.requester', '=', auth()->user()->id)->get()->last();
-
-        $action = [
-            'description' => 'Ordem aberta pelo usuário ' . $user->first_name,
-            'user' => $user->id,
-            'order' => $orderId->id,
-            'status' => 1,
-        ];
-
-        Action::create($action);
-
-        return redirect()->route('admin.orders.index');
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $order = Order::where('id', $id)
-            ->first();
-        return view('admin.orders.edit', [
-            'order' => $order
-        ]);
-
-    }
-
 
     /**
      * View orders requiring technician
@@ -505,27 +489,11 @@ class OrderController extends Controller
      */
     public function rated()
     {
-        $function = auth()->user()->function;
-        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
-            ->get()
-            ->pluck('id');
-
-        if (empty($sectorProvider)) {
-            return redirect()->action('Admin\OrderController@index');
-            die;
-        }
-
-        if ($function == "gerente") {
-            $orders = Order::where('status', 'avaliado')
-                ->get();
-        } else {
-            $orders = Order::whereIn('sector_provider', $sectorProvider)
-                ->where('status', 'avaliado')
-                ->get();
-        }
+        $orders = Order::where('status', 'avaliado')
+            ->where('requester', auth()->user()->id)
+            ->get();
 
         return view('admin.orders.rated')->with('orders', $orders);
-
     }
 
     /**
@@ -584,6 +552,46 @@ class OrderController extends Controller
 
         return redirect()->action('Admin\OrderController@toEvaluate');
     }
+
+    /**
+     * View all orders with finished status
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function finished()
+    {
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
+
+        if ($function == 'gerente') {
+            $orders = Order::where('status', 'avaliado')->get();
+        } elseif ($function == 'supervisor') {
+            $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                ->pluck('id');
+            if (empty($sectorProviders)) {
+                return redirect()->action('Admin\OrderController@index');
+                die;
+            }
+            $orders = Order::whereIn('sector_provider', $sectorProviders)
+                ->where('status', 'avaliado')
+                ->get();
+        } else {
+            $orders = Order::where('status', 'avaliado')
+                ->where(function ($responsible) {
+                    $idUser = auth()->user()->id;
+                    $responsible->where('responsible', $idUser)
+                        ->orWhere('ancillary', $idUser);
+                })
+                ->get();
+        }
+
+        return view('admin.orders.finished')->with('orders', $orders);
+
+    }
+
+    /**************************
+     **************************
+     **************************/
 
 
     /**
@@ -646,7 +654,6 @@ class OrderController extends Controller
 
     }
 
-
     /**
      * View all orders where status executado
      *
@@ -676,6 +683,21 @@ class OrderController extends Controller
         return view('admin.orders.pending2')->with('orders', $orders);
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param \App\Order $order
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.edit', [
+            'order' => $order
+        ]);
+
+    }
 
     /**
      * Inserir histórico de alterações
@@ -725,6 +747,11 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.servicesToDo');
     }
 
+    /**********************************
+     ********* REVISADO ***************
+     *********************************/
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -765,27 +792,6 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.index');
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
-
-    /**
-     * View deleted orders
-     */
-    public function trashed()
-    {
-        //
-    }
-
 
     /**
      * Remove Images
