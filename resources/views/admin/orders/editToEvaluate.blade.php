@@ -3,24 +3,19 @@
 @section('content')
 
     <section class="dash_content_app">
-
         <header class="dash_content_app_header">
-
             <h2 class="icon-file-text">Ordem de Serviço Nº {{ $order->id }}</h2>
-
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
-                        </li>
+                        <li><a href="{{ route('admin.orders.index') }}">Ordens de Serviço</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-green">Editar Ordem</a></li>
+                        <li><a class="text-green">Editar Ordem de Serviço</a></li>
                     </ul>
                 </nav>
             </div>
-
         </header>
 
         <div class="dash_content_app_box">
@@ -32,22 +27,16 @@
                     <li class="nav_tabs_item">
                         <a href="#history" class="nav_tabs_item_link">Histórico</a>
                     </li>
-                    <li class="nav_tabs_item">
-                        <a href="#change" class="nav_tabs_item_link">Inserir Alterações</a>
-                    </li>
                 </ul>
-
                 <div class="app_form">
-
                     <div class="nav_tabs_content">
-
                         <div id="data">
+
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Data de Abertura:</span>
                                     <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                                 </label>
-
                                 @if($order->status == 'concluido')
                                     <label class="label">
                                         <span class="legend">Data de Encerramento:</span>
@@ -103,6 +92,7 @@
                                     <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
                                 </label>
                             </div>
+
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Descrição do Problema:</span>
@@ -130,7 +120,6 @@
                                 </div>
                             </label>
                         </div>
-
 
                         <div id="history" class="d-none">
                             <div class="label">
@@ -165,62 +154,18 @@
                                 </table>
                             </div>
                         </div>
-
-                        <div id="change" class="d-none">
-                            <form class="app_form"
-                                  action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
-                                  enctype="multipart/form-data">
-                                @csrf
-
-                                <label class="label">
-                                    <span class="legend">*Status:</span>
-                                    <select name="status">
-                                        <option value=" {{-- $order->status --}}">-- {{ucfirst( $order->status) }}--
-                                        </option>
-                                        <option value="2">Atribuído</option>
-                                        <option value="3">Em Execução</option>
-                                        <option value="4">Executado</option>
-                                        <option value="6">Pendente</option>
-                                        @can('onlyManagersView', App\User::class)
-                                            <option value="5">Suspenso</option>
-                                            <option value="1">Atribuir novo técnico</option>
-                                            <option value="2">Devolver ao Técnico</option>
-                                            <option value="7">Concluido</option>
-                                        @endcan
-                                    </select>
-                                </label>
-
-                                <div class="label">
-                                    <label class="label">
-                                        <span class="legend">*Descreva suas Alterações:</span>
-                                        <textarea name="description" placeholder="Descreva suas Alterações"
-                                                  value="" required></textarea>
-                                    </label>
-                                </div>
-                                {{--Função retirada provisoriamente --}}
-                                {{--                                <label class="label">--}}
-                                {{--                                    <h3>Imagens</h3>--}}
-                                {{--                                    <input type="file" name="files[]" multiple>--}}
-                                {{--                                </label>--}}
-
-                                <div class="content_image"></div>
-
-                                <div class="text-right mt-2">
-                                    <a href="{{ route('admin.orders.index') }}"
-                                       class="btn btn-large btn-green icon-arrow-left">Voltar</a>
-                                    <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
-                                        Alterações
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
                     </div>
-
-
                 </div>
             </div>
+            <div class="text-right mt-2">
+                <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
+                <a href="" class="btn btn-large btn-yellow icon-star jpop_up_rate">Avaliar Ordem</a>
+                </button>
+            </div>
+            </form>
         </div>
+
+
     </section>
 
 @endsection
@@ -233,8 +178,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             $('input[name="files[]"]').change(function (files) {
+
                 $('.content_image').text('');
+
                 $.each(files.target.files, function (key, value) {
                     var reader = new FileReader();
                     reader.onload = function (value) {
@@ -248,14 +196,18 @@
                     reader.readAsDataURL(value);
                 });
             });
+
             $('.image-remove').click(function (event) {
                 event.preventDefault();
+
                 var button = $(this);
+
                 $.ajax({
                     url: button.data('action'),
                     type: 'DELETE',
                     dataType: 'json',
                     success: function (response) {
+
                         if (response.success === true) {
                             button.closest('.order_image_item').fadeOut(function () {
                                 $(this).remove();
@@ -263,6 +215,92 @@
                         }
                     }
                 })
+            });
+
+        });
+
+        $(function () {
+            $(".jpop_up_rate").click(function (e) {
+                e.preventDefault();
+
+                if (!$(".pop_up_delete").length) {
+                    var popupDelete = '<div class="pop_up_delete">';
+                    popupDelete += '<div class="pop_up_delete_box radius">';
+                    popupDelete += '<header>';
+                    popupDelete += '<h1 class="text-yellow">Avaliar Ordem </h1>';
+                    popupDelete += '<p>Qual nota você dá pelo serviço executado?</p>';
+                    popupDelete += '</header>';
+                    popupDelete += '<div align="center" style="background: #FFFFFF ; padding: 10px; color:white; margin: 10px;">';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="1"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="2"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="3"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="4"></i>';
+                    popupDelete += '<i class="fa fa-star fa-2x" data-index="5"></i>';
+                    popupDelete += '</div>';
+                    popupDelete += '<form action="{{route('admin.orders.rate', ['id'=>$order->id])}}" method="POST">';
+                    popupDelete += '@csrf';
+                    popupDelete += '@method('post')';
+                    popupDelete += '<input type="hidden" name="rating" id="rating-selecionado">';
+                    popupDelete += '<div>';
+                    popupDelete += '<textarea style="border-radius: 4px; display: block; width: 100% !important; color: #000000;' +
+                        'padding: 5px; border: 1px solid #cccccc; background: #ffffff; resize: none; outline: none; " ' +
+                        'name="comment" placeholder="Deixe seu comentário" value="" required></textarea>';
+                    popupDelete += '</div>';
+                    popupDelete += '<br>';
+                    popupDelete += '<button class="btn btn-yellow icon-star" required type="submit">Enviar Avaliação</button>';
+                    popupDelete += '</form>';
+                    popupDelete += '</div>';
+                    popupDelete += '</div>';
+
+                    $("body").prepend(popupDelete);
+                    $(".pop_up_delete").fadeIn(400).css("display", "flex");
+
+                    $("body").click(function (e) {
+                        if ($(e.target).attr("class") === "pop_up_delete") {
+                            $(".pop_up_delete").fadeOut(400, function () {
+                                $(this).remove();
+                            });
+                        }
+                    });
+
+                    var ratedIndex = 0, uID = 0;
+                    $(document).ready(function () {
+                        resetStarColors();
+
+                        if (localStorage.getItem('ratedIndex') != null) {
+                            setStars(parseInt(localStorage.getItem('ratedIndex')));
+                            uID = localStorage.getItem('uID');
+                        }
+
+                        $('.fa-star').on('click', function () {
+                            ratedIndex = parseInt($(this).data('index'));
+                            //localStorage.setItem('ratedIndex', ratedIndex);
+                            $('#rating-selecionado').val(ratedIndex);
+                        });
+
+                        $('.fa-star').mouseover(function () {
+                            resetStarColors();
+                            var currentIndex = parseInt($(this).data('index'));
+                            setStars(currentIndex);
+                        });
+
+                        $('.fa-star').mouseleave(function () {
+                            resetStarColors();
+
+                            if (ratedIndex != -1)
+                                setStars(ratedIndex);
+                        });
+                    });
+
+                    function setStars(max) {
+                        for (var i = 0; i < max; i++)
+                            $('.fa-star:eq(' + i + ')').css('color', '#F5B946');
+                    }
+
+                    function resetStarColors() {
+                        $('.fa-star').css('color', 'gray');
+                    }
+                }
             });
         });
     </script>

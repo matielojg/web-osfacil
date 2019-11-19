@@ -333,7 +333,6 @@ class OrderController extends Controller
 
         if (empty($sectorProvider)) {
             return redirect()->action('Admin\OrderController@index');
-            die;
         }
 
         if ($function == "gerente") {
@@ -456,7 +455,6 @@ class OrderController extends Controller
                     ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
                 if (empty($sectorProviders)) {
                     return redirect()->action('Admin\OrderController@index');
-                    die;
                 }
                 $orders = Order::whereIn('sector_provider', $sectorProviders)
                     ->whereIn('status', $status)
@@ -467,7 +465,6 @@ class OrderController extends Controller
         return view('admin.orders.inProgress')->with('orders', $orders);
     }
 
-
     /**
      * Inserir histórico de alterações
      * Tecnico executa ordem, atualiza status e preenche o closed_at
@@ -476,7 +473,6 @@ class OrderController extends Controller
      */
     public function editActions(Request $request, $id)
     {
-//        dd($request->status, $idUser->function);
         $action = new Action();
         $action->description = $request->description;
         $action->user = auth()->user()->id;
@@ -484,13 +480,12 @@ class OrderController extends Controller
         $action->status = $request->status;
         $action->save();
 
-
         $order = Order::where('id', $id)
             ->update(['status' => $request->status]);
 
-
         $idUser = auth()->user();
-        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
+
+        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '5' ||  '7') {//suspenso e concluido
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
         } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
@@ -508,7 +503,6 @@ class OrderController extends Controller
                 $orderImage->image = $image->store('orders/' . $id);
                 $orderImage->save();
                 unset($orderImage);
-
             }
         }
 

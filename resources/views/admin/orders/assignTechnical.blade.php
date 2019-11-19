@@ -6,7 +6,7 @@
 
         <header class="dash_content_app_header">
 
-            <h2 class="icon-file-text">Atribuir Técnico para Ordem de Serviço Nº: {{ $order->id }}</h2>
+            <h2 class="icon-file-text">Atribuir Técnico para Ordem de Serviço Nº: {{ $order->id ?? "-" }}</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -126,7 +126,6 @@
                                 </table>
                             </div>
                         </div>
-
 
                         <div id="technician" class="d-none">
                             <form class="app_form" method="post"

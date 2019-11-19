@@ -6,7 +6,7 @@
 
         <header class="dash_content_app_header">
 
-            <h2 class="icon-file-text">Ordem de Serviço Nº {{ $order->id }}</h2>
+            <h2 class="icon-pencil">Ordem de Serviço Nº {{ $order->id }}</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -16,7 +16,7 @@
                         <li><a href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
                         </li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="" class="text-green">Editar Ordem</a></li>
+                        <li><a class="text-green">Editar Ordem</a></li>
                     </ul>
                 </nav>
             </div>
@@ -103,14 +103,11 @@
                                     <p>{{ $order->technicianAncillary->first_name ?? "-"}} {{ $order->technicianAncillary->last_name ?? "" }}</p>
                                 </label>
                             </div>
-                            <div class="label_g2">
+
+                            <div class="label">
                                 <label class="label">
                                     <span class="legend">Descrição do Problema:</span>
                                     <p>{{ $order->description }}</p>
-                                </label>
-                                <label class="label">
-                                    <span class="legend">Status Ordem:</span>
-                                    <p>{{ ucfirst($order->status) ?? "-"}} </p>
                                 </label>
                             </div>
 
@@ -175,19 +172,11 @@
                                 <label class="label">
                                     <span class="legend">*Status:</span>
                                     <select name="status">
-                                        <option value=" {{-- $order->status --}}">-- {{ucfirst( $order->status) }}--
+                                        <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--
                                         </option>
-                                        <option value="2">Atribuído</option>
-                                        <option value="3">Em Execução</option>
-                                        <option value="4">Executado</option>
-                                        <option value="6">Pendente</option>
-                                        @can('onlyManagersView', App\User::class)
-                                            <option value="5">Suspenso</option>
-                                            <option value="1">Atribuir novo técnico</option>
-                                            <option value="2">Devolver ao Técnico</option>
-                                            <option value="7">Concluido</option>
-                                        @endcan
-                                    </select>
+                                        <option value="2">Devolver ao Técnico</option>
+                                        <option value="7">Concluído</option>
+                                        </select>
                                 </label>
 
                                 <div class="label">
@@ -197,17 +186,10 @@
                                                   value="" required></textarea>
                                     </label>
                                 </div>
-                                {{--Função retirada provisoriamente --}}
-                                {{--                                <label class="label">--}}
-                                {{--                                    <h3>Imagens</h3>--}}
-                                {{--                                    <input type="file" name="files[]" multiple>--}}
-                                {{--                                </label>--}}
 
-                                <div class="content_image"></div>
 
                                 <div class="text-right mt-2">
-                                    <a href="{{ route('admin.orders.index') }}"
-                                       class="btn btn-large btn-green icon-arrow-left">Voltar</a>
+                                    <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                                     <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                                         Alterações
                                     </button>
