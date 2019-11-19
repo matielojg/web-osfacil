@@ -51,13 +51,10 @@
                             <td><a class="text-green">{{ ucfirst($order->status) }}</a></td>
                             <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
                             <td>
-                                @if($order->status == 'aberto')
+                                @if($order->status == 'aberto' && $order->requester == auth()->user()->id)
                                     <a href="{{ route('admin.orders.edit.open', ['id'=>$order->id]) }}"
                                        class="btn btn-green ml-1 icon-pencil">Editar</a>
-                                @elseif($order->status != 'aberto' && $order->responsible == auth()->user()->id)
-                                    <a href="{{ route('admin.orders.edit', ['id'=>$order->id]) }}"
-                                       class="btn btn-green ml-1 icon-pencil-square-o">Tratar</a>
-                                    @else
+                                @else
                                     <a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
                                        class="btn btn-green ml-1 icon-eye">Ver</a>
                                 @endif

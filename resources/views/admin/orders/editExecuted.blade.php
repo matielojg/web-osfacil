@@ -165,7 +165,7 @@
 
                         <div id="change" class="d-none">
                             <form class="app_form"
-                                  action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
+                                  action="{{ route('admin.orders.executed.update', ['id' => $order->id ]) }}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
 

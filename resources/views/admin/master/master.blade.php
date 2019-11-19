@@ -91,7 +91,7 @@
                                 a Realizar</a></li>
                         <li class="{{ isActive('admin.orders.executed') }}"><a
                                     href="{{ route('admin.orders.executed') }}"
-                                    title="Exibir todas as ordens de serviço executadas do sistema"
+                                    title="Exibir todas as ordens de serviço executadas que o usuário logado era técnico ou auxiliar"
                             >Ordens Executadas</a></li>
                     @endcan
 
@@ -130,14 +130,7 @@
                                     @endif
                             >Ordens Executadas</a></li>
 
-                        <li class="{{ isActive('admin.orders.completed') }}"><a
-                                    href="{{ route('admin.orders.completed') }}"
-                                    @if(auth()->user()->function == "gerente")
-                                    title="Exibir todas as ordens de serviço avaliadas do sistema"
-                                    @else
-                                    title="Exibir todas as ordens de serviço avaliadas, dos setores em que o usuário logado é supervisor"
-                                    @endif
-                            >Ordens Avaliadas</a></li>
+
 
                         <li class="{{ isActive('admin.orders.allOrders') }}"><a
                                     href="{{ route('admin.orders.allOrders') }}"
@@ -148,18 +141,29 @@
                                     @endif
                             >Ver Todas</a></li>
                     @endcan
+
                     <li class="{{ isActive('admin.orders.toEvaluate') }}"><a
                                 href="{{ route('admin.orders.toEvaluate') }}"
                                 title="Exibir todas as ordens de serviço abertas pelo usuário logado e que precisam ser avaliadas"
                         >Avaliar Ordens</a></li>
 
-                    @can('onlyEmployersView', App\User::class)
-                        <li class="{{ isActive('admin.orders.completed') }}"><a
-                                    href="{{ route('admin.orders.completed') }}"
-                                    title="Exibir todas as ordens de serviço abertas pelo usuário logado e que estão finalizadas"
-                            >Ordens Avaliadas</a></li>
-                    @endcan
+                    <li class="{{ isActive('admin.orders.rated') }}"><a
+                                href="{{ route('admin.orders.rated') }}"
+                                title="Exibir ordens de serviço avaliadas"
+                        >Ordens Avaliadas</a></li>
 
+                    @can('onlyManagersView', App\User::class)
+                        <li class="{{ isActive('admin.orders.finished') }}"><a
+                                    href="{{ route('admin.orders.finished') }}"
+                                    title="Exibir ordens de serviço concluídas"
+                            >Ordens Concluídas</a></li>
+                    @endcan
+                    @can('onlyTechnicalView', App\User::class)
+                        <li class="{{ isActive('admin.orders.finished') }}"><a
+                                    href="{{ route('admin.orders.finished') }}"
+                                    title="Exibir ordens de serviço concluídas"
+                            >Ordens Concluídas</a></li>
+                    @endcan
                 </ul>
             </li>
 

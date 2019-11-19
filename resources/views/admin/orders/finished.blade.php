@@ -3,21 +3,17 @@
 @section('content')
 
     <section class="dash_content_app">
-        {{--        {{dd(Auth::user(), Auth::user()->original) }} --}}
         <header class="dash_content_app_header">
-            <h2 class="icon-file-text">Ordens em Andamento:</h2>
+            <h2 class="icon-file-text">Ordens de Serviço Concluídas:</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a class="text-green">Ordens de Serviço</a></li>
+                        <li><a class="text-green">Ordens de Serviço Conclídas</a></li>
                     </ul>
                 </nav>
-
-                <a href="{{ route('admin.orders.create') }}" class="btn btn-green ml-1">Nova Ordem</a>
-
             </div>
         </header>
 
@@ -31,8 +27,9 @@
                         <th>Solicitante</th>
                         <th>Setor Solicitante</th>
                         <th>Prioridade</th>
-                        <th>Status</th>
+                        <th>Técnico</th>
                         <th>Data de Abertura</th>
+                        <th>Data de Conclusão</th>
                         <th>Ação</th>
                     </tr>
                     </thead>
@@ -48,8 +45,16 @@
                             <td><a class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                             </td>
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
-                            <td><a class="text-green">{{ ucfirst($order->status) }}</a></td>
-                            <td><a class="text-green"> {{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
+                            <td><a class="text-green">{{ ucfirst($order->userResponsible->first_name) }} {{ ucfirst($order->userResponsible->last_name) }}</a></td>
+                            <td><a class="text-green">{{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
+                            <td><a class="text-green">
+                                @if($order->status == 'concluido')
+                                    {{ date('d/m/Y', strtotime($order->closed_at))}}
+                                @else
+                                    -
+                                @endif
+                                </a>
+                            </td>
                             <td><a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
                                    class="btn btn-green ml-1 icon-eye">Ver</a>
                             </td>

@@ -24,7 +24,7 @@ class Order extends Model
         'responsible',
         'ancillary'
     ];
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['closed_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /** Usuario */
     public function userRequester()
