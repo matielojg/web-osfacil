@@ -53,7 +53,6 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
         $this->authorize('create', User::class);
         $userCreate = User::create($request->all());
 
@@ -65,23 +64,6 @@ class UserController extends Controller
         return redirect()->route('admin.users.edit', [
             'users' => $userCreate->id
         ])->with(['color' => 'green', 'message' => 'Usuário cadastrado com sucesso!']);
-
-//        $user = [
-//            'first_name' => $request->first_name,
-//            'last_name' => $request->last_name,
-//            'document' => $request->document,
-//            'email' => $request->email,
-//            'username' => $request->username,
-//            'password' => bcrypt($request->newPassword),
-//            'primary_contact' => $request->primary_contact,
-//            'secondary_contact' => $request->secondary_contact,
-//            'photo' => $request->photo,
-//            'function' => $request->function,
-//            'sector' => $request->sector,
-//        ];
-//
-//        User::create($user);
-//        return redirect()->route('admin.users.index');
 
     }
 
@@ -144,30 +126,9 @@ class UserController extends Controller
             return redirect()->back()->withInput()->withErrors();
         }
 
-
-//        var_dump($user);
-
         return redirect()->route('admin.users.edit', [
             'users' => $user->id
         ])->with(['color' => 'green', 'message' => 'Usuário atualizado com sucesso!']);
-
-
-//        $user->first_name = $request->first_name;
-//        $user->last_name = $request->last_name;
-//        $user->document = $request->document;
-//        $user->email = $request->email;
-//        $user->username = $request->username;
-//        $user->password = bcrypt($request->password);
-//        $user->primary_contact = $request->primary_contact;
-//        $user->secondary_contact = $request->secondary_contact;
-//        $user->photo = $request->photo;
-//        $user->function = $request->function;
-//        $user->sector= $request->sector;
-//
-//        $user->save();
-//
-//        return redirect()->action('Admin\UserController@index');
-
     }
 
     /**
