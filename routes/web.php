@@ -34,14 +34,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         /** Ordem de Serviço */
         Route::delete('/orders/image-remove', 'OrderController@imageRemove')->name('orders.image.remove');
 
-        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
-
         Route::get('/orders/assign', 'OrderController@assign')->name('orders.assign');
         Route::get('/orders/assign/technical/{id}', 'OrderController@assignTechnical')->name('orders.assign.technical');
         Route::patch('/orders/assign/update/technical/{id}',
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
 
         Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
+        Route::get('/orders/{order}/editpending', 'OrderController@editPending')->name('orders.edit.pending');
+        Route::post('/orders/pending/{id}', 'OrderController@updatePending')->name('orders.pending.update');
+
+        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
+
         Route::get('/orders/edit/technician/{id}', 'OrderController@editTechnician')->name('orders.editTechnician');
 
         Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
@@ -51,13 +54,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         Route::get('/orders/executed', 'OrderController@ordersExecuted')->name('orders.executed');
         Route::get('/orders/edit/executed/{id}', 'OrderController@editExecuted')->name('orders.editExecuted');
+        Route::post('/orders/executed/{id}', 'OrderController@executedUpdate')->name('orders.executed.update');
 
         Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
+
         Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
-        Route::get('/orders/{order}/editpending', 'OrderController@editPending')->name('orders.edit.pending');
+
         Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
 
         Route::get('/orders/progress', 'OrderController@ordersInProgress')->name('orders.ordersInProgress');
+
         Route::get('/orders/all', 'OrderController@allOrders')->name('orders.allOrders');
 
         Route::post('/orders/rate/{id}', 'OrderController@rate')->name('orders.rate');

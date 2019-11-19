@@ -13,7 +13,7 @@
                     <ul>
                         <li><a href="{{ route('admin.home') }}">Dashboard</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('admin.orders.index') }}">Ordens de Serviço</a>
+                        <li><a href="{{ route('admin.orders.pending') }}">Ordens de Serviço Pendentes</a>
                         </li>
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a class="text-green">Editar Ordem</a></li>
@@ -165,7 +165,7 @@
 
                         <div id="change" class="d-none">
                             <form class="app_form"
-                                  action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
+                                  action="{{ route('admin.orders.pending.update', ['id' => $order->id ]) }}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
 
@@ -174,7 +174,6 @@
                                     <select name="status">
                                         <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--
                                         </option>
-{{--                                        <option value="1">Atribuir novo técnico</option>--}}
                                         <option value="2">Devolver ao Técnico</option>
                                         <option value="5">Suspenso</option>
                                     </select>
@@ -188,8 +187,9 @@
                                     </label>
                                 </div>
 
-
                                 <div class="text-right mt-2">
+                                    <a href="JavaScript: window.history.back();"
+                                       class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                                     <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                                         Alterações
                                     </button>
