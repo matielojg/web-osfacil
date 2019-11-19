@@ -165,7 +165,7 @@
 
                         <div id="change" class="d-none">
                             <form class="app_form"
-                                  action="{{ route('admin.orders.edit.action', ['id' => $order->id ]) }}" method="post"
+                                  action="{{ route('admin.orders.servicesToDo.update', ['id' => $order->id ]) }}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
 
@@ -174,7 +174,6 @@
                                     <select name="status">
                                         <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--
                                         </option>
-{{--                                        <option value="1">Atribuir novo técnico</option>--}}
                                         <option value="3">Em Execução</option>
                                         <option value="4">Executado</option>
                                         <option value="6">Pendente</option>
@@ -189,7 +188,6 @@
                                     </label>
                                 </div>
 
-
                                 <div class="text-right mt-2">
                                     <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                                     <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
@@ -198,10 +196,7 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>

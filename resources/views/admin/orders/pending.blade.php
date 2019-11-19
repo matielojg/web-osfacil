@@ -3,7 +3,6 @@
 @section('content')
 
     <section class="dash_content_app">
-        {{--        {{dd(Auth::user(), Auth::user()->original) }} --}}
         <header class="dash_content_app_header">
             <h2 class="icon-file-text">Ordens de Serviço Pendentes:</h2>
 
@@ -47,7 +46,7 @@
                             </td>
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
                             <td><a class="text-green">{{ $order->userResponsible->first_name }} {{ $order->userResponsible->last_name }}</a></td>
-                            <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
+                            <td><a class="text-green"> {{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
                             <td><a href="{{ route('admin.orders.edit.pending', ['id'=>$order->id]) }}"
                                        class="btn btn-green ml-1 icon-pencil">Resolver Pendência</a>
                             </td>
