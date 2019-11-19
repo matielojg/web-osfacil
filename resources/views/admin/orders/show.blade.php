@@ -64,10 +64,10 @@
                                     <span class="legend">Data de Abertura:</span>
                                     <p>{{ date('d/m/Y H:i', strtotime($order->created_at))}}</p>
                                 </label>
-                                @if($order->status == 'avaliado')
+                                @if($order->closed_at != null)
                                     <label class="label">
                                         <span class="legend">Data de Encerramento:</span>
-                                        <p>{{ date('d/m/Y H:i', strtotime($order->closed_at)) ?? "-"}}</p>
+                                        <p>{{ date('d/m/Y', strtotime($order->closed_at))}}</p>
                                     </label>
                                 @endif
                             </div>

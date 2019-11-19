@@ -28,6 +28,7 @@
                         <th>Setor Solicitante</th>
                         <th>Prioridade</th>
                         <th>Data de Abertura</th>
+                        <th>Data de Conclusão</th>
                         <th>Ação</th>
                     </tr>
                     </thead>
@@ -43,7 +44,9 @@
                             <td><a class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                             </td>
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
-                            <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
+                            <td><a class="text-green"> {{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
+                            <td><a class="text-green">{{ date('d/m/Y | H:i', strtotime($order->closed_at))}}</a>
+                            </td>
                             <td><a href="{{ route('admin.orders.edit.evaluate', ['id'=>$order->id]) }}"
                                        class="btn btn-green ml-1 icon-star">Avaliar Ordem</a>
                               </td>

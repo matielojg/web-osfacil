@@ -44,9 +44,14 @@
                             </td>
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
                             <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
-                            <td><a href="{{ route('admin.orders.editExecuted', ['id'=>$order->id]) }}"
-                                       class="btn btn-green ml-1 icon-pencil-square-o">Revisar Ordem</a>
-                              </td>
+                            <td>
+                                @can('onlyManagersView', App\User::class)
+                                    <a href="{{ route('admin.orders.editExecuted', ['id'=>$order->id]) }}"
+                                       class="btn btn-green icon-pencil-square-o">Revisar Ordem</a>
+                                @endcan
+                                <a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
+                                   class="btn btn-green icon-eye">Ver</a>
+                            </td>
                         </tr>
                     @endforeach
 

@@ -91,7 +91,7 @@
                                 a Realizar</a></li>
                         <li class="{{ isActive('admin.orders.executed') }}"><a
                                     href="{{ route('admin.orders.executed') }}"
-                                    title="Exibir todas as ordens de serviço executadas do sistema"
+                                    title="Exibir todas as ordens de serviço executadas que o usuário logado era técnico ou auxiliar"
                             >Ordens Executadas</a></li>
                     @endcan
 
@@ -130,8 +130,8 @@
                                     @endif
                             >Ordens Executadas</a></li>
 
-                        <li class="{{ isActive('admin.orders.completed') }}"><a
-                                    href="{{ route('admin.orders.completed') }}"
+                        <li class="{{ isActive('admin.orders.rated') }}"><a
+                                    href="{{ route('admin.orders.rated') }}"
                                     @if(auth()->user()->function == "gerente")
                                     title="Exibir todas as ordens de serviço avaliadas do sistema"
                                     @else
@@ -148,6 +148,7 @@
                                     @endif
                             >Ver Todas</a></li>
                     @endcan
+
                     <li class="{{ isActive('admin.orders.toEvaluate') }}"><a
                                 href="{{ route('admin.orders.toEvaluate') }}"
                                 title="Exibir todas as ordens de serviço abertas pelo usuário logado e que precisam ser avaliadas"

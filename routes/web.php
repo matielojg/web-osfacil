@@ -39,34 +39,41 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
         Route::patch('/orders/assign/update/technical/{id}',
             'OrderController@updateTechnical')->name('orders.assign.updateTechnical');
 
+        Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
+        Route::get('/orders/edit/technician/{id}', 'OrderController@editTechnician')->name('orders.editTechnician');
+        Route::post('/orders/do/update/{id}', 'OrderController@updateServicesToDo')->name('orders.servicesToDo.update');
+
         Route::get('/orders/pending', 'OrderController@pending')->name('orders.pending');
         Route::get('/orders/{order}/editpending', 'OrderController@editPending')->name('orders.edit.pending');
         Route::post('/orders/pending/{id}', 'OrderController@updatePending')->name('orders.pending.update');
-
-        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
-
-        Route::get('/orders/edit/technician/{id}', 'OrderController@editTechnician')->name('orders.editTechnician');
-
-        Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
-
-        Route::get('/orders/toevaluate', 'OrderController@toEvaluate')->name('orders.toEvaluate');
-        Route::get('/orders/evaluate/{id}', 'OrderController@editToEvaluate')->name('orders.edit.evaluate');
 
         Route::get('/orders/executed', 'OrderController@ordersExecuted')->name('orders.executed');
         Route::get('/orders/edit/executed/{id}', 'OrderController@editExecuted')->name('orders.editExecuted');
         Route::post('/orders/executed/{id}', 'OrderController@executedUpdate')->name('orders.executed.update');
 
+
+        Route::post('/orders/action/{id}', 'OrderController@editActions')->name('orders.edit.action');
+
+
+        Route::get('/orders/avaliate', 'OrderController@avaliate')->name('orders.avaliate');
+
+        Route::get('/orders/toevaluate', 'OrderController@toEvaluate')->name('orders.toEvaluate');
+        Route::get('/orders/evaluate/{id}', 'OrderController@editToEvaluate')->name('orders.edit.evaluate');
+        Route::post('/orders/rate/{id}', 'OrderController@rate')->name('orders.rate');
+
+
+
+        Route::get('/orders/rated', 'OrderController@rated')->name('orders.rated');
+
+        Route::get('/orders/all', 'OrderController@allOrders')->name('orders.allOrders');
+
         Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
 
         Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
 
-        Route::get('/orders/do', 'OrderController@servicesToDo')->name('orders.servicesToDo');
+
 
         Route::get('/orders/progress', 'OrderController@ordersInProgress')->name('orders.ordersInProgress');
-
-        Route::get('/orders/all', 'OrderController@allOrders')->name('orders.allOrders');
-
-        Route::post('/orders/rate/{id}', 'OrderController@rate')->name('orders.rate');
 
         Route::resource('orders', 'OrderController');
 
