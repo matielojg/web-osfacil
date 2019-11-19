@@ -488,7 +488,7 @@ class OrderController extends Controller
         if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '5' ||  '7') {//suspenso e concluido
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
-        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
+        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {//aberta
             Order::where('id', $id)
                 ->update([
                     'responsible' => null,
