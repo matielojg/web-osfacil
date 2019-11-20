@@ -45,14 +45,14 @@
                             <td><a class="text-green"> {{$order->sectorRequester->name_sector}}</a>
                             </td>
                             <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
-                            <td><a class="text-green">{{ ucfirst($order->userResponsible->first_name) }} {{ ucfirst($order->userResponsible->last_name) }}</a></td>
+                            <td>
+                                <a class="text-green">{{ ucfirst($order->userResponsible->first_name) }} {{ ucfirst($order->userResponsible->last_name) }}</a>
+                            </td>
                             <td><a class="text-green">{{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
                             <td><a class="text-green">
-                                @if($order->status == 'concluido')
-                                    {{ date('d/m/Y', strtotime($order->closed_at))}}
-                                @else
-                                    -
-                                @endif
+                                    @if($order->closed_at)
+                                        {{ date('d/m/Y | H:i', strtotime($order->closed_at)) ?? "-"}}
+                                    @endif
                                 </a>
                             </td>
                             <td><a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
