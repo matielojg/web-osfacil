@@ -18,72 +18,12 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+    /**********************************
+     ********* REVISADO ***************
+     *********************************/
 
     /**
-     * view all orders where the logged in user is the requestor
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $orders = Order::where('requester', auth()->user()->id)
-            ->whereNull('closed_at')
-            ->latest()
-            ->get();
-
-        return view('admin.orders.index')->with('orders', $orders);
-    }
-
-    /**
-     * View all orders
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function allOrders()
-    {
-        $idUser = auth()->user()->id;
-        $function = auth()->user()->function;
-
-        if ($function == 'gerente') {
-            $orders = Order::all();
-        } else {
-            $sectorProviders = SectorProvider::where('supervisor', $idUser)
-                ->pluck('id');
-            if (empty($sectorProviders)) {
-                return redirect()->action('Admin\OrderController@index');
-                die;
-            }
-            $orders = Order::whereIn('sector_provider', $sectorProviders)
-                ->get();
-        }
-
-        return view('admin.orders.index')->with('orders', $orders);
-
-    }
-
-
-    /**
-     *
-     * View orders with services to perform
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function servicesToDo()
-    {
-        $idUser = auth()->user()->id;
-
-        $orders = Order::where('responsible', $idUser)
-//            ->orWhere('ancillary', $idUser)
-            ->whereIn('status', ['atribuido', 'em execucao'])
-            ->whereNull('closed_at')
-            ->orderBy('priority', 'desc')//CONFIRMAR ESSA REGRA DE NEGÓCIO
-            ->get();
-
-        return view('admin.orders.serviceToDo')->with('orders', $orders);
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new order
      *
      * @return \Illuminate\Http\Response
      */
@@ -148,6 +88,21 @@ class OrderController extends Controller
     }
 
     /**
+     * view all orders where the logged in user is the requestor
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $orders = Order::where('requester', auth()->user()->id)
+            ->whereNull('closed_at')
+            ->latest()
+            ->get();
+
+        return view('admin.orders.index')->with('orders', $orders);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param \App\Order $order
@@ -166,67 +121,6 @@ class OrderController extends Controller
         } else {
             return redirect()->action('Admin\OrderController@index');
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $order = Order::where('id', $id)
-            ->first();
-        return view('admin.orders.edit', [
-            'order' => $order
-        ]);
-
-    }
-
-    public function editTechnician($id)
-    {
-        $order = Order::where('id', $id)
-            ->first();
-        return view('admin.orders.editTechnician', [
-            'order' => $order
-        ]);
-
-    }
-
-    public function editExecuted($id)
-    {
-        $order = Order::where('id', $id)
-            ->first();
-        return view('admin.orders.editExecuted', [
-            'order' => $order
-        ]);
-
-    }
-
-    public function editToEvaluate($id)
-    {
-        $order = Order::where('id', $id)
-            ->first();
-        return view('admin.orders.editToEvaluate', [
-            'order' => $order
-        ]);
-
-    }
-
-    /**
-     * Show de form for editing the orders pending
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function editPending($id)
-    {
-        $order = Order::where('id', $id)
-            ->first();
-        return view('admin.orders.editPending', [
-            'order' => $order
-        ]);
-
     }
 
     /**
@@ -252,99 +146,86 @@ class OrderController extends Controller
     }
 
     /**
-     * View pending orders
+     * View all orders
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     *
      */
-    public function pending()
+    public function allOrders()
     {
+        $idUser = auth()->user()->id;
         $function = auth()->user()->function;
-        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
-            ->get()
-            ->pluck('id');
 
-        if ($function == "gerente") {
-            $orders = Order::where('status', 'pendente')->get();
+        if ($function == 'gerente') {
+            $orders = Order::all();
         } else {
-            $orders = Order::whereIn('sector_provider', $sectorProvider)
-                ->where('status', 'pendente')
+            $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                ->pluck('id');
+            if (empty($sectorProviders)) {
+                return redirect()->action('Admin\OrderController@index');
+                die;
+            }
+            $orders = Order::whereIn('sector_provider', $sectorProviders)
                 ->get();
         }
 
-        return view('admin.orders.pending')->with('orders', $orders);
+        return view('admin.orders.allOrders')->with('orders', $orders);
 
     }
 
     /**
-     * View all orders where status executado
+     * View orders with services to perform
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function ordersExecuted()
+    public function servicesToDo()
     {
-        $function = auth()->user()->function;
-        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
-            ->get()
-            ->pluck('id');  //na situação em que um supervisor for responsável por mais de um setor
-
-        if (empty($sectorProvider)) {
-            return redirect()->action('Admin\OrderController@index');
-            die;
-        }
-
-        if ($function == "gerente") {
-            $orders = Order::where('status', 'executado')
-                ->get();
-        } else {
-            $orders = Order::whereIn('sector_provider', $sectorProvider)
-                ->where('status', 'executado')
-                ->get();
-        }
-
-        return view('admin.orders.executed')->with('orders', $orders);
-    }
-
-    /**
-     * View all orders where status executado
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function toEvaluate()
-    {
-        $orders = Order::where('status', 'concluido')
-            ->where('requester', auth()->user()->id)
+        $orders = Order::whereIn('status', ['atribuido', 'em execucao'])
+            ->where(function ($responsible) {
+                $idUser = auth()->user()->id;
+                $responsible->where('responsible', $idUser)
+                    ->orWhere('ancillary', $idUser);
+            })
+            ->whereNull('closed_at')
+            ->orderBy('priority', 'desc')
             ->get();
 
-        return view('admin.orders.toEvaluate')->with('orders', $orders);
+        return view('admin.orders.serviceToDo')->with('orders', $orders);
     }
 
     /**
-     * View all orders where status executado
-     *
+     * View form to edit order
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function avaliate()
+    public function editTechnician($id)
     {
-        $function = auth()->user()->function;
-        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
-            ->get()
-            ->pluck('id');  //na situação em que um supervisor for responsável por mais de um setor
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editTechnician', [
+            'order' => $order
+        ]);
 
-        if (empty($sectorProvider)) {
-            return redirect()->action('Admin\OrderController@index');
-        }
+    }
 
-        if ($function == "gerente") {
-            $orders = Order::where('status', 'executado')
-                ->get();
-        } else {
-            $orders = Order::whereIn('sector_provider', $sectorProvider)
-                ->where('status', 'executado')
-                ->get();
-        }
+    /**
+     * Update orders whith pending status
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateServicesToDo(Request $request, $id)
+    {
+        $action = new Action();
+        $action->description = $request->description;
+        $action->user = auth()->user()->id;
+        $action->order = $id;
+        $action->status = $request->status;
+        $action->save();
 
-        return view('admin.orders.pending2')->with('orders', $orders);
+        Order::where('id', $id)
+            ->update(['status' => $request->status]);
+
+        return redirect()->route('admin.orders.servicesToDo');
     }
 
     /**
@@ -386,8 +267,6 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $id)->first();
         $actions = Action::where('order', $id)->get();
-
-        //ENVIAR PARA VIEW SOMENTE SUPERVISORES DO SETOR PROVIDER DA ORDEM
         $technicals = User::where('function', 'tecnico')->get();
 
         return view('admin.orders.assignTechnical', [
@@ -398,14 +277,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Save technical responsible
+     * Save technical and ancillary responsible
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function updateTechnical(Request $request, $id)
     {
-
         if ($request->ancillary == 0) {
             $request->ancillary = null;
         }
@@ -416,10 +294,8 @@ class OrderController extends Controller
         $Order->status = 2;
         $Order->save();
 
-        //REVER QUESTÃO DE ADICIONAR O NOME DO AUXILIAR NA ACTION, CASO SEJA ATRIBUÍDO
         $action = [
-            'description' => 'Atribuido pelo gestor ' . auth()->user()->first_name . auth()->user()->last_name . ' ao técnico: '
-                . $Order->userResponsible->first_name . $Order->userResponsible->last_name,
+            'description' => 'Ordem atribuida ao técnico: ' . $Order->userResponsible->first_name . " " . $Order->userResponsible->last_name,
             'user' => auth()->user()->id,
             'order' => $Order->id,
             'status' => 2,
@@ -452,7 +328,7 @@ class OrderController extends Controller
                 break;
             case ('supervisor');
                 $sectorProviders = SectorProvider::where('supervisor', $idUser)
-                    ->pluck('id'); //PLUCK TRAZ ARRAY DO ID
+                    ->pluck('id');
                 if (empty($sectorProviders)) {
                     return redirect()->action('Admin\OrderController@index');
                 }
@@ -466,12 +342,50 @@ class OrderController extends Controller
     }
 
     /**
-     * Inserir histórico de alterações
-     * Tecnico executa ordem, atualiza status e preenche o closed_at
+     * View all orders where pending status
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     */
+    public function pending()
+    {
+        $function = auth()->user()->function;
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');
+
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'pendente')->get();
+        } else {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'pendente')
+                ->get();
+        }
+
+        return view('admin.orders.pending')->with('orders', $orders);
+    }
+
+    /**
+     * Show de form for editing the orders pending
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editPending($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editPending', [
+            'order' => $order
+        ]);
+    }
+
+    /**
+     * Update orders whith pending status
      * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editActions(Request $request, $id)
+    public function updatePending(Request $request, $id)
     {
         $action = new Action();
         $action->description = $request->description;
@@ -480,76 +394,204 @@ class OrderController extends Controller
         $action->status = $request->status;
         $action->save();
 
-        $order = Order::where('id', $id)
+        Order::where('id', $id)
             ->update(['status' => $request->status]);
 
-        $idUser = auth()->user();
-
-        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '5' ||  '7') {//suspenso e concluido
+        if ($request->status = 5) {
             Order::where('id', $id)
                 ->update(['closed_at' => Carbon::now()]);
-        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
-            Order::where('id', $id)
-                ->update([
-                    'responsible' => null,
-                    'ancillary' => null
-                ]);
         }
 
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $orderImage = new Image();
-                $orderImage->order = $id;
-                $orderImage->image = $image->store('orders/' . $id);
-                $orderImage->save();
-                unset($orderImage);
-            }
-        }
-
-//        return redirect()->route('admin.orders.index');
-        return redirect()->route('admin.orders.servicesToDo');
+        return redirect()->route('admin.orders.pending');
     }
 
     /**
-     * Update the specified resource in storage.
+     * View all orders where status executed
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Order $order
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update(Request $request, $id)
+    public function ordersExecuted()
     {
-        $user = auth()->user();
-        $order = Order::where('id', $id)->first();
+        $function = auth()->user()->function;
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');
 
-        $order->requester = auth()->user()->id;
-        $order->sector_requester = auth()->user()->sector;
-        $order->sector_provider = $request->sector_provider;
-        $order->priority = $request->priority;
-        $order->service = $request->service;
-        $order->type_service = $request->type_service;
-        $order->description = $request->description;
-        $order->save();
-
-        if ($request->allFiles()) {
-            foreach ($request->allFiles()['files'] as $image) {
-                $orderImage = new Image();
-                $orderImage->order = $order->id;
-                $orderImage->image = $image->store('orders/' . $order->id);
-                $orderImage->save();
-                unset($orderImage);
-            }
+        if (empty($sectorProvider)) {
+            return redirect()->action('Admin\OrderController@index');
+            die;
         }
 
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'executado')
+                ->get();
+        } elseif ($function == "supervisor") {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'executado')
+                ->get();
+        } else {
+            $orders = Order::where('status', 'executado')
+                ->where(function ($responsible) {
+                    $idUser = auth()->user()->id;
+                    $responsible->where('responsible', $idUser)
+                        ->orWhere('ancillary', $idUser);
+                })
+                ->get();
+        }
+
+        return view('admin.orders.executed')->with('orders', $orders);
+    }
+
+    /**
+     * View form to edit order where executed status
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editExecuted($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editExecuted', [
+            'order' => $order
+        ]);
+    }
+
+    /**
+     * Update orders whith executed status
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function executedUpdate(Request $request, $id)
+    {
+        $action = new Action();
+        $action->description = $request->description;
+        $action->user = auth()->user()->id;
+        $action->order = $id;
+        $action->status = $request->status;
+        $action->save();
+
+        Order::where('id', $id)
+            ->update(['status' => $request->status]);
+
+        if ($request->status = 7) {
+            Order::where('id', $id)
+                ->update(['closed_at' => now()]);
+        }
+
+        return redirect()->route('admin.orders.executed');
+    }
+
+    /**
+     * View orders rated
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function rated()
+    {
+        $orders = Order::where('status', 'avaliado')
+            ->where('requester', auth()->user()->id)
+            ->get();
+
+        return view('admin.orders.rated')->with('orders', $orders);
+    }
+
+    /**
+     * View all orders where completed status
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function toEvaluate()
+    {
+        $orders = Order::where('status', 'concluido')
+            ->where('requester', auth()->user()->id)
+            ->get();
+
+        return view('admin.orders.toEvaluate')->with('orders', $orders);
+    }
+
+    /**
+     * View form to evaluate order
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editToEvaluate($id)
+    {
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.editToEvaluate', [
+            'order' => $order
+        ]);
+    }
+
+    /**
+     * Evaluation Order
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function rate(Request $request, $id)
+    {
+        $rate = new Evaluation();
+        $rate->order = $id;
+        $rate->rating = $request->rating;
+        $rate->comment = $request->comment;
+        $rate->save();
+
+        $user = auth()->user();
         $action = [
-            'description' => 'Ordem Editada pelo usuário ' . $user->first_name . $user->last_name,
+            'description' => 'Nota: ' . $rate->rating . ' | Comentário: ' . $rate->comment,
             'user' => $user->id,
-            'order' => $id
+            'order' => $id,
+            'status' => 8
         ];
         Action::create($action);
 
-        return redirect()->route('admin.orders.index');
+        Order::where('id', $id)
+            ->update(['status' => 8]);
+
+        return redirect()->action('Admin\OrderController@toEvaluate');
     }
+
+    /**
+     * View all orders with finished status
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function finished()
+    {
+        $idUser = auth()->user()->id;
+        $function = auth()->user()->function;
+
+        if ($function == 'gerente') {
+            $orders = Order::where('status', 'avaliado')->get();
+        } elseif ($function == 'supervisor') {
+            $sectorProviders = SectorProvider::where('supervisor', $idUser)
+                ->pluck('id');
+            if (empty($sectorProviders)) {
+                return redirect()->action('Admin\OrderController@index');
+                die;
+            }
+            $orders = Order::whereIn('sector_provider', $sectorProviders)
+                ->where('status', 'avaliado')
+                ->get();
+        } else {
+            $orders = Order::where('status', 'avaliado')
+                ->where(function ($responsible) {
+                    $idUser = auth()->user()->id;
+                    $responsible->where('responsible', $idUser)
+                        ->orWhere('ancillary', $idUser);
+                })
+                ->get();
+        }
+
+        return view('admin.orders.finished')->with('orders', $orders);
+
+    }
+
+    /**************************
+     **************************
+     **************************/
+
 
     /**
      * Update Technical Responsible in the assignTechnical.
@@ -612,46 +654,142 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * View all orders where status executado
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function avaliate()
+    {
+        $function = auth()->user()->function;
+        $sectorProvider = SectorProvider::where('supervisor', auth()->user()->id)
+            ->get()
+            ->pluck('id');  //na situação em que um supervisor for responsável por mais de um setor
+
+        if (empty($sectorProvider)) {
+            return redirect()->action('Admin\OrderController@index');
+            die;
+        }
+
+        if ($function == "gerente") {
+            $orders = Order::where('status', 'executado')
+                ->get();
+        } else {
+            $orders = Order::whereIn('sector_provider', $sectorProvider)
+                ->where('status', 'executado')
+                ->get();
+        }
+
+        return view('admin.orders.pending2')->with('orders', $orders);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
      *
      * @param \App\Order $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function edit($id)
     {
-        //
+        $order = Order::where('id', $id)
+            ->first();
+        return view('admin.orders.edit', [
+            'order' => $order
+        ]);
+
     }
 
     /**
-     * View deleted orders
+     * Inserir histórico de alterações
+     * Tecnico executa ordem, atualiza status e preenche o closed_at
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function trashed()
+    public function editActions(Request $request, $id)
     {
-        //
+//        dd($request->status, $idUser->function);
+        $action = new Action();
+        $action->description = $request->description;
+        $action->user = auth()->user()->id;
+        $action->order = $id;
+        $action->status = $request->status;
+        $action->save();
+
+
+        $order = Order::where('id', $id)
+            ->update(['status' => $request->status]);
+
+
+        $idUser = auth()->user();
+        if (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '7') {
+            Order::where('id', $id)
+                ->update(['closed_at' => Carbon::now()]);
+        } elseif (($idUser->function == 'supervisor' xor $idUser->function == 'gerente') && $request->status == '1') {
+            Order::where('id', $id)
+                ->update([
+                    'responsible' => null,
+                    'ancillary' => null
+                ]);
+        }
+
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $id;
+                $orderImage->image = $image->store('orders/' . $id);
+                $orderImage->save();
+                unset($orderImage);
+
+            }
+        }
+
+//        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.servicesToDo');
     }
 
+    /**********************************
+     ********* REVISADO ***************
+     *********************************/
 
-    public function rate(Request $request, $id)
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Order $order
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-        $rate = new Evaluation();
-        $rate->order = $id;
-        $rate->rating = $request->rating;
-        $rate->comment = $request->comment;
-        $rate->save();
-
         $user = auth()->user();
+        $order = Order::where('id', $id)->first();
+
+        $order->requester = auth()->user()->id;
+        $order->sector_requester = auth()->user()->sector;
+        $order->sector_provider = $request->sector_provider;
+        $order->priority = $request->priority;
+        $order->service = $request->service;
+        $order->type_service = $request->type_service;
+        $order->description = $request->description;
+        $order->save();
+
+        if ($request->allFiles()) {
+            foreach ($request->allFiles()['files'] as $image) {
+                $orderImage = new Image();
+                $orderImage->order = $order->id;
+                $orderImage->image = $image->store('orders/' . $order->id);
+                $orderImage->save();
+                unset($orderImage);
+            }
+        }
+
         $action = [
-            'description' => 'Avaliado com nota ' . $rate->rating . ' pelo usuário ' . $user->first_name . ' ' . $user->last_name . ', com comentário: ' . $rate->comment,
+            'description' => 'Ordem editada pelo usuário: ' . $user->first_name . $user->last_name,
             'user' => $user->id,
-            'order' => $id,
-            'status' => 8
+            'order' => $id
         ];
         Action::create($action);
 
-        Order::where('id', $id)
-            ->update(['status' => 8]);
-
-        return redirect()->action('Admin\OrderController@completed');
+        return redirect()->route('admin.orders.index');
     }
 
     /**
