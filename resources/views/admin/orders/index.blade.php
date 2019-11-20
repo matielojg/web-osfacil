@@ -23,6 +23,7 @@
 
 
         <div class="dash_content_app_box">
+
             <div class="dash_content_app_box_stage">
                 <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
                     <thead>
