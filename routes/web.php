@@ -65,11 +65,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
 
         Route::get('/orders/finished', 'OrderController@finished')->name('orders.finished');
 
+        Route::post('/orders/suspended/{id}', 'OrderController@suspended')->name('orders.suspended');
+
         Route::get('/orders/completed', 'OrderController@completed')->name('orders.completed');
 
         Route::get('/orders/{order}/editopen', 'OrderController@editOpen')->name('orders.edit.open');
-
-
 
         Route::get('/orders/progress', 'OrderController@ordersInProgress')->name('orders.ordersInProgress');
 

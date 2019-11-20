@@ -49,8 +49,8 @@
                             <td><a class="text-green">{{ ucfirst($order->status) }}</a></td>
                             <td><a class="text-green">{{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
                             <td><a class="text-green">
-                                @if($order->status == 'concluido')
-                                    {{ date('d/m/Y', strtotime($order->closed_at))}}
+                                @if($order->status == 'concluido' || $order->status == 'suspenso')
+                                    {{ date('d/m/Y | H:i', strtotime($order->closed_at))}}
                                 @else
                                     -
                                 @endif

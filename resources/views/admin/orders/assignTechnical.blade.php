@@ -156,19 +156,21 @@
                                     </select>
                                 </label>
                                 <div class="text-right mt-2">
-                                    <a href="JavaScript: window.history.back();" class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
+                                    <a href="JavaScript: window.history.back();"
+                                       class="btn btn-large btn-dark icon-arrow-left">Voltar</a>
                                     <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar
                                         Alterações
                                     </button>
+                                    <a href="" class="btn btn-large btn-red icon-stop jpop_up_delete">Suspender
+                                        Ordem</a>
 
                                 </div>
                             </form>
                         </div>
                     </div>
-
-
                 </div>
             </div>
+        </div>
     </section>
 
 @endsection
@@ -177,50 +179,38 @@
     <script>
         $(function () {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+            $(".jpop_up_delete").click(function (e) {
+                e.preventDefault();
 
-            $('input[name="files[]"]').change(function (files) {
+                if (!$(".pop_up_delete").length) {
+                    var popupDelete = '<div class="pop_up_delete">';
+                    popupDelete += '<div class="pop_up_delete_box radius">';
+                    popupDelete += '<header>';
+                    popupDelete += '<h1>Suspender Ordem de Serviço?</h1>';
+                    popupDelete += '<p>Está certo disso? Posso perguntar?</p>';
+                    popupDelete += '</header>';
+                    popupDelete += '<form action=" {{route('admin.orders.suspended', ['id'=>$order->id])}} " method="POST">';
+                    popupDelete += '@csrf';
+                    popupDelete += '<textarea style="border-radius: 4px; display: block; width: 100% !important; color: #000000;' +
+                        'padding: 5px; border: 1px solid #cccccc; background: #ffffff; resize: none; outline: none; " ' +
+                        'name="comment" placeholder="Descreva o Motivo" value="" required></textarea>';
+                    popupDelete += '<button class="btn btn-red mt-1 icon-stop" type="submit">Suspender Ordem</button>';
+                    popupDelete += '</form>';
+                    popupDelete += '</div>';
+                    popupDelete += '</div>';
 
-                $('.content_image').text('');
+                    $("body").prepend(popupDelete);
+                    $(".pop_up_delete").fadeIn(200).css("display", "flex");
 
-                $.each(files.target.files, function (key, value) {
-                    var reader = new FileReader();
-                    reader.onload = function (value) {
-                        $('.content_image').append(
-                            '<div class="order_image_item">' +
-                            '<div class="embed radius" ' +
-                            'style="background-image: url(' + value.target.result + '); background-size: cover; background-position: center center;">' +
-                            '</div>' +
-                            '</div>');
-                    };
-                    reader.readAsDataURL(value);
-                });
-            });
-
-            $('.image-remove').click(function (event) {
-                event.preventDefault();
-
-                var button = $(this);
-
-                $.ajax({
-                    url: button.data('action'),
-                    type: 'DELETE',
-                    dataType: 'json',
-                    success: function (response) {
-
-                        if (response.success === true) {
-                            button.closest('.order_image_item').fadeOut(function () {
+                    $("body").click(function (e) {
+                        if ($(e.target).attr("class") === "pop_up_delete") {
+                            $(".pop_up_delete").fadeOut(200, function () {
                                 $(this).remove();
                             });
                         }
-                    }
-                })
+                    });
+                }
             });
-
         });
     </script>
 @endsection
