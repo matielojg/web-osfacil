@@ -175,7 +175,7 @@
                                 <label class="label">
                                     <span class="legend">*Status:</span>
                                     <select name="status">
-                                        <option value="{{ $order->status }}">-- {{ucfirst( $order->status) }}--
+                                        <option value=" {{-- $order->status --}}">-- {{ucfirst( $order->status) }}--
                                         </option>
                                         <option value="2">Atribuído</option>
                                         <option value="3">Em Execução</option>

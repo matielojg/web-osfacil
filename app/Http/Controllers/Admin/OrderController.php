@@ -327,7 +327,6 @@ class OrderController extends Controller
                     ->pluck('id');
                 if (empty($sectorProviders)) {
                     return redirect()->action('Admin\OrderController@index');
-                    die;
                 }
                 $orders = Order::whereIn('sector_provider', $sectorProviders)
                     ->whereIn('status', $status)
