@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
-    /**********************************
-     ********* REVISADO ***************
-     *********************************/
-
     /**
      * Show the form for creating a new order
      *
@@ -552,6 +548,28 @@ class OrderController extends Controller
         return redirect()->action('Admin\OrderController@toEvaluate');
     }
 
+    public function suspended(Request $request, $id)
+    {
+        $user = auth()->user();
+        $action = [
+            'description' => 'Ordem suspensa pelo supervisor. Motivo: ' . $request->comment,
+            'user' => $user->id,
+            'order' => $id,
+            'status' => 5
+        ];
+        Action::create($action);
+
+
+        Order::where('id', $id)
+                ->update([
+                    'closed_at' => Carbon::now(),
+                    'status' => 5
+                ]);
+
+        return redirect()->route('admin.orders.assign');
+        
+    }
+
     /**
      * View all orders with finished status
      *
@@ -589,10 +607,8 @@ class OrderController extends Controller
     }
 
     /**************************
-     **************************
-     **************************/
 
-
+     *
     /**
      * Update Technical Responsible in the assignTechnical.
      *

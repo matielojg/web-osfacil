@@ -37,16 +37,23 @@ class DashboardController extends Controller
         $ordersEmployee = Order::where('requester', auth()->user()->id)->get();
 
         //Dashboard Técnico
-        $ordersTechnical = Order::where('responsible', '=', auth()->user()->id)
-            ->whereIn('status', ['atribuido', 'em execucao'])
+        $ordersTechnical = Order::whereIn('status', ['atribuido', 'em execucao'])
+            ->where(function ($responsible) {
+                $idUser = auth()->user()->id;
+                $responsible->where('responsible', $idUser)
+                    ->orWhere('ancillary', $idUser);
+            })
+            ->whereNull('closed_at')
+            ->orderBy('priority', 'desc')
+            ->take(5)
             ->get();
 
         //Dashboard Supervisor
         $sectorProviders = SectorProvider::where('supervisor', auth()->user()->id)
             ->pluck('id');
         $ordersSupervisor = Order::whereIn('sector_provider', $sectorProviders)
-            ->take(5)
             ->latest()
+            ->take(5)
             ->get();
 
         //Dashboard Gerente

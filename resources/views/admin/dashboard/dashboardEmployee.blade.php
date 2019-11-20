@@ -10,6 +10,7 @@
             </header>
 
             <div class="dash_content_app_box">
+
                 <div class="dash_content_app_box_stage">
                     <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
                         <thead>
@@ -36,8 +37,7 @@
                                 </td>
                                 <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
                                 <td><a class="text-green">{{ ucfirst($order->status) }}</a></td>
-                                <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a>
-                                </td>
+                                <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a></td>
                                 <td>
                                     @if($order->status == 'aberto' && $order->requester == auth()->user()->id)
                                         <a href="{{ route('admin.orders.edit.open', ['id'=>$order->id]) }}"
@@ -49,6 +49,7 @@
                                 </td>
                             </tr>
                         @endforeach
+
                         </tbody>
                     </table>
                 </div>

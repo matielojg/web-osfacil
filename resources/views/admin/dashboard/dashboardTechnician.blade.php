@@ -36,19 +36,13 @@
                                 </td>
                                 <td><a class="text-green">{{ ucfirst($order->priority) }}</a></td>
                                 <td><a class="text-green">{{ ucfirst($order->status) }}</a></td>
-                                <td><a class="text-green"> {{ date('d/m/Y H:i', strtotime($order->created_at))}}</a>
-                                </td>
-                                <td>
-                                    @if($order->status == 'aberto' && $order->requester == auth()->user()->id)
-                                        <a href="{{ route('admin.orders.edit.open', ['id'=>$order->id]) }}"
-                                           class="btn btn-green ml-1 icon-pencil">Editar</a>
-                                    @else
-                                        <a href="{{ route('admin.orders.show', ['id'=>$order->id]) }}"
-                                           class="btn btn-green ml-1 icon-eye">Ver</a>
-                                    @endif
+                                <td><a class="text-green"> {{ date('d/m/Y | H:i', strtotime($order->created_at))}}</a></td>
+                                <td><a href="{{ route('admin.orders.editTechnician', ['id'=>$order->id]) }}"
+                                       class="btn btn-green ml-1 icon-pencil">Inserir Alteração</a>
                                 </td>
                             </tr>
                         @endforeach
+
                         </tbody>
                     </table>
                 </div>
