@@ -49,7 +49,6 @@
 
 <p> Para renomear colunas necessario instalar: </p>
 
-    composer require doctrine/dbal
     php artisan make:migration create_users_table --create=users
     php artisan make:migration add_votes_to_users_table --table=users
     php artisan migrate:rollback --step=1
